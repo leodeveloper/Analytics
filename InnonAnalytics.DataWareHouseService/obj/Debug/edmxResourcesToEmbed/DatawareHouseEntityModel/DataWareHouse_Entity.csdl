@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InnonAnalyticsWarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="InnonAnalyticsWarehouseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Date_Dim" EntityType="InnonAnalyticsWarehouseModel.Date_Dim" />
+    <EntitySet Name="Point_Agg_Year" EntityType="InnonAnalyticsWarehouseModel.Point_Agg_Year" />
+    <EntitySet Name="Point_Agg_Day" EntityType="InnonAnalyticsWarehouseModel.Point_Agg_Day" />
+    <EntitySet Name="Point_Agg_Hour" EntityType="InnonAnalyticsWarehouseModel.Point_Agg_Hour" />
+    <EntitySet Name="Point_Agg_Month" EntityType="InnonAnalyticsWarehouseModel.Point_Agg_Month" />
+    <EntitySet Name="Point_Agg_Week" EntityType="InnonAnalyticsWarehouseModel.Point_Agg_Week" />
+    <EntitySet Name="Point_Dim" EntityType="InnonAnalyticsWarehouseModel.Point_Dim" />
+    <EntitySet Name="Point_Measure_Fact" EntityType="InnonAnalyticsWarehouseModel.Point_Measure_Fact" />
+    <EntitySet Name="FactsRestatementAudits" EntityType="InnonAnalyticsWarehouseModel.FactsRestatementAudit" />
+  </EntityContainer>
+  <EntityType Name="Date_Dim">
+    <Key>
+      <PropertyRef Name="Date_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Week_ID" Type="Int32" Nullable="false" />
+    <Property Name="Month_ID" Type="Int32" Nullable="false" />
+    <Property Name="Quarter_ID" Type="Int32" Nullable="false" />
+    <Property Name="Year_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Year">
+    <Key>
+      <PropertyRef Name="Year_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Year_ID" Type="Int32" Nullable="false" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Avg_Value" Type="Double" Nullable="false" />
+    <Property Name="Sum_Value" Type="Double" Nullable="false" />
+    <Property Name="Min_Value" Type="Double" Nullable="false" />
+    <Property Name="Max_Value" Type="Double" Nullable="false" />
+    <Property Name="Cum_Value" Type="Double" Nullable="false" />
+    <Property Name="Year_Count" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Day">
+    <Key>
+      <PropertyRef Name="Date_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Avg_Value" Type="Double" Nullable="false" />
+    <Property Name="Sum_Value" Type="Double" Nullable="false" />
+    <Property Name="Min_Value" Type="Double" Nullable="false" />
+    <Property Name="Max_Value" Type="Double" Nullable="false" />
+    <Property Name="Cum_Value" Type="Double" Nullable="false" />
+    <Property Name="Day_Count" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Hour">
+    <Key>
+      <PropertyRef Name="Hour_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Hour_ID" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Avg_Value" Type="Double" Nullable="false" />
+    <Property Name="Sum_Value" Type="Double" Nullable="false" />
+    <Property Name="Min_Value" Type="Double" Nullable="false" />
+    <Property Name="Max_Value" Type="Double" Nullable="false" />
+    <Property Name="Cum_Value" Type="Double" Nullable="false" />
+    <Property Name="Hour_Count" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Month">
+    <Key>
+      <PropertyRef Name="Month_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Month_ID" Type="Int64" Nullable="false" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Avg_Value" Type="Double" Nullable="false" />
+    <Property Name="Sum_Value" Type="Double" Nullable="false" />
+    <Property Name="Min_Value" Type="Double" Nullable="false" />
+    <Property Name="Max_Value" Type="Double" Nullable="false" />
+    <Property Name="Cum_Value" Type="Double" Nullable="false" />
+    <Property Name="Month_Count" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Week">
+    <Key>
+      <PropertyRef Name="Week_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Week_ID" Type="Int64" Nullable="false" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Avg_Value" Type="Double" Nullable="false" />
+    <Property Name="Sum_Value" Type="Double" Nullable="false" />
+    <Property Name="Min_Value" Type="Double" Nullable="false" />
+    <Property Name="Max_Value" Type="Double" Nullable="false" />
+    <Property Name="Cum_Value" Type="Double" Nullable="false" />
+    <Property Name="Week_Count" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Dim">
+    <Key>
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Equipment_ID" Type="Int64" Nullable="false" />
+    <Property Name="Site_ID" Type="Int64" Nullable="false" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Zone" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Floor" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_1" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_2" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_3" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_4" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_5" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_6" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_7" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_8" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_9" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Custom_Tag_10" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="Point" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Point_Measure_Fact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date_ID" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Client_ID" Type="Int64" Nullable="false" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Timestamp_From" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Timestamp_To" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Hour_ID" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Unit_Of_Measurement" Type="String" Nullable="false" MaxLength="65" FixedLength="false" Unicode="false" />
+    <Property Name="Min_Value" Type="Double" />
+    <Property Name="Max_Value" Type="Double" />
+    <Property Name="DataRecordingFrequency" Type="Int64" />
+    <Property Name="Schedule_ID" Type="Int32" />
+    <Property Name="Value" Type="Double" Nullable="false" />
+    <Property Name="Raw_Value" Type="Double" Nullable="false" />
+    <Property Name="Last_Update_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="External_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Point_Status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="FactsRestatementAudit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Point_ID" Type="Int64" Nullable="false" />
+    <Property Name="Timestamp_From" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Timestamp_To" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Old_Value" Type="Double" Nullable="false" />
+    <Property Name="New_Value" Type="Double" Nullable="false" />
+    <Property Name="Send_To_DW" Type="Boolean" Nullable="false" />
+    <Property Name="Updated_Datetime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Updated_User_ID" Type="Int64" Nullable="false" />
+  </EntityType>
+</Schema>

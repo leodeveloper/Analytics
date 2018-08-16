@@ -1,0 +1,1143 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.DashboardDTO
+
+
+
+<style type="text/css">
+    
+
+        .gauge-container {
+            background: transparent url(@Url.Content("~/Content/dataviz/gauge/gauge-container-partial.png")) no-repeat 50% 50%;
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+            padding-top: 18px;
+        }
+
+        .gauge-inner {
+
+            margin: 0 auto 0;
+            border-color: transparent;
+        }
+
+    .gauge-label {
+            margin-top: -11px;
+            width: 140px;
+            position: absolute;
+             margin: -28px 0px 0px 53px;
+        }
+
+        #gauge svg {
+            left: 0 !important;
+        }
+</style>
+<script>
+
+    var base_api_url = window.ApplicationSettings.ApiURL();
+    //var url = base_api_url + '/API/Widget/Get_Data_By_Chart';
+    var current_bar = 0;
+    var current_bar_fixedplacement = 0;
+    var current_guage = 0;
+    var current_tree = 0;
+    var current_heatmap = 0;
+    var current_pie = 0;
+    var current_stacked = 0;
+    var current_donut = 0;
+
+
+    var list_of_gauge = [];
+    var list_of_bar = [];
+    var list_of_bar_fixed_placement = [];
+    var list_of_tree_map = [];
+    var list_of_heat_map = [];
+    var list_of_pie = [];
+    var list_of_Stacked = [];
+    var list_of_donut = [];
+
+    function guage(guage_id, div_gauge_total_id, div_gauge_total_target, widget_loading_div_id, time_line, time_line_from_date, time_line_to_date) {
+        this.guage_id = guage_id;
+        this.div_gauge_total_id = div_gauge_total_id;
+        this.div_gauge_total_target = div_gauge_total_target;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.time_line = time_line;
+        this.time_line_from_date = time_line_from_date;
+        this.time_line_to_date = time_line_to_date;
+    }
+
+    function heatmap(heatmap_id, widget_loading_div_id, div_heatmap_id, chart_title) {
+        this.heatmap_id = heatmap_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_heatmap_id = div_heatmap_id;
+        this.chart_title = chart_title;
+    }
+
+    function bar(bar_id, widget_loading_div_id, div_bar_id, chart_title) {
+        this.bar_id = bar_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_bar_id = div_bar_id;
+        this.chart_title = chart_title;
+    }
+
+    function pie(pie_id, widget_loading_div_id, div_pie_id, chart_title) {
+        this.pie_id = pie_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_pie_id = div_pie_id;
+        this.chart_title = chart_title;
+    }
+
+    function donut(donut_id, donutchart_footer_id, widget_loading_div_id, div_donut_id, chart_title) {
+        this.donut_id = donut_id;
+        this.donutchart_footer_id = donutchart_footer_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_donut_id = div_donut_id;
+        this.chart_title = chart_title;
+    }
+
+    function stacked(stacked_id, widget_loading_div_id, div_stacked_id, chart_title) {
+        this.stacked_id = stacked_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_stacked_id = div_stacked_id;
+        this.chart_title = chart_title;
+    }
+
+    function bar_Fixedplacement(bar_id, widget_loading_div_id, div_bar_id, chart_title) {
+        this.bar_id = bar_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+        this.div_bar_id = div_bar_id;
+        this.chart_title = chart_title;
+    }
+
+    function treemap(treemap_id, div_tree_map_id, widget_loading_div_id) {
+        this.treemap_id = treemap_id;
+        this.div_tree_map_id = div_tree_map_id;
+        this.widget_loading_div_id = widget_loading_div_id;
+    }
+
+</script>
+
+
+
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li><a href="javascript:;">Dashboard</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<h1 class="page-header">@Model.Title<small> <a href="#modal-dialog-Add-Edit-Dashboard" data-toggle="modal" id="edit_dashboard" onclick="Add_Edit_New_Dashboard('@Model.Id'); return false;" class="btn btn-sm btn-warning btn-xs m-l-0">Edit</a> </small></h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="btn-group ">
+            <a href="javascript:;" class="btn btn-success btn-xs m-l-0">Action</a>
+            <a href="javascript:;" data-toggle="dropdown" class="btn btn-success btn-xs m-l-0 dropdown-toggle" aria-expanded="false">
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="#" data-toggle="modal" id="addnew_widget" class="btn btn-theme btn-xs m-0">Share</a></li>
+                <li class="divider"></li>
+                @*<li><a href="#" id="btn_Reset_Layout" class="btn btn-danger btn-xs m-r-0">Reset layout</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#modal-dialog2" data-toggle="modal" id="btn_customize_layout" class="btn btn-success btn-xs m-r-0">Customize layout</a></li>
+                    <li class="divider"></li>*@
+                <li><a href="#" data-toggle="modal" id="addnew_widget" class="btn btn-success btn-xs m-r-0">Export</a></li>
+                <li class="divider"></li>
+                <li><a href="#" data-toggle="modal" id="addnew_widget" class="btn btn-danger btn-xs m-r-0">Delete</a></li>
+            </ul>
+        </div>
+        <a href="#modal-dialog1" data-toggle="modal" id="addnew_widget" class="btn btn-success btn-xs m-l-0">+ Add widget</a>
+        <a id="dashboard_refresh" href="#" onclick="load_dashboard('@Model.Id');return false;" class="btn btn-success btn-xs m-l-0">Refresh</a>
+        <a id="dashboard_save" href="#" onclick="save_layout();return false;" class="btn btn-success btn-xs m-l-0">Save Layout</a><br />
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="pull-right">
+            <table>
+                <tr>
+                    <td><div class="input-group"><span class="form-control" id="date-range18"></span><span id="date-range18-open" class="input-group-addon"><i class="fa fa-calendar"></i></span></div></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Hidden("fromdate")
+                        @Html.Hidden("todate")
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <td><span id="date-range18-container"></span></td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="dashboard_widgets">
+
+</div>
+
+
+
+        @if (Model.Dashboard_Widgets.Any(widget => !widget.Is_Deleted))
+        {
+            int j = 0;
+            if (Model.Layout_Option == 1)
+            {
+
+            }
+            else if (Model.Layout_Option == 2 || Model.Layout_Option == 0)
+            {
+                
+                
+                
+            <!--Grid stack-->
+                <div id="gridstack" class="grid-stack">
+                    @foreach (var dashboard_widget in Model.Dashboard_Widgets.Where(widget => !widget.Is_Deleted))
+                    {
+                <!-- begin panel -->
+                        if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Gauge)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_RadialGauge", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.TreeMap)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_TreeMap", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Bar)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Bar", dashboard_widget))
+                                </div>
+                            </div>
+
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.BarFixedPlacement)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_BarFixedPlacement", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Pie)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Pie", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Donut)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Donut", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Stacked)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Stacked", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.HeatMap)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_HeatMap", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>No widget available</div>
+                        }
+                    <!-- end panel -->
+                    }
+                </div>
+            <!--Gridstack end-->
+            }
+            else if (Model.Layout_Option == 3)
+            {
+
+            }
+            else if (Model.Layout_Option == 4)
+            {
+
+            }
+        }
+        else
+        {
+
+            if (Model.Id == 2001)
+            {
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_Dashboard_Fixed_Gauge.cshtml")
+                </div>
+            }
+            else if (Model.Id == 2000)
+            {
+                <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/_Dashboard_Fixed_Chart.cshtml")
+                </div>
+
+            }
+            else
+            {
+                <div class="col-md-12">
+                    @*No widget available for this dashboard*@
+
+
+                    <div class="row">
+                        <div class="col-md-12 ui-sortable">
+                            <!-- begin panel -->
+                            <div class="panel panel-inverse" id="46546465">
+                                <div class="panel-heading">
+                                    <div class="panel-heading-btn">
+                                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                                        @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>*@
+                                    </div>
+                                    <h4 class="panel-title">Energy Generation</h4>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.Partial("~/Views/Shared/Chart/_Diagram.cshtml")
+                                </div>
+                            </div>
+                            <!-- end panel -->
+                        </div>
+                        <div class="col-md-4 ui-sortable">
+                            <div class="panel">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        }
+
+
+
+
+        <!--#modal-dialog for add edit new widget-->
+
+        <div class="modal fade" id="modal-dialog1">
+            <div style="width:75%" class="modal-dialog">
+                <div style="width:100%" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Analytics widget control</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dashboad_widget">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--#modal-dialog-->
+        <!--#modal-dialog for customize layout-->
+
+        <div class="modal fade" id="modal-dialog2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Customize layout</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="customize_layout">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--#modal-dialog-->
+
+<!--#modal-dialog for Time Line -->
+
+<div class="modal fade" id="modal-timeline">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Time Line</h4>
+            </div>
+            <div class="modal-body">
+                <div id="time_line_widget">
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+
+        <script>
+    deletemesg = "@Resources.WidgetDeleteMes";
+
+    $(function () {
+
+
+        $(document).ajaxStart(function () {
+            OnBegin();
+        }).ajaxStop(function () {
+            Hide();
+        });
+
+
+        //run the AJAX function for the first time once `document.ready` fires
+        // do_ajax();
+        $('#date-range18').dateRangePicker(
+{
+
+    startOfWeek: 'monday',
+    separator: ' to ',
+    format: 'DD/MM/YYYY HH:mm',
+    autoClose: false,
+    showShortcuts: true,
+    inline: false,
+    alwaysOpen: false,
+    applyBtnClass: '',
+    // container: '#date-range18-container',
+    //    shortcuts:
+    //{
+    //    'prev-days': [1, 3, 5, 7],
+    //    'next-days': [3, 5, 7],
+    //    'prev': ['week', 'month', 'year'],
+    //    'next': ['week', 'month', 'year']
+    //},
+
+    customShortcuts:
+    [
+        //if return an array of two dates, it will select the date range between the two dates
+        {
+            name: 'this week',
+            dates: function () {
+                var start = moment().day(0).toDate();
+                var end = moment().day(6).toDate();
+                // start.setDate(1);
+                // end.setDate(30);
+                return [start, end];
+            }
+        },
+        ////if only return an array of one date, it will display the month which containing the date. and it will not select any date range
+        //{
+        //    name: 'Oct 2014',
+        //    dates : function()
+        //    {
+        //        //move calendars to show this date's month and next month
+        //        var movetodate = moment('2014-10','YYYY-MM').toDate();
+        //        return [movetodate];
+        //    }
+        //}
+    ],
+
+    time: {
+        enabled: true
+    },
+
+    getValue: function () {
+        return this.innerHTML;
+    },
+    setValue: function (s) {
+        this.innerHTML = s;
+    }
+})
+            .bind('datepicker-apply', function (event, obj) {
+                $("#fromdate").val(obj.date1.toISOString());
+                $("#todate").val(obj.date2.toISOString());
+                Save_Date_Time(moment(obj.date1).format("DD/MM/YYYY HH:mm:ss"), moment(obj.date2).format("DD/MM/YYYY HH:mm:ss"))
+                do_ajax();
+                //  Fixed_Gague();
+
+            }).bind('datepicker-first-date-selected', function (event, obj) {
+                /* This event will be triggered when first date is selected */
+                // console.log(obj);
+                // obj will be something like this:
+                // {
+                // 		date1: (Date object of the earlier date)
+                // }
+            })
+.bind('datepicker-change', function (event, obj) {
+    /* This event will be triggered when second date is selected */
+    // console.log(obj);
+    // obj will be something like this:
+    // {
+    // 		date1: (Date object of the earlier date),
+    // 		date2: (Date object of the later date),
+    //	 	value: "2013-06-05 to 2013-06-07"
+    // }
+});
+
+        //Set Date in local storage
+        var fromdate = moment().add('days', -30).format("DD/MM/YYYY HH:mm:ss");
+        var todate = moment().format("DD/MM/YYYY HH:mm:ss");
+        if (typeof (Storage) !== 'undefined') {
+            fromdate = localStorage.getItem("l_start_date");
+            todate = localStorage.getItem("l_end_date");
+        }
+
+        if (!fromdate || !todate) {
+
+            fromdate = moment().add('days', -30).format("DD/MM/YYYY HH:mm:ss");
+            todate = moment().format("DD/MM/YYYY HH:mm:ss");
+            //End Date in local storage
+        }
+
+
+        $('#date-range18').data('dateRangePicker').setDateRange(fromdate, todate);
+
+        var fromdate1 = moment(fromdate, "DD/MM/YYYY hh:mm:ss");
+        var todate1 = moment(todate, "DD/MM/YYYY hh:mm:ss");
+
+        //Please must resolve the issue of +1 add , Check this link http://stackoverflow.com/questions/13817108/asp-net-web-api-datetime-format
+        $("#fromdate").val(fromdate1.format());
+        $("#todate").val(todate1.format());
+
+        do_ajax();
+
+
+        $('#addnew_widget').live('click', function () {
+            Add_New_Widget('@Model.Id');
+        });
+
+        $('#btn_customize_layout').live('click', function () {
+            Customize_Dashboard_Layout('@Model.Id');
+        });
+
+        $('#btn_Update_Layout').live('click', function () {
+
+            var localStorageName = window.location.href;
+            localStorageName = localStorageName.split('?');
+            localStorageName = localStorageName[0];
+            localStorage.removeItem(localStorageName);
+
+            $("#frm_dashboard_layout").submit();
+        });
+
+        $('#btn_Reset_Layout').live('click', function () {
+
+            var localStorageName = window.location.href;
+            localStorageName = localStorageName.split('?');
+            localStorageName = localStorageName[0];
+            localStorage.removeItem(localStorageName);
+            window.location.href = document.URL;
+
+        });
+
+
+        var options = {};
+        $('#gridstack').gridstack(options);
+
+        //This App init is for the delete and reload
+        handlePanelAction();
+
+    });
+
+    function save_layout() {
+        var layout_data = _.map($('#gridstack .grid-stack-item:visible'), function (el) {
+            el = $(el);
+            var node = el.data('_gridstack_node');
+            return {
+                widget_id: el.attr('data-custom-id'),
+                widget_x: node.x,
+                widget_y: node.y,
+                widget_width: node.width,
+                widget_height: node.height
+            };
+        });
+        //console.log(JSON.stringify(layout_data));
+
+        //make the AJAX request with the given data from the `ajaxes` array of objects
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Save_Dashboard_Widget_Layout"))',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ dashboard_widget_layout: layout_data }),
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (serverResponse) {
+                load_dashboard('@Model.Id');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        });
+
+    }
+
+    function Save_Date_Time(l_start_date_time, l_end_date_time) {
+        if (typeof (Storage) !== 'undefined') {
+            localStorage.setItem("l_start_date", l_start_date_time);
+            localStorage.setItem("l_end_date", l_end_date_time);
+        }
+    }
+
+
+    function do_ajax() {
+        //check to make sure there are more requests to make
+        if (current_bar < list_of_bar.length) {
+
+            $("#" + list_of_bar[current_bar].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var bar_from_time_line;
+            var bar_to_time_line;
+            if ($('#div_bar_fromdate_' + list_of_bar[current_bar].bar_id).text() === '' || $('#div_bar_todate_' + list_of_bar[current_bar].bar_id).text() === '') {
+                bar_from_time_line = $("#fromdate").val();
+                bar_to_time_line = $("#todate").val();
+                $('#div_bar_fromdate_' + list_of_bar[current_bar].bar_id).text()
+                $('#div_bar_todate_' + list_of_bar[current_bar].bar_id).text()
+            }
+            else {
+                bar_from_time_line = $('#div_bar_fromdate_' + list_of_bar[current_bar].bar_id).text();
+                bar_to_time_line = $('#div_bar_todate_' + list_of_bar[current_bar].bar_id).text();
+            }
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Bar', 'chart_id': list_of_bar[current_bar].bar_id, 'from_date': bar_from_time_line, 'to_date': bar_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+
+                    $("#" + list_of_bar[current_bar].widget_loading_div_id).html("");
+                    returnedData = serverResponse.Data;
+                    //  console.log(returnedData);
+                    populate_bar_chart(returnedData, list_of_bar[current_bar].div_bar_id, list_of_bar[current_bar].chart_title);
+                    //increment the `current` counter and recursively call this function again
+                    current_bar++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    current_bar++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_heatmap < list_of_heat_map.length) {
+
+            $("#" + list_of_heat_map[current_heatmap].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var heatmap_from_time_line;
+            var heatmap_to_time_line;
+            if ($('#div_heatmap_fromdate_' + list_of_heat_map[current_heatmap].heatmap_id).text() === '' || $('#div_heatmap_todate_' + list_of_heat_map[current_heatmap].heatmap_id).text() === '') {
+                heatmap_from_time_line = $("#fromdate").val();
+                heatmap_to_time_line = $("#todate").val();
+                $('#div_heatmap_fromdate_' + list_of_heat_map[current_heatmap].heatmap_id).text()
+                $('#div_heatmap_todate_' + list_of_heat_map[current_heatmap].heatmap_id).text()
+            }
+            else {
+                heatmap_from_time_line = $('#div_heatmap_fromdate_' + list_of_heat_map[current_heatmap].heatmap_id).text();
+                heatmap_to_time_line = $('#div_heatmap_todate_' + list_of_heat_map[current_heatmap].heatmap_id).text();
+            }
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.HeatMap', 'chart_id': list_of_heat_map[current_heatmap].heatmap_id, 'from_date': heatmap_from_time_line, 'to_date': heatmap_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+                    $("#" + list_of_heat_map[current_heatmap].widget_loading_div_id).html("");
+                    returnedData = serverResponse.Data;
+                    //console.log(returnedData);
+                    //console.log(list_of_heat_map[current_heatmap].div_heatmap_id);
+                    $("#csv2").html('');
+                    var strdata = "Date, Time, Temperature" + "\n";
+                    $.each(returnedData.Json_String, function (k, v) {
+                        strdata += v + "\n";
+                    });
+
+                    $("#csv2").append(strdata);
+
+                    BindHighChart(list_of_heat_map[current_heatmap].div_heatmap_id, returnedData.MinValue, returnedData.MaxValue);
+
+                    //increment the `current` counter and recursively call this function again
+                    current_heatmap++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    current_heatmap++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_bar_fixedplacement < list_of_bar_fixed_placement.length) {
+
+            $("#" + list_of_bar_fixed_placement[current_bar_fixedplacement].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var barfixed_from_time_line;
+            var barfixed_to_time_line;
+            if ($('#div_barfixed_fromdate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text() === '' || $('#div_barfixed_todate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text() === '') {
+                barfixed_from_time_line = $("#fromdate").val();
+                barfixed_to_time_line = $("#todate").val();
+                $('#div_barfixed_fromdate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text()
+                $('#div_barfixed_todate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text()
+            }
+            else {
+                barfixed_from_time_line = $('#div_barfixed_fromdate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text();
+                barfixed_to_time_line = $('#div_barfixed_todate_' + list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id).text();
+            }
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.BarFixedPlacement', 'chart_id': list_of_bar_fixed_placement[current_bar_fixedplacement].bar_id, 'from_date': barfixed_from_time_line, 'to_date': barfixed_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+                success: function (serverResponse) {
+
+                    $("#" + list_of_bar_fixed_placement[current_bar_fixedplacement].widget_loading_div_id).html("");
+                    returnedData = serverResponse.Data;
+                    //  console.log(returnedData);
+                    populate_fixed_placement_chart(returnedData, list_of_bar_fixed_placement[current_bar_fixedplacement].div_bar_id, list_of_bar_fixed_placement[current_bar_fixedplacement].chart_title);
+
+                    //DrawBarChart(returnedData)
+
+                    //increment the `current` counter and recursively call this function again
+                    current_bar_fixedplacement++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    current_bar_fixedplacement++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_pie < list_of_pie.length) {
+
+            $("#" + list_of_pie[current_pie].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var pie_from_time_line;
+            var pie_to_time_line;
+            if ($('#div_pie_fromdate_' + list_of_pie[current_pie].pie_id).text() === '' || $('#div_pie_todate_' + list_of_pie[current_pie].pie_id).text() === '') {
+                pie_from_time_line = $("#fromdate").val();
+                pie_to_time_line = $("#todate").val();
+                $('#div_pie_fromdate_' + list_of_pie[current_pie].pie_id).text()
+                $('#div_pie_todate_' + list_of_pie[current_pie].pie_id).text()
+            }
+            else {
+                pie_from_time_line = $('#div_pie_fromdate_' + list_of_pie[current_pie].pie_id).text();
+                pie_to_time_line = $('#div_pie_todate_' + list_of_pie[current_pie].pie_id).text();
+            }
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Pie', 'chart_id': list_of_pie[current_pie].pie_id, 'from_date': pie_from_time_line, 'to_date': pie_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+                    $("#" + list_of_pie[current_pie].widget_loading_div_id).html("");
+                    var ResponseData = serverResponse.Data;
+                    populate_Pie_Chart(list_of_pie[current_pie].div_pie_id, ResponseData.data);
+                    //increment the `current` counter and recursively call this function again
+                    current_pie++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    current_pie++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_donut < list_of_donut.length) {
+
+            $("#" + list_of_donut[current_donut].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var donut_from_time_line;
+            var donut_to_time_line;
+            if ($('#div_donut_fromdate_' + list_of_donut[current_donut].donut_id).text() === '' || $('#div_donut_todate_' + list_of_donut[current_donut].donut_id).text() === '') {
+                donut_from_time_line = $("#fromdate").val();
+                donut_to_time_line = $("#todate").val();
+                $('#div_donut_fromdate_' + list_of_donut[current_donut].donut_id).text()
+                $('#div_donut_todate_' + list_of_donut[current_donut].donut_id).text()
+            }
+            else {
+                donut_from_time_line = $('#div_donut_fromdate_' + list_of_donut[current_donut].donut_id).text();
+                donut_to_time_line = $('#div_donut_todate_' + list_of_donut[current_donut].donut_id).text();
+            }
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Donut', 'chart_id': list_of_donut[current_donut].donut_id, 'from_date': donut_from_time_line, 'to_date': donut_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+                    $("#" + list_of_donut[current_donut].widget_loading_div_id).html("");
+                    var ResponseData = serverResponse.Data;
+                    populate_donut_Chart(list_of_donut[current_donut].div_donut_id, list_of_donut[current_donut].donutchart_footer_id, ResponseData.data);
+                    //increment the `current` counter and recursively call this function again
+                    current_donut++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#" + list_of_donut[current_donut].widget_loading_div_id).html("Error in loading chart");
+                    current_donut++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_stacked < list_of_Stacked.length) {
+
+            $("#" + list_of_Stacked[current_stacked].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+
+            var stacked_from_time_line;
+            var stacked_to_time_line;
+            if ($('#div_stacked_fromdate_' + list_of_Stacked[current_stacked].stacked_id).text() === '' || $('#div_stacked_todate_' + list_of_Stacked[current_stacked].stacked_id).text() === '') {
+                stacked_from_time_line = $("#fromdate").val();
+                stacked_to_time_line = $("#todate").val();
+                $('#div_stacked_fromdate_' + list_of_Stacked[current_stacked].stacked_id).text()
+                $('#div_stacked_todate_' + list_of_Stacked[current_stacked].stacked_id).text()
+            }
+            else {
+                stacked_from_time_line = $('#div_stacked_fromdate_' + list_of_Stacked[current_stacked].stacked_id).text();
+                stacked_to_time_line = $('#div_stacked_todate_' + list_of_Stacked[current_stacked].stacked_id).text();
+            }
+
+
+            //make the AJAX request with the given data from the `ajaxes` array of objects
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Stacked', 'chart_id': list_of_Stacked[current_stacked].stacked_id, 'from_date': stacked_from_time_line, 'to_date': stacked_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+                    $("#" + list_of_Stacked[current_stacked].widget_loading_div_id).html("");
+                    var ResponseData = serverResponse;
+                    populate_Stacked_Chart(list_of_Stacked[current_stacked].div_stacked_id, ResponseData.Data);
+                    //increment the `current` counter and recursively call this function again
+                    current_stacked++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    current_stacked++;
+                    do_ajax();
+                }
+            });
+        }
+        else if (current_guage < list_of_gauge.length) {
+
+            //guage_chart(list_of_gauge[current_guage].guage_id);
+
+            $("#" + list_of_gauge[current_guage].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+            var calpercentage = 0;
+            var gauge_from_time_line;
+            var gauge_to_time_line;
+            if ($('#div_gauge_fromdate_' + list_of_gauge[current_guage].guage_id).text() === '' || $('#div_gauge_todate_' + list_of_gauge[current_guage].guage_id).text() === '')
+            {
+                gauge_from_time_line = $("#fromdate").val();
+                gauge_to_time_line = $("#todate").val();
+                $('#div_gauge_fromdate_' + list_of_gauge[current_guage].guage_id).text()
+                $('#div_gauge_todate_' + list_of_gauge[current_guage].guage_id).text()
+            }
+            else
+            {
+                gauge_from_time_line = $('#div_gauge_fromdate_' + list_of_gauge[current_guage].guage_id).text();
+                gauge_to_time_line = $('#div_gauge_todate_' + list_of_gauge[current_guage].guage_id).text();
+            }
+
+            
+
+            $.ajax({                
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Gauge', 'chart_id': list_of_gauge[current_guage].guage_id, 'from_date': gauge_from_time_line, 'to_date': gauge_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+                    returnedData = serverResponse.Data;
+                    //   console.log(returnedData);
+                    $("#" + list_of_gauge[current_guage].div_gauge_total_id).text(returnedData.Sum_Value_String);
+                    $("#" + list_of_gauge[current_guage].div_gauge_total_target).text(returnedData.Sum_Value_Target_String);
+                    $("#" + list_of_gauge[current_guage].widget_loading_div_id).html("");
+
+                    if (returnedData.Sum_Value > 0 && returnedData.Sum_Value_Target > 0) {
+                        calpercentage = (returnedData.Sum_Value / returnedData.Sum_Value_Target) * 100;
+                    }
+
+                    $("#div-per-" + list_of_gauge[current_guage].guage_id).text(calpercentage.toFixed(2));
+                    $("#gauge-" + list_of_gauge[current_guage].guage_id).data("kendoRadialGauge").value(calpercentage);
+                    //increment the `current` counter and recursively call this function again
+                    current_guage++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("#" + list_of_gauge[current_guage].widget_loading_div_id).html("");
+                    $("#" + list_of_gauge[current_guage].div_gauge_total_id).text(0);
+                    $("#" + list_of_gauge[current_guage].div_gauge_total_target).text(0);
+                    $("#div-per-" + list_of_gauge[current_guage].guage_id).text(0);
+                    $("#gauge-" + list_of_gauge[current_guage].guage_id).data("kendoRadialGauge").value(calpercentage);
+
+                    current_guage++;
+                    do_ajax();
+
+                }
+            });
+        }
+        else if (current_tree < list_of_tree_map.length) {
+            $("#" + list_of_tree_map[current_tree].widget_loading_div_id).html("<img src=\"/Content/images/loading.gif\" />");
+
+            var treemap_from_time_line;
+            var treemap_to_time_line;
+            if ($('#div_treemap_fromdate_' + list_of_tree_map[current_tree].treemap_id).text() === '' || $('#div_treemap_todate_' + list_of_tree_map[current_tree].treemap_id).text() === '') {
+                treemap_from_time_line = $("#fromdate").val();
+                treemap_to_time_line = $("#todate").val();
+                $('#div_treemap_fromdate_' + list_of_tree_map[current_tree].treemap_id).text()
+                $('#div_treemap_todate_' + list_of_tree_map[current_tree].treemap_id).text()
+            }
+            else {
+                treemap_from_time_line = $('#div_treemap_fromdate_' + list_of_tree_map[current_tree].treemap_id).text();
+                treemap_to_time_line = $('#div_treemap_todate_' + list_of_tree_map[current_tree].treemap_id).text();
+            }
+
+            $.ajax({
+
+                url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.TreeMap', 'chart_id': list_of_tree_map[current_tree].treemap_id, 'from_date': treemap_from_time_line, 'to_date': treemap_to_time_line },
+                type: "GET",
+                dataType: "json",
+                cache: false,
+
+                success: function (serverResponse) {
+
+                    $("#" + list_of_tree_map[current_tree].widget_loading_div_id).html("");
+
+                    var return_data = [{ name: "No Data", value: 0, Items: [] }];
+                    if (serverResponse.Data !== null && serverResponse.Data !== undefined) {
+                        return_data = jQuery.parseJSON('[' + JSON.stringify(serverResponse.Data) + ']');
+                    }
+                    var dataSource = new kendo.data.HierarchicalDataSource({
+                        data: return_data,
+                        schema: {
+                            model: {
+                                children: "Items"
+                            }
+                        }
+                    });
+                    var treeMap = $("#" + list_of_tree_map[current_tree].div_tree_map_id).getKendoTreeMap();
+                    treeMap.setDataSource(dataSource);
+                    current_tree++;
+                    do_ajax();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+
+                    var return_data = [{ name: "No Data", value: 0, Items: [] }];
+                    var dataSource = new kendo.data.HierarchicalDataSource({
+                        data: return_data,
+                        schema: {
+                            model: {
+                                children: "Items"
+                            }
+                        }
+                    });
+                    var treeMap = $("#" + list_of_tree_map[current_tree].div_tree_map_id).getKendoTreeMap();
+                    treeMap.setDataSource(dataSource);
+
+                }
+            });
+        }
+        else {
+            current_bar = 0;
+            current_guage = 0;
+            current_tree = 0;
+            current_bar_fixedplacement = 0;
+            current_heatmap = 0;
+            current_pie = 0;
+            current_stacked = 0;
+            current_donut = 0;
+
+            try {
+                Fixed_Gague();
+            }
+            catch (err) {
+
+            }
+            try {
+                do_ajax_diagram();
+            }
+            catch (err) {
+
+            }
+
+
+
+        }
+    }
+
+
+
+    function Add_New_Widget(dashboard_id) {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Add_Dashboard_Widget"))',
+                    data: { 'dashboard_Id': dashboard_id },
+                    type: "GET",
+                    dataType: "html",
+                    cache: false,
+                    success: function (data) {
+                        $('#dashboad_widget').html(data); //write the dialog content into the diaog container
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Error');
+                    }
+                });
+            }
+
+            function get_Time_Line(widget_id, chart_type)
+            {
+                
+                
+                $.ajax({
+                    url: '@(Url.Action("../Dashboard/Get_Widget_Time_Line"))',
+                    data: { 'widget_id': widget_id, 'chart_type': chart_type },
+                    type: "GET",
+                    dataType: "html",
+                    cache: false,
+                    success: function (data) {
+                        $('#time_line_widget').html(data); //write the dialog content into the diaog container
+
+                        $('#widget_id').val(widget_id);
+                        $('#chart_type').val(chart_type);
+                        
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {                        
+                        alert('Error in loding the time line');
+                    }
+                });
+            }
+   
+    function Edit_Dashboard_Widget(dashboard_id, widget_id) {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Edit_Dashboard_Widget"))',
+            data: { 'dashboard_Id': dashboard_id, 'widget_Id': widget_id },
+            type: "GET",
+            dataType: "html",
+            cache: false,
+            success: function (data) {
+                $('#dashboad_widget').html(data); //write the dialog content into the diaog container
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
+    }
+
+    function Get_Widgets_By_Dashboard_Id(dashboard_id) {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Get_Dashboard_Widgets_By_Dashboard_Id"))',
+            data: { 'dashboard_Id': dashboard_id },
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $.each(data, function (key, val) {
+                    //console.log(val.Name_Widget);
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
+    }
+
+
+    //Section start for the Partial View _Customize_Dashboard_Layout
+
+    function Customize_Dashboard_Layout(dashboard_id) {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Customize_Dashboard_Layout"))',
+            //data: { 'dashboard_Id': dashboard_id },
+            type: "GET",
+            dataType: "html",
+            cache: false,
+            success: function (data) {
+                $('#customize_layout').html(data); //write the dialog content into the diaog container
+                //set the dahboard_id in the hiddin field
+                $("#Dashboard_Id").val(dashboard_id);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
+    }
+
+    function Customize_layout_onDataBound(arg) {
+        var widget = this;
+        widget.items().each(function (_, item) {
+            var data = widget.dataItem(item);
+
+            if (data.Item1 == '@Model.Layout_Option') {
+                $("#Layout_Id").val(data.Item1);
+                widget.select(item);
+            }
+        });
+
+        //remove this handler
+        widget.unbind("dataBound", arguments.callee);
+    }
+
+    function Customize_layout_onChange() {
+        var index = this.select().index(),
+           dataItem = this.dataSource.view()[index];
+        $("#Layout_Id").val(dataItem.Item1);
+    }
+
+    //Section Ends
+
+    function get_Global_Dates()
+    {
+        return obj_global_dates = {
+            startDateTime: $("#fromdate").val(),
+            endDateTime: $("#todate").val()
+        };
+    }
+
+
+        </script>
+

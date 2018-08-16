@@ -1,0 +1,183 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_VM_DTO
+<input type="hidden" value="@ViewBag.Chart_Id" id="hdnChart_ID" />
+<link href="~/Content/assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
+
+<script>
+    function onChartTypeSelect(e) {
+        var dataItem = this.dataItem(e.item.index());
+        if (dataItem.Text === 'Diagram') {
+            alert("Sorry you can not add Diagram");
+            e.preventDefault();
+        }
+    }
+</script>
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-body">         
+
+                <div id="wizard" class="bwizard clearfix">
+                    <ol class="bwizard-steps clearfix clickable" role="tablist">
+                       
+
+                        <li role="tab" style="z-index: 4;" id="li-step1" aria-selected="true" class="active">
+                            <span class="label badge-inverse">1</span><a href="#step1" class="hidden-phone">
+                                @Resources.Choose_Widget
+                            </a><a href="#step1" class="hidden-phone"><small></small></a><a href="#step1" class="hidden-phone">
+                            </a>
+                        </li>
+
+                        <li role="tab" style="z-index: 3;" id="li-step2" aria-selected="true">
+                            <span class="label">2</span><a href="#step2" onclick="load_next_wizard()" class="hidden-phone">
+                                @Resources.Choose_Metric
+                            </a><a href="#step2" class="hidden-phone"><small></small></a><a href="#step2" class="hidden-phone">
+                            </a>
+                        </li>
+                        <li role="tab" style="z-index: 2;" id="li-step3" aria-selected="false">
+                            <span class="label">3</span><a href="#step3" class="hidden-phone">
+                                @Resources.Widget_Add_Edit_Finished
+                            </a><a href="#step3" class="hidden-phone"><small></small></a><a href="#step3" class="hidden-phone">
+                            </a>
+                        </li>
+                    </ol>
+                    
+                   
+
+                  
+                        <div class="well"><form id="frm_wizard_10" name="frm_wizard_10">
+
+    <div class="wizard-step-1 bwizard-activated" id="step1" role="tabpanel" aria-hidden="false">
+
+        <fieldset>
+            <legend class="pull-left width-full">Choose Widget Title and Chart type</legend>
+
+
+            <!-- begin row -->
+            <div class="row">
+                <!-- begin col-4 -->
+                @Html.HiddenFor(model => model.Dashboard_Id)
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.Widget_Title, new { @class = "form-control", placeholder = "Untitled Widget" })
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.Widget_Title, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+
+            <div class="row">
+                <!-- begin col-4 -->
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Chart_Type</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.Chart_Type).Name("Chart_Type")
+                                                    .DataTextField("Text")
+                                                    .DataValueField("Value")//     .ValuePrimitive(false)
+                                                    .Events(events => events.Select("onChartTypeSelect"))
+                                                        .OptionLabel(new { Text = @Resources.DropDownChartTypeSelect, Value = "" })
+                                                                        .HtmlAttributes(new { data_value_primitive = "false" })
+                                                                       // .Value(((int)Model.Chart_Type).ToString())
+                                                                        .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.ChartType)))
+                        )
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.Chart_Type, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+
+                <!-- end col-4 -->
+            </div>
+            <!-- end row -->
+            <div class="row pull-left width-full"></div>
+            <!--Button-->
+            <ul class="pager bwizard-buttons"><li class="previous disabled" role="button" aria-disabled="true"><a href="#">← Previous</a></li><li class="next" role="button" aria-disabled="false"><a id="Go_to_Sec_Wizard" onclick="load_next_wizard()" href="#">Next →</a></li></ul>
+            <!--End-->
+
+        </fieldset>
+
+    </div>
+
+
+</form>
+    <div class="wizard-step-2 hide" id="step2" role="tabpanel" aria-hidden="true">
+
+    </div>
+    <div class="wizard-step-3 hide" id="step3" role="tabpanel" aria-hidden="true">
+        <fieldset>
+            <legend class="pull-left width-full">Finished</legend>
+            <!-- begin row -->
+            <div class="row">
+                <!-- begin col-4 -->
+                <div class="col-md-12">
+                    <div id="message" ></div>                
+                </div>
+                <!-- end col-4 -->
+            </div>
+            <!-- end row -->
+        </fieldset>
+    </div>
+</div>
+
+
+              
+                </div>
+
+                </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+
+
+<script src="~/Scripts/application/add_widget_wizard.js"></script>
+
+<script>
+
+    $.validator.unobtrusive.parse("#frm_wizard_10");
+    $(document).ready(function () {
+        Widget_Wizard.init();
+
+
+        //Disable chart type dropdownlist for edit
+        //Note chart type can not change when edit the widget control
+
+
+
+        if($("#Id").val() !== "0")
+        {
+            $("#Chart_Type").data("kendoDropDownList").text('@Model.Chart_Type');
+            var dropDown = $("#Chart_Type").data("kendoDropDownList");
+            dropDown.enable(false);
+        }
+
+    });
+
+    function load_next_wizard() {
+
+        partialview_url = '@(Url.Action("../Dashboard/Choose_Metric"))';
+        Widget_Wizard.load_next_widget(1, partialview_url, $("#Dashboard_Id").val(), $("#Chart_Type").data("kendoDropDownList").text(), $("#Widget_Title").val(), $("#Id").val(), $("#hdnChart_ID").val());
+        $.validator.unobtrusive.parse("#frm_wizard_1");
+    }
+
+    function load_Finished_wizard() {
+        Widget_Wizard.Save_Widget();
+
+    }
+
+   
+
+</script>
+

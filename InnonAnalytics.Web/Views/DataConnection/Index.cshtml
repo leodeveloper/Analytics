@@ -1,0 +1,173 @@
+﻿
+@model InnonAnalytics.Model.DTO.DataConnectorViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3><a href="~/DataConnection/Index/">@Resources.ConnectorHeading</a></h3>
+<table>
+
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>@Resources.ConnectorAddnew</th>
+                </tr>
+               
+                <tr>
+                    <td>
+                        <ul>
+
+                            @foreach (var con in Enum.GetValues(typeof(InnonAnalytics.Common.Enums.DataSouceConnectionType)))
+                            {
+                                <li><a href="~/DataConnection/Index/@con"> @con</a></li>
+                            }                          
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>@Resources.ConnectorExisting</th>
+                </tr>
+                @foreach (var a in Model.ExistingConnectionName)
+                {
+                    <tr>
+                        <td><a href="~/DataConnection/Index/@a.DataConnectorType/@a.ConnectionID"> @a.ConnectionName </a></td>
+                    </tr>
+                }
+                
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <div class="alert alert-success" id="save-test-success-indicator" style="display:none" role="alert"></div>
+                        <div class="alert alert-danger" id="save-test-fail-indicator" style="display:none" role="alert"></div>
+                        <div class="alert alert-info" id="save-test-info-indicator" style="display:none" role="alert"></div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</td>
+                </tr>
+                <tr>
+                    <td>
+
+                        @*@if (Model.DataConnectors.objConnectionAPIDTO)*@
+
+                        @if (Model.DataConnectors.objConnectionDatabaseDTO != null)
+                        {
+                            <h4>@Resources.ConnectorDatabasePageHeading</h4>
+                            <hr />
+                            { Html.RenderPartial("~/Views/DataConnection/_DatabaseConnectionManager.cshtml", Model.DataConnectors); }
+                        }
+                        else if (Model.DataConnectors.objConnectionFTPDTO != null)
+                        {
+                            <h4>@Resources.ConnectorFTPPageHeading</h4>
+                            <hr />
+
+                            { Html.RenderPartial("~/Views/DataConnection/_FTPConnectionManager.cshtml", Model.DataConnectors); }
+                        }
+                        else if (Model.DataConnectors.objConnectionAPIDTO != null)
+                        {
+                            { Html.RenderPartial("~/Views/DataConnection/_APIConnectionManager.cshtml", Model.DataConnectors); }
+                        }
+                        else
+                        {
+
+                            <table>
+                                <tr>
+                                    <th>@Resources.ConnectorAllExistingConnection</th>
+                                </tr>
+                                @foreach (var ConnectionName in Model.ExistingConnectionName)
+                                {
+                                    <tr>
+                                        @if (ConnectionName.DataConnectorType == InnonAnalytics.Common.Enums.DataSouceConnectionType.Database.ToString())
+                                        {
+                                            <td><img title="@ConnectionName.DataConnectorType" alt="@ConnectionName.DataConnectorType" src="~/Content/images/sql.jpg" /><br /> <a href="~/DataConnection/Index/@ConnectionName.DataConnectorType/@ConnectionName.ConnectionID"> @ConnectionName.ConnectionName </a></td>
+                                        }
+                                        else if (ConnectionName.DataConnectorType == InnonAnalytics.Common.Enums.DataSouceConnectionType.FTP.ToString())
+                                        {
+                                            <td><img title="@ConnectionName.DataConnectorType" alt="@ConnectionName.DataConnectorType" src="~/Content/images/ftp.jpg" /><br /><a href="~/DataConnection/Index/@ConnectionName.DataConnectorType/@ConnectionName.ConnectionID"> @ConnectionName.ConnectionName </a></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@Resources.ConnectorNoExistingConnection</td>
+                                        }
+</tr>
+                                }
+                               
+                            </table>
+                        }
+
+
+                        @*@{Html.RenderPartial("~/Views/DataConnection/_DatabaseConnectionManager.cshtml", Model.objConnectionDatabaseDTO );}
+                        @{Html.RenderPartial("~/Views/DataConnection/_FTPConnectionManager.cshtml", Model.objConnectionFTPDTO);}
+                        @{Html.RenderPartial("~/Views/DataConnection/_APIConnectionManager.cshtml", Model.objConnectionAPIDTO);}*@
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+   
+  
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script type="text/javascript">
+     
+
+    function OnSuccess(response) {
+        
+      //  console.log(response);
+
+        if (response.success) {
+            $('#save-test-success-indicator').html(response.message);
+            $('#save-test-success-indicator').show();
+        } else {
+            $('#save-test-fail-indicator').html(response.message);
+            $('#save-test-fail-indicator').show();
+        }
+
+    }
+
+
+    //Not in use
+    function OnFailure(response) {
+      
+    }
+    //save-test-info-indicator
+    function OnBegin() {
+
+        $('#save-test-info-indicator').html("<img src=\"/Content/images/loading.gif\" /> @Resources.PleaseWait");
+        $('#save-test-info-indicator').show();
+
+        $('#save-test-success-indicator').html("");
+        $('#save-test-success-indicator').hide();
+
+        $('#save-test-fail-indicator').html("");
+        $('#save-test-fail-indicator').hide();
+
+        $('input[type="submit"]').attr('disabled', 'disabled');
+
+       
+    }
+
+    function OnComplete()
+    {
+
+        $('input[type="submit"]').removeAttr('disabled');
+
+        $('#save-test-info-indicator').html("");
+        $('#save-test-info-indicator').hide();
+    }
+
+</script>
+
+

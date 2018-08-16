@@ -1,0 +1,244 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@using InnonAnalytics.Common.Enums
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+@if (Model.GaugeDTO != null)
+{
+    <div class="energymaptab">
+        <div class="panel panel-default panel-with-tabs">
+            <div class="panel-heading p-0">
+                <div class="panel-heading-btn m-r-10 m-t-10">
+                   @if (Model.homepage_widgets != null)
+                   {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="unPin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Remove')" data-original-title="unPin to home page"><i class="fa fa-thumb-tack"></i></a>
+                   }
+                   else
+                   {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" title="Pin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Add')" data-original-title="Pin to home page"><i class="fa fa-thumb-tack"></i></a>
+                   }
+                    
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                    <a href="#modal-dialog1" data-toggle="modal" id="Add_new_tab" onclick="Add_New_Tab('@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success" data-original-title="" title=""><i class="fa fa-plus"></i></a>
+                </div>
+                <!-- begin nav-tabs -->
+                <div class="tab-overflow">
+                    <ul class="nav nav-tabs">
+                        <li class="prev-button"><a href="javascript:;" data-click="prev-tab" class="text-success"><i class="fa fa-arrow-left"></i></a></li>
+                        @foreach (ChartGaugeDTO gauge in Model.GaugeDTO)
+                        {
+                            if (Model.GaugeDTO.First().Id == gauge.Id)
+                            {
+
+                                <li class="active">
+                                    <a href="#nav-tab-@gauge.Id" data-toggle="tab">@Model.Widget_Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class=""><a href="#nav-tab-@gauge.Id" data-toggle="tab">@Model.Widget_Title</a></li>
+                            }
+                        }
+                        <li class="next-button"><a href="javascript:;" data-click="next-tab" class="text-success"><i class="fa fa-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                @foreach (ChartGaugeDTO gauge in Model.GaugeDTO)
+                {
+                    var activeclass = "tab-pane fade";
+                    if (Model.GaugeDTO.First().Id == gauge.Id)
+                    {
+                        activeclass = "tab-pane fade active in";
+                    }
+                    <div class="@activeclass" id="nav-tab-@gauge.Id">
+                        <div class="text-left">
+                            <div id="loading-gauge-@gauge.Id">please wait...</div>
+                        </div>
+                        <div class="text-right">
+                            <a href="#modal-rawdata" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Raw Data" onclick="get_Raw_Data('@gauge.Id', '@Model.Chart_Type', '@gauge.Chart_Common_Property_DTO.From_Date', '@gauge.Chart_Common_Property_DTO.To_Date')" data-original-title="Raw Data"><i class="fa fa-cloud-download"></i></a>
+                            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@gauge.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+                            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Chart_Type', '@gauge.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" onclick="Remove_Chart('@Model.Chart_Type','@gauge.Id', '@Model.Dashboard_Id')"><i class="fa fa-times"></i></a>
+                        </div>
+
+                        <div id='@("gauge" + @gauge.Id)' style="min-width: 310px; width:500px; height: 300px; margin: 0 auto; display:none"></div>
+                        <div class="gauge-container">
+                            @(Html.Kendo().RadialGauge()
+                                  .Name("gauge-" + gauge.Id)
+                                .Pointer(pointer => pointer.Value(0))
+                                .Scale(scale => scale
+                                    .MinorUnit(gauge.Minor_Unit)
+                                      .StartAngle(gauge.Start_Angle)
+                                      .EndAngle(gauge.End_Angle)
+                                      .Min(gauge.Min)
+                                      .Max(gauge.Max)
+                                    .Labels(labels => labels
+                                        .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                    )
+                                    .Ranges(ranges =>
+                                    {
+                                        ranges.Add().From(50).To(60).Color("#ffc700");
+                                        ranges.Add().From(60).To(80).Color("#ff7a00");
+                                        ranges.Add().From(80).To(100).Color("#c20000");
+                                    })
+                                )
+                            )
+                            <div class="gauge-label"><span id="div-per-@gauge.Id">0</span>%</div>
+                        </div>
+
+                        <div class="panel-footer">
+                            <h4><span class="f-s-12">@gauge.Metric_Label <span id="div_gauge_total_@gauge.Id">0</span> <span id="div_metric_unit_@gauge.Id"></span></span></h4>
+                            <h4><span class="f-s-12">@gauge.Target_Matric_Label <span id="div_gauge_total_target_@gauge.Id">0</span> <span id="div_target_metric_unit_@gauge.Id"></span></span></h4>
+
+                            <span id="div_gauge_timeline_@gauge.Id"></span>:-
+                            <span id="div_gauge_fromdate_@gauge.Id"></span> -
+                            <span id="div_gauge_todate_@gauge.Id"></span>
+                            <span id="div_gauge_none_@gauge.Id"></span>
+
+
+                            @*@Html.Hidden("gauge_fromdate");
+                            @Html.Hidden("gauge_todate");*@
+
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+
+                                var common_properties;
+                                if ('@gauge.Chart_Common_Property_DTO.Time_Line' !== '') {
+                                    common_properties = ChangeDates('@gauge.Chart_Common_Property_DTO.Time_Line', '@gauge.Chart_Common_Property_DTO.From_Date', '@gauge.Chart_Common_Property_DTO.To_Date');
+                                }
+                                else {
+                                    common_properties = ChangeDates('None', '@gauge.Chart_Common_Property_DTO.From_Date', '@gauge.Chart_Common_Property_DTO.To_Date');
+                                }
+
+                                if (common_properties !== null) {
+                                    $("#div_gauge_timeline_@gauge.Id").html('@gauge.Chart_Common_Property_DTO.Time_Line');
+                                    $("#div_gauge_fromdate_@gauge.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                                    $("#div_gauge_todate_@gauge.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+                                    //$("#gauge_fromdate").val(common_properties.startDateTime)
+                                    // $("#gauge_todate").val(common_properties.startDateTime)
+                                }
+                                else {
+                                    $("#div_gauge_none_@gauge.Id").html("Global Calender");
+                                }
+
+                                var gauge_chart = new guage("@gauge.Id", '@("gauge" + @gauge.Id)', "div_gauge_total_@gauge.Id", "div_gauge_total_target_@gauge.Id", "loading-gauge-@gauge.Id", @gauge.Start_Angle, @gauge.End_Angle, @gauge.Min, @gauge.Max, "@gauge.Chart_Common_Property_DTO.Precision");
+                                list_of_gauge.push(gauge_chart);
+
+                            });
+
+                        </script>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function populate_gauge(chart_id, data, precision, start_angle, end_angle, _min, _max,calpercentage)
+        {
+            var gauge_chart = new Highcharts.Chart({
+
+                chart: {
+                    renderTo: chart_id,
+                    type: 'gauge',
+                    plotBackgroundColor: null,
+                    plotBackgroundImage: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+
+                title: {
+                    text: data.Metric_Name
+                },
+
+                pane: {
+                    startAngle: start_angle,
+                    endAngle: end_angle,
+                    background: [{
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '109%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '107%'
+                    }, {
+                        // default background
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '105%',
+                        innerRadius: '103%'
+                    }]
+                },
+
+                // the value axis
+                yAxis: {
+                    min: _min,
+                    max: _max,
+
+                    minorTickInterval: 'auto',
+                    minorTickWidth: 1,
+                    minorTickLength: 10,
+                    minorTickPosition: 'inside',
+                    minorTickColor: '#666',
+
+                    tickPixelInterval: 30,
+                    tickWidth: 2,
+                    tickPosition: 'inside',
+                    tickLength: 10,
+                    tickColor: '#666',
+                    labels: {
+                        step: 2,
+                        rotation: 'auto'
+                    },
+                    title: {
+                        text: data.Mertric_Unit.Unit_Symbol
+                    },
+                    plotBands: [{
+                        from: 50,
+                        to: 60,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: 60,
+                        to: 80,
+                        color: '#DDDF0D' // yellow
+                    }, {
+                        from: 80,
+                        to: 100,
+                        color: '#DF5353' // red
+                    }]
+                },
+
+                series: [{
+                    name: data.Metric_Name,
+                    data: [calpercentage],
+                    tooltip: {
+                        valueSuffix: ' ' + data.Mertric_Unit.Unit_Symbol
+                    }
+                }]
+
+            });
+
+            list_of_Charts.push(gauge_chart);
+        }
+    </script>
+
+}
+

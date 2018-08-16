@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConnectionConnectException" xml:space="preserve">
+    <value>Please check your connection, failed to connect.</value>
+  </data>
+  <data name="ConnectionFailedException" xml:space="preserve">
+    <value>Connection test fail please check your connection parameters and do it again.</value>
+  </data>
+  <data name="ConnectorNotFound" xml:space="preserve">
+    <value>No connector found</value>
+  </data>
+  <data name="DataSouceConnectionTypeInvalid" xml:space="preserve">
+    <value>DataSouceConnectionType invalid in database</value>
+  </data>
+  <data name="FTPModeTypeInvalid" xml:space="preserve">
+    <value>Invalid FTP Mode in database</value>
+  </data>
+  <data name="LanguageNotFound" xml:space="preserve">
+    <value>There is no language available in Database or All languages are disabled</value>
+  </data>
+  <data name="LongDescriptionNotAvailable" xml:space="preserve">
+    <value>Empty in Database</value>
+  </data>
+  <data name="PortNumber" xml:space="preserve">
+    <value>Port Number must be numeric and less than 10000</value>
+  </data>
+  <data name="ServerOrIP" xml:space="preserve">
+    <value>Server/IP is required</value>
+  </data>
+  <data name="ServerPassword" xml:space="preserve">
+    <value>Server Password is required</value>
+  </data>
+  <data name="ServerUserName" xml:space="preserve">
+    <value>Server Username is required</value>
+  </data>
+  <data name="ShortDescriptionNotAvailable" xml:space="preserve">
+    <value>Empty in Database</value>
+  </data>
+  <data name="ShortValue" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="strDatabaseName" xml:space="preserve">
+    <value>Database Name is required</value>
+  </data>
+  <data name="TagNullException" xml:space="preserve">
+    <value>No Tag found</value>
+  </data>
+  <data name="ConnectionName" xml:space="preserve">
+    <value>Connection Name is required</value>
+  </data>
+  <data name="DataConnectorType" xml:space="preserve">
+    <value>DataConnectorType is required</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Gateway type is required</value>
+  </data>
+  <data name="FTPModeType" xml:space="preserve">
+    <value>Ftp mode is required</value>
+  </data>
+  <data name="UnitNotFound" xml:space="preserve">
+    <value>There is no Unit of measurement available in Database or All units are disabled</value>
+  </data>
+  <data name="ElementPointNotFound" xml:space="preserve">
+    <value>Element or Point not found </value>
+  </data>
+  <data name="AnalyticsProperties_Chart_Type" xml:space="preserve">
+    <value>Chart Type is required</value>
+  </data>
+  <data name="AnalyticsProperties_Filter_By" xml:space="preserve">
+    <value>Filter By is required</value>
+  </data>
+  <data name="AnalyticsProperties_Filter_By_Option" xml:space="preserve">
+    <value>Filter By Option is required</value>
+  </data>
+  <data name="AnalyticsProperties_Filter_Text" xml:space="preserve">
+    <value>Filter By Text is required</value>
+  </data>
+  <data name="AnalyticsProperties_Filter_Text_Lenght" xml:space="preserve">
+    <value>Lenght must be less than 75</value>
+  </data>
+  <data name="AnalyticsProperties_From_Date" xml:space="preserve">
+    <value>From Date is required</value>
+  </data>
+  <data name="AnalyticsProperties_Group_By" xml:space="preserve">
+    <value>Group By is required</value>
+  </data>
+  <data name="AnalyticsProperties_Name_Widget" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
+  <data name="AnalyticsProperties_Name_Widget_Lenght" xml:space="preserve">
+    <value>Lenght must be less than 75</value>
+  </data>
+  <data name="AnalyticsProperties_Roll_Up" xml:space="preserve">
+    <value>Roll Up is required</value>
+  </data>
+  <data name="AnalyticsProperties_Time_Table" xml:space="preserve">
+    <value>Time Table is required</value>
+  </data>
+  <data name="AnalyticsProperties_To_Date" xml:space="preserve">
+    <value>To Date is required</value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>Title is required</value>
+  </data>
+  <data name="Metric_Name" xml:space="preserve">
+    <value>Metric Name required</value>
+  </data>
+  <data name="Metric_Tags" xml:space="preserve">
+    <value>Metric Tags is required</value>
+  </data>
+  <data name="Metric_Rollup" xml:space="preserve">
+    <value>Rollup is required</value>
+  </data>
+  <data name="Metric_Group_By" xml:space="preserve">
+    <value>Group By can not be null</value>
+  </data>
+  <data name="AnalyticsProperties_Metric" xml:space="preserve">
+    <value>Metric is required</value>
+  </data>
+  <data name="DashboardException" xml:space="preserve">
+    <value>No Dashboard found</value>
+  </data>
+  <data name="Null_Value" xml:space="preserve">
+    <value>No Data Available</value>
+  </data>
+  <data name="Tree_Map_Title" xml:space="preserve">
+    <value>Client Map</value>
+  </data>
+  <data name="AnalyticsProperties_Widget_Title" xml:space="preserve">
+    <value>Widget Title is required</value>
+  </data>
+  <data name="Invalid_Chart_Type" xml:space="preserve">
+    <value>Chart Type is undefined</value>
+  </data>
+  <data name="AnalyticsProperties_Metric_Label" xml:space="preserve">
+    <value>Metric Lable Required</value>
+  </data>
+  <data name="AnalyticsProperties__End_Aangle" xml:space="preserve">
+    <value>End Angle is required</value>
+  </data>
+  <data name="AnalyticsProperties__End_Aangle_Between" xml:space="preserve">
+    <value>End Angle not greater than 360</value>
+  </data>
+  <data name="AnalyticsProperties__Max" xml:space="preserve">
+    <value>Max Value is reuqired</value>
+  </data>
+  <data name="AnalyticsProperties__Max_Between" xml:space="preserve">
+    <value>Max Value not greater than 100</value>
+  </data>
+  <data name="AnalyticsProperties__Min" xml:space="preserve">
+    <value>Min Value is required</value>
+  </data>
+  <data name="AnalyticsProperties__Minor_Unit" xml:space="preserve">
+    <value>Minor Unit is required</value>
+  </data>
+  <data name="AnalyticsProperties__Minor_Unit_Between" xml:space="preserve">
+    <value>Minor Unit between 0 to 10</value>
+  </data>
+  <data name="AnalyticsProperties__Min_Between" xml:space="preserve">
+    <value>Min Value not less than 0</value>
+  </data>
+  <data name="AnalyticsProperties__Start_Angle_Between" xml:space="preserve">
+    <value>Start Angle not less than -90</value>
+  </data>
+  <data name="AnalyticsProperties__Start_Angle" xml:space="preserve">
+    <value>Start Angle is required</value>
+  </data>
+  <data name="AnalyticsProperties__Target_Metric_Label" xml:space="preserve">
+    <value>Target Metric Label is required</value>
+  </data>
+  <data name="Chart_Gauge_Null_Exception" xml:space="preserve">
+    <value>Chart Gauge DTO is null </value>
+  </data>
+  <data name="Chart_Tree_Map_Null_Exception" xml:space="preserve">
+    <value>Chart TreeMap DTO is null</value>
+  </data>
+  <data name="Chart_Bar_Null_Exception" xml:space="preserve">
+    <value>Chart Bar DTO Null</value>
+  </data>
+  <data name="Tree_Map_Chart_Top_Name" xml:space="preserve">
+    <value>Client Map</value>
+  </data>
+  <data name="Chart_Heatmap_Null_Exception" xml:space="preserve">
+    <value>Chart Heatmap is null</value>
+  </data>
+  <data name="Dashboard_Type" xml:space="preserve">
+    <value>Dashbarod Type is required</value>
+  </data>
+  <data name="NoUnitDefined" xml:space="preserve">
+    <value>No unit of mesaure defined for this metric</value>
+  </data>
+  <data name="Metric_Unit_Message" xml:space="preserve">
+    <value>Please select the unit</value>
+  </data>
+  <data name="widget_all_ready_added" xml:space="preserve">
+    <value>This widget all already added into the homepage</value>
+  </data>
+</root>

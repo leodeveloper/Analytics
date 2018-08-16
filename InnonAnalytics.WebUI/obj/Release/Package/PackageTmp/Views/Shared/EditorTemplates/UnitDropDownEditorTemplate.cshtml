@@ -1,0 +1,14 @@
+﻿
+@using Resources;
+@model InnonAnalytics.Model.DTO.ElementDTO
+@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownListFor(m => m.Unit)
+.DataSource(d => d.Read(r => r.Action("GetUnits", "PointMeaningFullData")))
+.DataValueField("Value")
+.DataTextField("Text")
+.Events(e =>
+{
+    e.Select("onSelect");
+})
+)

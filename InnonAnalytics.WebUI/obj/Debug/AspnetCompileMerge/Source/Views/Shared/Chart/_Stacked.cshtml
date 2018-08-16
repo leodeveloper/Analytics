@@ -1,0 +1,116 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+<div class="panel panel-inverse" id="@Model.Id" data-sortable-id="index-@Model.Id">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>*@
+            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@Model.StackedDTO.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+            <a href="#modal-dialog1" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-default" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" data-click="panel-widget-edit-option"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title">@Model.Widget_Title</h4>
+    </div>
+
+
+    <div class="panel-body">
+        <div id="loading-bar-@Model.StackedDTO.Id"></div>
+        <div id='@("stackedchart" + Model.StackedDTO.Id)' style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <div class="panel-footer">
+        <span id="div_stacked_timeline_@Model.StackedDTO.Id"></span>:-
+        <span id="div_stacked_fromdate_@Model.StackedDTO.Id"></span> -
+        <span id="div_stacked_todate_@Model.StackedDTO.Id"></span>
+        <span id="div_stacked_none_@Model.StackedDTO.Id"></span>
+    </div>
+    <script>
+
+        $(function () {
+
+            var common_properties;
+            if ('@Model.StackedDTO.Chart_Common_Property_DTO.Time_Line' !== '') {
+                common_properties = ChangeDates('@Model.StackedDTO.Chart_Common_Property_DTO.Time_Line', '@Model.StackedDTO.Chart_Common_Property_DTO.From_Date', '@Model.StackedDTO.Chart_Common_Property_DTO.To_Date');
+            }
+            else {
+                common_properties = ChangeDates('None', '@Model.StackedDTO.Chart_Common_Property_DTO.From_Date', '@Model.StackedDTO.Chart_Common_Property_DTO.To_Date');
+            }
+
+            if (common_properties !== null) {
+                $("#div_stacked_timeline_@Model.StackedDTO.Id").html('@Model.StackedDTO.Chart_Common_Property_DTO.Time_Line');
+                $("#div_stacked_fromdate_@Model.StackedDTO.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                $("#div_stacked_todate_@Model.StackedDTO.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+            }
+            else {
+                $("#div_stacked_none_@Model.StackedDTO.Id").html("Global Calender");
+            }
+
+        var stacked_chart = new stacked("@Model.StackedDTO.Id", "loading-bar-@Model.StackedDTO.Id", '@("stackedchart" + Model.StackedDTO.Id)', "@Model.StackedDTO.Chart_Title");
+        list_of_Stacked.push(stacked_chart);
+});
+
+function populate_Stacked_Chart(chart_id, data)
+{
+
+                $('#' + chart_id).highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: data.Categories //['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'kWh'
+                        },
+                        stackLabels: {
+                            enabled: true,
+                            style: {
+                                fontWeight: 'bold',
+                                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                            }
+                        }
+                    },
+
+                    //legend: {
+                    //    align: 'right',
+                    //    x: -30,
+                    //    verticalAlign: 'top',
+                    //    y: 25,
+                    //    floating: true,
+                    //    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    //    borderColor: '#CCC',
+                    //    borderWidth: 1,
+                    //    shadow: false
+                    //},
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.x + '</b><br/>' +
+                                this.series.name + ': ' + this.y + '<br/>' +
+                                'Total: ' + this.point.stackTotal;
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal',
+                            //dataLabels: {
+                            //    enabled: true,
+                            //    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            //    style: {
+                            //        textShadow: '0 0 3px black'
+                            //    }
+                            //}
+                        }
+                    },
+                    series: data.Json_Data
+                });
+            }
+    </script>
+</div>
+

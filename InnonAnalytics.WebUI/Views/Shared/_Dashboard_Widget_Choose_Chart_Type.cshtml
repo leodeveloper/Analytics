@@ -1,0 +1,46 @@
+﻿
+@using Resources
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+
+@using (Html.BeginForm("_Dashboard_Widget", "DashBoard", Model, FormMethod.Post, new { @class = "form-horizontal form-bordered", @id = "frm_Anaylytics", role = "form", enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken();
+
+
+    @Html.HiddenFor(m => m.Dashboard_Id)
+
+<div class="row">
+    <!-- begin col-4 -->
+    <div class="col-md-4">
+        <div class="form-group block1">
+            <label>@Resources.Widget_Title</label>
+          @Html.TextBoxFor(model => model.Widget_Title, new { @class = "form-control", placeholder = "Untitled Widget" })
+        @Html.ValidationMessageFor(model => model.Widget_Title, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>
+    <!-- end col-4 -->
+</div>
+
+<div class="row">
+    <!-- begin col-4 -->
+    <div class="col-md-4">
+        <div class="form-group block1">
+            <label>@Resources.Chart_Type</label>
+            @( Html.Kendo().DropDownListFor(m => m.Chart_Type)
+                    .Name("Chart_Type")
+        .DataTextField("Text")
+        .DataValueField("Value")
+                    //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.DropDownChartTypeSelect, Value = "" })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.ChartType)))
+                    // .Events(events => { events.Select("OnSelect"); })
+            )
+            @Html.ValidationMessageFor(model => model.Chart_Type, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>
+    <!-- end col-4 -->
+</div>
+}

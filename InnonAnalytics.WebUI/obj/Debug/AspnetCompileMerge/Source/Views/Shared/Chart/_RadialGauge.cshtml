@@ -1,0 +1,98 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@using InnonAnalytics.Common.Enums
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+
+<div class="panel panel-inverse" id="@Model.Id" data-sortable-id="index-@Model.Id">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+ @*            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>*@
+            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@Model.GaugeDTO.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+            <a href="#modal-dialog1" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-default" title="Setting" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" data-click="panel-widget-edit-option"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title">@Model.Widget_Title</h4>
+    </div>
+    
+
+
+    <div class="panel-body">
+        <div id="loading-gauge-@Model.GaugeDTO.Id">please wait...</div>
+        <div class="gauge-container">
+            @(Html.Kendo().RadialGauge()
+                                          .Name("gauge-" + Model.GaugeDTO.Id)
+                                .Pointer(pointer => pointer.Value(0))
+                                .Scale(scale => scale
+                                            .MinorUnit(Model.GaugeDTO.Minor_Unit)
+                                              .StartAngle(Model.GaugeDTO.Start_Angle)
+                                              .EndAngle(Model.GaugeDTO.End_Angle)
+                                              .Min(Model.GaugeDTO.Min)
+                                              .Max(Model.GaugeDTO.Max)
+                                    .Labels(labels => labels
+                                        .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                    )
+                                    .Ranges(ranges =>
+                                    {
+                                        ranges.Add().From(50).To(60).Color("#ffc700");
+                                        ranges.Add().From(60).To(80).Color("#ff7a00");
+                                        ranges.Add().From(80).To(100).Color("#c20000");
+                                    })
+                                )
+            )
+            <div class="gauge-label"><span id="div-per-@Model.GaugeDTO.Id">0</span>%</div>
+        </div>
+        </div>
+    <div class="panel-footer">
+        <h4><span class="f-s-12">@Model.GaugeDTO.Metric_Label <span id="div_gauge_total_@Model.GaugeDTO.Id">0</span> kWh</span></h4>
+        <h4><span class="f-s-12">@Model.GaugeDTO.Target_Matric_Label <span id="div_gauge_total_target_@Model.GaugeDTO.Id">0</span> kWh </span></h4>
+
+        <span id="div_gauge_timeline_@Model.GaugeDTO.Id"></span>:- 
+        <span id="div_gauge_fromdate_@Model.GaugeDTO.Id"></span> - 
+        <span id="div_gauge_todate_@Model.GaugeDTO.Id"></span>
+        <span id="div_gauge_none_@Model.GaugeDTO.Id"></span>
+
+
+        @*@Html.Hidden("gauge_fromdate");
+        @Html.Hidden("gauge_todate");*@
+
+    </div>
+
+     
+
+    <script>
+    $(document).ready(function () {
+
+        var common_properties;
+        if ('@Model.GaugeDTO.Chart_Common_Property_DTO.Time_Line' !== '') {
+            common_properties = ChangeDates('@Model.GaugeDTO.Chart_Common_Property_DTO.Time_Line', '@Model.GaugeDTO.Chart_Common_Property_DTO.From_Date', '@Model.GaugeDTO.Chart_Common_Property_DTO.To_Date');
+        }
+        else {
+            common_properties = ChangeDates('None', '@Model.GaugeDTO.Chart_Common_Property_DTO.From_Date', '@Model.GaugeDTO.Chart_Common_Property_DTO.To_Date');
+        }
+        
+        if (common_properties !== null) {
+            $("#div_gauge_timeline_@Model.GaugeDTO.Id").html('@Model.GaugeDTO.Chart_Common_Property_DTO.Time_Line');
+            $("#div_gauge_fromdate_@Model.GaugeDTO.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+            $("#div_gauge_todate_@Model.GaugeDTO.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+            //$("#gauge_fromdate").val(common_properties.startDateTime)
+           // $("#gauge_todate").val(common_properties.startDateTime)
+        }
+        else {
+            $("#div_gauge_none_@Model.GaugeDTO.Id").html("Global Calender");
+        }
+
+        var gauge_chart = new guage("@Model.GaugeDTO.Id", "div_gauge_total_@Model.GaugeDTO.Id", "div_gauge_total_target_@Model.GaugeDTO.Id", "loading-gauge-@Model.GaugeDTO.Id");
+        list_of_gauge.push(gauge_chart);
+
+    });
+
+</script>
+
+
+
+     
+    
+</div>

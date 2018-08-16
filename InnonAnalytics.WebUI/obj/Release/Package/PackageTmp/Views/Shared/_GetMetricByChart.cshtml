@@ -1,0 +1,138 @@
+﻿@model IList<InnonAnalytics.Model.DTO.ChartRawDataDTO>
+
+@(Html.Kendo().Grid<InnonAnalytics.Model.DTO.ChartRawDataDTO>(Model)
+                  .Name("metric_grid")
+           .ColumnMenu(c => c.Enabled(true)).Columns(
+        columns =>
+        {
+            columns.Bound(datacolumn => datacolumn.Metric);
+            columns.Bound(datacolumn => datacolumn.Metric_Unit).Title("Metric Unit");
+            columns.Bound(datacolumn => datacolumn.Tag);
+            columns.Bound(datacolumn => datacolumn.Element_Name).Title("Point");
+            columns.Bound(datacolumn => datacolumn.Element_Unit).Title("Point Unit");
+           
+        }
+                ).ToolBar(toolbar => { toolbar.Excel(); })
+                    .Excel(excel => excel.FileName("PointList.xlsx").Filterable(true).ProxyURL(Url.Action("ExportExcel", "Home")).AllPages(true))
+                       // .Pdf(pdf => pdf.FileName("PointList.pdf").ProxyURL(Url.Action("ExportPdf", "Home")))
+          .Pageable(t => t.ButtonCount(2)) // Enable paging
+          .ClientDetailTemplateId("template")
+          .Sortable() // Enable sorting
+          .Filterable() //Enable filter
+          .Groupable()
+          .Selectable(t => t.Mode(GridSelectionMode.Single))
+          .DataSource(dataSource => dataSource
+            .Ajax().ServerOperation(false).PageSize(25)
+            .Model(model => model.Id(p => p.Element_Id))
+        )
+    // .Events(events => { events.Edit("insertPopupCaption"); events.Save("onMetricSave"); })
+    )
+
+
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<InnonAnalytics.DataWareHouseService.Model.Warehouse_DTO>()
+                .Name("childgrid_#=Element_Id#")
+        .ColumnMenu(c => c.Enabled(true)).Columns(
+        columns =>
+        {
+            columns.Bound(datacolumn => datacolumn.Date_Time).Title("Date");
+            columns.Bound(datacolumn => datacolumn.Aggregation_Type_String).Title("Aggregation");
+            columns.Bound(datacolumn => datacolumn.Sum_Value).Title("Sum");
+            columns.Bound(datacolumn => datacolumn.Avg_Value).Title("Avg");
+            columns.Bound(datacolumn => datacolumn.Min_Value).Title("Min");
+            columns.Bound(datacolumn => datacolumn.Max_Value).Title("Max");
+            columns.Bound(datacolumn => datacolumn.Count);
+
+        }
+                ).ToolBar(toolbar => { toolbar.Excel(); })
+                            .Excel(excel => excel.FileName("DataList.xlsx").Filterable(true).ProxyURL(Url.Action("ExportExcel", "Home")).AllPages(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .ServerOperation(false)
+                    .PageSize(25)
+                    .Read(read => read.Action("Get_Warehouse_Raw_Data", "Metric", new { point_id = "#=Element_Id#", from_date = ViewBag.From_Date, to_date = ViewBag.To_Date }))
+                    .Model(model => { model.Id(d => d.Point_ID); })
+                )
+                //.Pageable(page => page.Refresh(false))
+                .Pageable()               
+                .Sortable()
+                .Scrollable()
+                // .Scrollable(scrollable => scrollable.Virtual(true))
+                .Filterable()
+                .ToClientTemplate()
+    )
+</script>
+
+
+
+
+
+@*@(Html.Kendo().Grid<Portal.Application.BoundedContext.ScreenPop.Dtos.Customer>(Model.CustomerList)
+.Name("grdWindowResults")
+
+.Columns(columns =>
+{
+    columns.Bound(x => x.Name1).Visible(true);
+    columns.Bound(x => x.Name2).Visible(true);
+    columns.Bound(x => x.ContactName);
+    columns.Bound(x => x.BillingAddress1);
+})
+.Pageable()
+.Sortable(x => x.Enabled(false))
+.Scrollable(x => x.Height("auto"))
+.Selectable(selectable => selectable.Mode(GridSelectionMode.Single))
+.Reorderable(reorder => reorder.Columns(true))
+.DataSource(dataSource => dataSource
+.Server()
+.PageSize(5)
+.Model(model =>
+{
+    model.Id(p => p.CustomerId);
+})
+)
+)*@
+
+@*@(Html.Kendo().Grid<InnonAnalytics.Model.DTO.ChartRawDataDTO>()
+              .Name("metric_grid")
+      .DataSource(dataSource => dataSource // Configure the grid data source
+          .Ajax() // Specify that ajax binding is used
+                  //  .Events(events => { events.Error("error_handler"); events.RequestEnd("onGridDataSourceRequestEnd"); })
+                  .ServerOperation(false) // Paging, sorting, filtering and grouping will be done client-side
+                                          //.Read(read => read.Url("http://localhost:3232/API/ChartRawData/Get_Raw_Data_By_Chart?chart_type=Stacked&chart_id=44&from_date=2015-09-19T15%3A51%3A20%2B01%3A00&to_date=2015-10-19T15%3A51%3A20%2B01%3A00&_=1445266235581")
+                                          // .Type(HttpVerbs.Get)) // Set the action method which will return the data in JSON format , from_date = 2015-09-19, to_date = 2015-10-19
+                        .Read(read => read.Action("Get_Raw_Data", "Metric").Data("{ chart_id : 44, chart_type : 'Stacked', from_date:'19/09/2015', to_date:'19/09/2015'}")
+                        )
+                          .PageSize(25)
+
+       )
+       .ColumnMenu(c => c.Enabled(true)).Columns(
+    columns =>
+    {
+        columns.Bound(datacolumn => datacolumn.Metric);
+        columns.Bound(datacolumn => datacolumn.Metric_Unit).Title("Metric Unit");
+        columns.Bound(datacolumn => datacolumn.Tag);
+        columns.Bound(datacolumn => datacolumn.Element_Name).Title("Point");
+        columns.Bound(datacolumn => datacolumn.Element_Unit).Title("Point Unit");
+        columns.Bound(datacolumn => datacolumn.Timestamp);
+        columns.Bound(datacolumn => datacolumn.Value);
+    }
+    )
+      .Pageable(t => t.ButtonCount(2)) // Enable paging
+      .Sortable() // Enable sorting
+      .Filterable() //Enable filter
+      .Groupable()
+      .Selectable(t => t.Mode(GridSelectionMode.Single))
+// .Events(events => { events.Edit("insertPopupCaption"); events.Save("onMetricSave"); })
+)*@
+
+
+
+
+<script>
+    function filterdata() {
+        return {            
+
+            chart_type : 'Stacked', chart_id : 44
+        };
+    }
+</script>

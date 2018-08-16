@@ -1,0 +1,120 @@
+﻿
+@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+<div class="panel panel-inverse" id="@Model.Id" data-sortable-id="index-@Model.Id">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>*@
+            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@Model.DonutDTO.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+            <a href="#modal-dialog1" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-default" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" data-click="panel-widget-edit-option"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title">@Model.Widget_Title</h4>
+    </div>
+    <div class="panel-body">
+        <div id="loading-bar-@Model.DonutDTO.Id"></div>
+        <div id='@("Donutchart" + Model.DonutDTO.Id)' style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+        <div id='@("Donutchart_Footer" + Model.DonutDTO.Id)' class="panel-footer">
+            @*<h4><span class="semi-bold">Out of Hours 342,200 kWh</span></h4>
+            <h4><span class="semi-bold">Core Hours 400,700 kWh </span></h4>*@
+        </div>
+    </div>
+    <div class="panel-footer">       
+        <span id="div_donut_timeline_@Model.DonutDTO.Id"></span>:-
+        <span id="div_donut_fromdate_@Model.DonutDTO.Id"></span> -
+        <span id="div_donut_todate_@Model.DonutDTO.Id"></span>
+        <span id="div_donut_none_@Model.DonutDTO.Id"></span>
+    </div>
+    <script>
+
+        $(function () {
+
+            var common_properties;
+            if ('@Model.DonutDTO.Chart_Common_Property_DTO.Time_Line' !== '') {
+                common_properties = ChangeDates('@Model.DonutDTO.Chart_Common_Property_DTO.Time_Line', '@Model.DonutDTO.Chart_Common_Property_DTO.From_Date', '@Model.DonutDTO.Chart_Common_Property_DTO.To_Date');
+            }
+            else {
+                common_properties = ChangeDates('None', '@Model.DonutDTO.Chart_Common_Property_DTO.From_Date', '@Model.DonutDTO.Chart_Common_Property_DTO.To_Date');
+            }
+
+            if (common_properties !== null) {
+                $("#div_donut_timeline_@Model.DonutDTO.Id").html('@Model.DonutDTO.Chart_Common_Property_DTO.Time_Line');
+                $("#div_donut_fromdate_@Model.DonutDTO.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                $("#div_donut_todate_@Model.DonutDTO.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+                //$("#gauge_fromdate").val(common_properties.startDateTime)
+                // $("#gauge_todate").val(common_properties.startDateTime)
+            }
+            else {
+                $("#div_donut_none_@Model.DonutDTO.Id").html("Global Calender");
+            }
+
+        var donut_chart = new donut("@Model.DonutDTO.Id", '@("Donutchart_Footer" + Model.DonutDTO.Id)' ,"loading-bar-@Model.DonutDTO.Id", '@("Donutchart" + Model.DonutDTO.Id)', "@Model.DonutDTO.Chart_Title");
+        list_of_donut.push(donut_chart);
+
+});
+
+            function populate_donut_Chart(char_id, donutchart_footer_id, data)
+            {
+                $('#' + donutchart_footer_id).html('');
+
+                //Footer
+                //for (j = 0; j < data.length; j++)
+                //{
+                //    $('#' + donutchart_footer_id).append('<h4><span class="semi-bold">' + data[j].name + ' ' + data[j].y + ' kWh</span></h4>');
+                //}
+                //End Footer
+
+                $('#' + char_id).highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        }
+                    },                  
+
+                    plotOptions: {
+                        pie: {
+                            shadow: false,
+                            center: ['50%', '50%']
+                        }
+                    },
+                    title: {
+                        text: '',
+                        align: 'center',
+                        verticalAlign: 'middle',
+                        y: 50
+                    },
+                    tooltip: {
+                        valueSuffix: 'kWh'
+                    }
+                           ,
+                    series: [{
+                        name: 'Value',
+                        data: data,
+                        size: '80%',
+                        innerSize: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + 'kWh' : null;
+                            }
+                            ,
+                            distance: -10 //label distance
+                        },
+                        showInLegend: true
+                    }
+                    ]
+                });
+            }
+    </script>
+
+</div>

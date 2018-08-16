@@ -1,0 +1,80 @@
+﻿
+<div id="header" class="header navbar navbar-default navbar-fixed-top">
+    <!-- begin container-fluid -->
+    <div class="container-fluid">
+        <!-- begin mobile sidebar expand / collapse button -->
+        <div class="navbar-header">
+            <a href="javascript:;" class="navbar-brand">
+                @*<span class="navbar-logo"></span>*@
+            <img src="~/Content/images/lan-logo.png" title="innon analytics" alt="innon analytics" />
+        </a>
+        <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <!-- end mobile sidebar expand / collapse button -->
+    <!-- begin navbar-collapse -->
+    <div class="collapse navbar-collapse pull-left" id="top-navbar">
+        @if (Request.IsAuthenticated)
+        {
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="~/Home/Index"><i class="fa fa-th-large fa-fw"></i> Dashboard</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-database fa-fw"></i> Setup <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Connection", "Index", "DataConnection")</li>
+                        <li>@Html.ActionLink("Data Point", "Index", "Point")</li>
+                        <li>@Html.ActionLink("Discovery", "Index", "Discovery")</li>
+                        <li>@Html.ActionLink("Tagging", "Index", "PointMeaningFullData")</li>
+                        <li>@Html.ActionLink("Metric", "Index", "Metric")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-database fa-fw"></i> Admin <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                        <li>@Html.ActionLink("DashBoardAdmin", "Index", "DashBoardAdmin")</li>
+                        <li>@Html.ActionLink("UserDataAdmin", "Index", "UserDataAdmin")</li>
+                        <li>@Html.ActionLink("PointAdmin", "Index", "PointAdmin")</li>
+                    </ul>
+                }
+            </li>
+            <li>
+                <a href="~/Manage/Index"><i class="fa fa-th-large fa-fw"></i> Account</a>
+            </li>
+        </ul>
+        }
+      
+    </div>
+    <!-- end navbar-collapse -->
+    <!-- begin header navigation right -->
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <form class="navbar-form full-width hidden-xs">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Enter keyword" />
+                    <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </li>
+        <li class="dropdown navbar-user">
+            @Html.Partial("_LoginPartial")
+
+        </li>
+    </ul>
+    <!-- end header navigation right -->
+</div>
+<!-- end container-fluid -->
+</div>

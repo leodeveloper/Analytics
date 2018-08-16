@@ -1,0 +1,292 @@
+﻿@model ICollection<InnonAnalytics.Model.DTO.Dashboard_Widget_DTO>
+@using Resources
+<link href="~/Content/widget.css" rel="stylesheet" />
+<script src="~/Scripts/application/InitializeCharts.js"></script>
+
+ <!--Grid stack-->
+<div id="gridstack" class="grid-stack">
+
+    
+
+    @foreach (var dashboard_widget in Model.Where(widget => !widget.Is_Deleted))
+    {
+                <!-- begin panel -->
+
+
+
+        if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Gauge)
+        {
+            
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">                                 
+                    @(Html.Partial("Chart/_RadialGauge", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.TreeMap)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_TreeMap", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Bar)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Bar", dashboard_widget))
+                </div>
+            </div>
+
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.BarFixedPlacement)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_BarFixedPlacement", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Pie)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Pie", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Donut)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Donut", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Stacked)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Stacked", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Line)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Line", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.HeatMap)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_HeatMap", dashboard_widget))
+                </div>
+            </div>
+        }
+        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Counter)
+        {
+            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.homepage_widgets.widget_x" data-gs-y="@dashboard_widget.homepage_widgets.widget_y" data-gs-width="@dashboard_widget.homepage_widgets.widget_width" data-gs-height="@dashboard_widget.homepage_widgets.widget_height">
+                <div class="grid-stack-item-content">
+                    @(Html.Partial("Chart/_Counter", dashboard_widget))
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>No widget available</div>
+        }
+                    <!-- end panel -->
+    }
+</div>
+
+<!--#modal-dialog for add edit new widget-->
+
+<div class="modal fade" id="modal-dialog1">
+    <div style="width:75%" class="modal-dialog">
+        <div style="width:100%" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Analytics widget control</h4>
+            </div>
+            <div class="modal-body">
+                <div id="dashboad_widget">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+<!--#modal-dialog for customize layout-->
+
+<div class="modal fade" id="modal-dialog2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Customize layout</h4>
+            </div>
+            <div class="modal-body">
+                <div id="customize_layout">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+<!--#modal-dialog for Time Line -->
+
+<div class="modal fade" id="modal-timeline">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Time Line</h4>
+            </div>
+            <div class="modal-body">
+                <div id="time_line_widget">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+<!--#modal-dialog for Raw data -->
+
+<div class="modal fade" id="modal-rawdata">
+    <div style="width:75%" class="modal-dialog">
+        <div style="width:100%" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">@Resources.Point_Metric_Heading</h4>
+            </div>
+            <div class="modal-body">
+                <div id="rawdata_widget">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+<!--#modal-dialog for message popup -->
+
+<div class="modal fade" id="modal-popup-message">
+    <div class="modal-dialog modal-sm">
+        <div style="width:100%" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="message_box_heading" class="modal-title">@Resources.Message_Box_Heading</h4>
+            </div>
+            <div class="modal-body">
+                <div id="popup-message">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--##modal-dialog for message popup-->
+
+
+<!--Gridstack end-->
+<script src="~/Scripts/application/ChartDataBinding.js"></script>
+<script>
+    deletemesg = "@Resources.WidgetDeleteMes";
+    (function () {
+
+        var options = {};
+        $('#gridstack').gridstack(options);
+    })();
+
+    $(document).ready(function () {       
+
+        chart_data_binding(function () { console.log('hello'); });
+    });
+    
+
+    function save_layout() {
+        var layout_data = _.map($('#gridstack .grid-stack-item:visible'), function (el) {
+            el = $(el);
+            var node = el.data('_gridstack_node');
+            return {
+                widget_id: el.attr('data-custom-id'),
+                widget_x: node.x,
+                widget_y: node.y,
+                widget_width: node.width,
+                widget_height: node.height
+            };
+        });
+        //console.log(JSON.stringify(layout_data));
+
+        //make the AJAX request with the given data from the `ajaxes` array of objects
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Save_Dashboard_Widget_Layout"))',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ dashboard_widget_layout: layout_data }),
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (serverResponse) {
+                @*load_dashboard('@Model');*@
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        });
+
+    }
+
+    function save_layout_home_page() {
+        var layout_data = _.map($('#gridstack .grid-stack-item:visible'), function (el) {
+            el = $(el);
+            var node = el.data('_gridstack_node');
+            return {
+                widget_id: el.attr('data-custom-id'),
+                widget_x: node.x,
+                widget_y: node.y,
+                widget_width: node.width,
+                widget_height: node.height
+            };
+        });
+        //console.log(JSON.stringify(layout_data));
+
+        //make the AJAX request with the given data from the `ajaxes` array of objects
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Save_Homepage_Widget_Layout"))',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ dashboard_widget_layout: layout_data }),
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (serverResponse) {               
+                location.reload(true);
+                },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        });
+
+    }
+
+    function Save_Date_Time(l_start_date_time, l_end_date_time) {
+        if (typeof (Storage) !== 'undefined') {
+            localStorage.setItem("l_start_date", l_start_date_time);
+            localStorage.setItem("l_end_date", l_end_date_time);
+        }
+    }
+
+</script>

@@ -1,0 +1,437 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.DashboardDTO
+<style>
+ .energymaptab {
+        width: 100%;
+       
+    }
+    .treemapstyle{
+     height: 600px; font-size: 12px;
+    }
+    .heatmapstyle
+    {width:auto;height: 600px; margin: 0 auto}
+
+        .gauge-container {
+            background: transparent url("../Content/dataviz/gauge/gauge-container-partial.png") no-repeat 50% 50%;
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+            padding-top: 18px;
+        }
+
+        .gauge-inner {
+
+            margin: 0 auto 0;
+            border-color: transparent;
+        }
+
+    .gauge-label {
+            margin-top: -11px;
+            width: 140px;
+            position: absolute;
+             margin: -28px 0px 0px 53px;
+        }
+</style>
+@*http://www.highcharts.com/docs/getting-started/frequently-asked-questions#export-multiple
+    http://jsfiddle.net/highcharts/gd7bB/
+    http://stackoverflow.com/questions/16480469/how-to-display-whole-pdf-not-only-one-page-with-pdf-js
+    https://gist.github.com/fcingolani/3300351*@
+<script src="~/Scripts/application/InitializeCharts.js"></script>
+
+@*<script>
+    var load_dashboard_id = '@Model.Id';
+</script>*@
+
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li><a href="javascript:;">Dashboard</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<h1 class="page-header">@Model.Title<small> <a href="#modal-dialog-Add-Edit-Dashboard" data-toggle="modal" id="edit_dashboard" onclick="Add_Edit_New_Dashboard('@Model.Id'); return false;" class="btn btn-sm btn-warning btn-xs m-l-0">Edit</a> </small></h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="btn-group " id="btn_action_group">
+            <a href="javascript:;" class="btn btn-success btn-xs m-l-0">Export</a>
+            <a href="javascript:;" data-toggle="dropdown" class="btn btn-success btn-xs m-l-0 dropdown-toggle" aria-expanded="false">
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu pull-right">    
+                                @*http://export.highcharts.com/
+        http://jsfiddle.net/pscjzhe4/1/
+        http://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/exporting/offline-download/
+            http://stackoverflow.com/questions/36710638/highcharts-pdf-export-not-working-when-we-export-all-charts-in-one
+                                *@         
+                <li><a href="#" id="export_widget" class="export_chart" data-type="application/pdf" >PDF</a></li>
+                <li><a href="#" id="export_widget" class="export_chart" data-type="image/png">PNG</a></li>
+                @*<li><a href="#" id="export_widget" class="export_chart" data-type="text/csv" >CSV</a></li>                
+                <li><a href="#" id="export_widget" class="export_chart" data-type="application/vnd.ms-excel" >XLS</a></li>*@
+            </ul>
+        </div>
+        <a href="#modal-dialog1" data-toggle="modal" id="addnew_widget" class="btn btn-success btn-xs m-l-0">+ Add widget</a>
+        <a id="dashboard_refresh" href="#" onclick="load_dashboard('@Model.Id');return false;" class="btn btn-success btn-xs m-l-0">Refresh</a>
+        <a id="dashboard_save" href="#" onclick="save_layout();return false;" class="btn btn-success btn-xs m-l-0">Save Layout</a><br />
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="pull-right">
+            @Html.Partial("_Calendar")
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@*<div id="dashboard_widgets">
+
+</div>*@
+
+       
+            
+@if(Model.Id == 216)
+{
+                 <div class="col-md-12">
+                    @Html.Partial("~/Views/Shared/Chart/_Diagram.cshtml")
+             </div>
+}
+else
+{
+    if (Model.Dashboard_Widgets.Any(widget => !widget.Is_Deleted))
+    {
+        
+    
+                    <!--Grid stack-->
+                <div id="gridstack" class="grid-stack">
+                    @foreach (var dashboard_widget in Model.Dashboard_Widgets.Where(widget => !widget.Is_Deleted))
+                    {
+                <!-- begin panel -->
+                        if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Gauge)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_RadialGauge", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.TreeMap)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_TreeMap", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Bar)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Bar", dashboard_widget))
+                                </div>
+                            </div>
+
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.BarFixedPlacement)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_BarFixedPlacement", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Pie)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Pie", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Donut)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Donut", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Stacked)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Stacked", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Line)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Line", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.HeatMap)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_HeatMap", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else if (dashboard_widget.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Counter)
+                        {
+                            <div class="grid-stack-item" data-custom-id="@dashboard_widget.Id" data-gs-x="@dashboard_widget.widget_x" data-gs-y="@dashboard_widget.widget_y" data-gs-width="@dashboard_widget.widget_width" data-gs-height="@dashboard_widget.widget_height">
+                                <div class="grid-stack-item-content">
+                                    @(Html.Partial("Chart/_Counter", dashboard_widget))
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>No widget available</div>
+                        }
+                    <!-- end panel -->
+                    }
+                </div>
+            <!--Gridstack end-->   
+}
+}
+ <!--#modal-dialog for add edit new widget-->
+
+        <div class="modal fade" id="modal-dialog1">
+            <div style="width:75%" class="modal-dialog">
+                <div style="width:100%" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Analytics widget control</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dashboad_widget">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--#modal-dialog-->
+        <!--#modal-dialog for customize layout-->
+
+        <div class="modal fade" id="modal-dialog2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Customize layout</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="customize_layout">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--#modal-dialog-->
+
+<!--#modal-dialog for Time Line -->
+
+<div class="modal fade" id="modal-timeline">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Time Line</h4>
+            </div>
+            <div class="modal-body">
+                <div id="time_line_widget">
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+
+<!--#modal-dialog for Raw data -->
+
+<div class="modal fade" id="modal-rawdata">
+    <div style="width:75%" class="modal-dialog">
+        <div style="width:100%" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">@Resources.Point_Metric_Heading</h4>
+            </div>
+            <div class="modal-body">
+                <div id="rawdata_widget" >
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--#modal-dialog-->
+
+
+<!--#modal-dialog for message popup -->
+
+<div class="modal fade" id="modal-popup-message">
+    <div class="modal-dialog modal-sm">
+        <div style="width:100%" class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="message_box_heading" class="modal-title">@Resources.Message_Box_Heading</h4>
+            </div>
+            <div class="modal-body">
+                <div id="popup-message">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--##modal-dialog for message popup-->
+
+      <script src="~/Scripts/application/ChartDataBinding.js"></script>
+<script>
+    deletemesg = "@Resources.WidgetDeleteMes";
+    (function () {
+
+        var options = {};
+        $('#gridstack').gridstack(options);
+    })();
+
+    $(document).ready(function () {
+
+        $('.export_chart').live('click', function () {
+            var jThis = $(this);
+            var type = jThis.data("type");      
+
+            var options = {};
+            options.type = type;
+            options.filename = '@Model.Title'
+
+            Highcharts.exportCharts(list_of_Charts, options);
+        });
+
+        chart_data_binding(function () { });
+
+        $('#addnew_widget').live('click', function () {
+            Add_New_Widget('@Model.Id');
+        });
+
+        $('#addnew_tab').live('click', function () {
+            Add_New_Widget('@Model.Id');
+        });
+
+        $('#btn_customize_layout').live('click', function () {
+            Customize_Dashboard_Layout('@Model.Id');
+        });
+
+        $('#btn_Update_Layout').live('click', function () {
+
+            var localStorageName = window.location.href;
+            localStorageName = localStorageName.split('?');
+            localStorageName = localStorageName[0];
+            localStorage.removeItem(localStorageName);
+
+            $("#frm_dashboard_layout").submit();
+        });
+
+        $('#btn_Reset_Layout').live('click', function () {
+
+            var localStorageName = window.location.href;
+            localStorageName = localStorageName.split('?');
+            localStorageName = localStorageName[0];
+            localStorage.removeItem(localStorageName);
+            window.location.href = document.URL;
+
+        });
+
+    });
+
+
+    function save_layout() {
+        var layout_data = _.map($('#gridstack .grid-stack-item:visible'), function (el) {
+            el = $(el);
+            var node = el.data('_gridstack_node');
+            return {
+                widget_id: el.attr('data-custom-id'),
+                widget_x: node.x,
+                widget_y: node.y,
+                widget_width: node.width,
+                widget_height: node.height
+            };
+        });
+        //console.log(JSON.stringify(layout_data));
+
+        //make the AJAX request with the given data from the `ajaxes` array of objects
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Save_Dashboard_Widget_Layout"))',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ dashboard_widget_layout: layout_data }),
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (serverResponse) {
+                alert("Save Layout Successful");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        });
+
+    }
+
+    function save_layout_home_page() {
+        var layout_data = _.map($('#gridstack .grid-stack-item:visible'), function (el) {
+            el = $(el);
+            var node = el.data('_gridstack_node');
+            return {
+                widget_id: el.attr('data-custom-id'),
+                widget_x: node.x,
+                widget_y: node.y,
+                widget_width: node.width,
+                widget_height: node.height
+            };
+        });
+        //console.log(JSON.stringify(layout_data));
+
+        //make the AJAX request with the given data from the `ajaxes` array of objects
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Save_Homepage_Widget_Layout"))',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ dashboard_widget_layout: layout_data }),
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            success: function (serverResponse) {
+                location.reload(true);
+                },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        });
+
+    }
+
+    function Save_Date_Time(l_start_date_time, l_end_date_time) {
+        if (typeof (Storage) !== 'undefined') {
+            localStorage.setItem("l_start_date", l_start_date_time);
+            localStorage.setItem("l_end_date", l_end_date_time);
+        }
+    }
+
+</script>
+

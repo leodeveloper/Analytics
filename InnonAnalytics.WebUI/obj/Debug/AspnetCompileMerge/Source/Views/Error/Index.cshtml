@@ -1,0 +1,40 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+   @*@if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+   {*@
+    <div>
+        <p>
+            @if (Model.Exception.InnerException != null)
+            {
+                <b>Error Message:- </b>@Model.Exception.InnerException.Message <br /> @Model.Exception.Message
+            }
+            else
+            {
+                <b>Error Message:- </b>@Model.Exception
+            }
+        </p>
+        @*<div style="overflow:scroll">
+                        <pre>
+            @Model.Exception.StackTrace
+                            </pre>
+                    </div>*@<div style="overflow:scroll">
+            <pre>
+            @Model.Exception.StackTrace
+                            </pre>
+        </div>
+    </div>
+   @*}*@
+</body>
+</html>

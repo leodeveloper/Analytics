@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InnonAnalyticsWarehouseModelStoreContainer" CdmEntityContainer="InnonAnalyticsWarehouseEntities">
+    <EntitySetMapping Name="Date_Dim">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Date_Dim">
+        <MappingFragment StoreEntitySet="Date_Dim">
+          <ScalarProperty Name="Year_ID" ColumnName="Year_ID" />
+          <ScalarProperty Name="Quarter_ID" ColumnName="Quarter_ID" />
+          <ScalarProperty Name="Month_ID" ColumnName="Month_ID" />
+          <ScalarProperty Name="Week_ID" ColumnName="Week_ID" />
+          <ScalarProperty Name="Date_ID" ColumnName="Date_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Agg_Year">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Agg_Year">
+        <MappingFragment StoreEntitySet="Point_Agg_Year">
+          <ScalarProperty Name="Year_Count" ColumnName="Year_Count" />
+          <ScalarProperty Name="Cum_Value" ColumnName="Cum_Value" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Sum_Value" ColumnName="Sum_Value" />
+          <ScalarProperty Name="Avg_Value" ColumnName="Avg_Value" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Year_ID" ColumnName="Year_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Agg_Day">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Agg_Day">
+        <MappingFragment StoreEntitySet="Point_Agg_Day">
+          <ScalarProperty Name="Day_Count" ColumnName="Day_Count" />
+          <ScalarProperty Name="Cum_Value" ColumnName="Cum_Value" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Sum_Value" ColumnName="Sum_Value" />
+          <ScalarProperty Name="Avg_Value" ColumnName="Avg_Value" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Date_ID" ColumnName="Date_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Agg_Hour">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Agg_Hour">
+        <MappingFragment StoreEntitySet="Point_Agg_Hour">
+          <ScalarProperty Name="Hour_Count" ColumnName="Hour_Count" />
+          <ScalarProperty Name="Cum_Value" ColumnName="Cum_Value" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Sum_Value" ColumnName="Sum_Value" />
+          <ScalarProperty Name="Avg_Value" ColumnName="Avg_Value" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Hour_ID" ColumnName="Hour_ID" />
+          <ScalarProperty Name="Date_ID" ColumnName="Date_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Agg_Month">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Agg_Month">
+        <MappingFragment StoreEntitySet="Point_Agg_Month">
+          <ScalarProperty Name="Month_Count" ColumnName="Month_Count" />
+          <ScalarProperty Name="Cum_Value" ColumnName="Cum_Value" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Sum_Value" ColumnName="Sum_Value" />
+          <ScalarProperty Name="Avg_Value" ColumnName="Avg_Value" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Month_ID" ColumnName="Month_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Agg_Week">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Agg_Week">
+        <MappingFragment StoreEntitySet="Point_Agg_Week">
+          <ScalarProperty Name="Week_Count" ColumnName="Week_Count" />
+          <ScalarProperty Name="Cum_Value" ColumnName="Cum_Value" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Sum_Value" ColumnName="Sum_Value" />
+          <ScalarProperty Name="Avg_Value" ColumnName="Avg_Value" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Week_ID" ColumnName="Week_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Dim">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Dim">
+        <MappingFragment StoreEntitySet="Point_Dim">
+          <ScalarProperty Name="Point" ColumnName="Point" />
+          <ScalarProperty Name="Custom_Tag_10" ColumnName="Custom_Tag_10" />
+          <ScalarProperty Name="Custom_Tag_9" ColumnName="Custom_Tag_9" />
+          <ScalarProperty Name="Custom_Tag_8" ColumnName="Custom_Tag_8" />
+          <ScalarProperty Name="Custom_Tag_7" ColumnName="Custom_Tag_7" />
+          <ScalarProperty Name="Custom_Tag_6" ColumnName="Custom_Tag_6" />
+          <ScalarProperty Name="Custom_Tag_5" ColumnName="Custom_Tag_5" />
+          <ScalarProperty Name="Custom_Tag_4" ColumnName="Custom_Tag_4" />
+          <ScalarProperty Name="Custom_Tag_3" ColumnName="Custom_Tag_3" />
+          <ScalarProperty Name="Custom_Tag_2" ColumnName="Custom_Tag_2" />
+          <ScalarProperty Name="Custom_Tag_1" ColumnName="Custom_Tag_1" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Zone" ColumnName="Zone" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Site_ID" ColumnName="Site_ID" />
+          <ScalarProperty Name="Equipment_ID" ColumnName="Equipment_ID" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Point_Measure_Fact">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.Point_Measure_Fact">
+        <MappingFragment StoreEntitySet="Point_Measure_Fact">
+          <ScalarProperty Name="Point_Status" ColumnName="Point_Status" />
+          <ScalarProperty Name="External_ID" ColumnName="External_ID" />
+          <ScalarProperty Name="Last_Update_Time" ColumnName="Last_Update_Time" />
+          <ScalarProperty Name="Raw_Value" ColumnName="Raw_Value" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Schedule_ID" ColumnName="Schedule_ID" />
+          <ScalarProperty Name="DataRecordingFrequency" ColumnName="DataRecordingFrequency" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Unit_Of_Measurement" ColumnName="Unit_Of_Measurement" />
+          <ScalarProperty Name="Hour_ID" ColumnName="Hour_ID" />
+          <ScalarProperty Name="Timestamp_To" ColumnName="Timestamp_To" />
+          <ScalarProperty Name="Timestamp_From" ColumnName="Timestamp_From" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Date_ID" ColumnName="Date_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FactsRestatementAudits">
+      <EntityTypeMapping TypeName="InnonAnalyticsWarehouseModel.FactsRestatementAudit">
+        <MappingFragment StoreEntitySet="FactsRestatementAudit">
+          <ScalarProperty Name="Updated_User_ID" ColumnName="Updated_User_ID" />
+          <ScalarProperty Name="Updated_Datetime" ColumnName="Updated_Datetime" />
+          <ScalarProperty Name="Send_To_DW" ColumnName="Send_To_DW" />
+          <ScalarProperty Name="New_Value" ColumnName="New_Value" />
+          <ScalarProperty Name="Old_Value" ColumnName="Old_Value" />
+          <ScalarProperty Name="Timestamp_To" ColumnName="Timestamp_To" />
+          <ScalarProperty Name="Timestamp_From" ColumnName="Timestamp_From" />
+          <ScalarProperty Name="Point_ID" ColumnName="Point_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

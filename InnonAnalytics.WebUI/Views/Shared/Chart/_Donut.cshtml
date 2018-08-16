@@ -1,0 +1,227 @@
+﻿
+@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+
+
+@if (Model.DonutDTO != null)
+{
+    <div class="energymaptab">
+
+
+        <div class="panel panel-default panel-with-tabs">
+            <div class="panel-heading p-0">
+                <div class="panel-heading-btn m-r-10 m-t-10">
+                    @if (Model.homepage_widgets != null)
+                    {
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="unPin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Remove')" data-original-title="unPin to home page"><i class="fa fa-thumb-tack"></i></a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" title="Pin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Add')" data-original-title="Pin to home page"><i class="fa fa-thumb-tack"></i></a>
+                    }
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                    <a href="#modal-dialog1" data-toggle="modal" id="Add_new_tab" onclick="Add_New_Tab('@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success" data-original-title="" title=""><i class="fa fa-plus"></i></a>
+                </div>
+                <!-- begin nav-tabs -->
+                <div class="tab-overflow">
+                    <ul class="nav nav-tabs">
+                        <li class="prev-button"><a href="javascript:;" data-click="prev-tab" class="text-success"><i class="fa fa-arrow-left"></i></a></li>
+                        @foreach (ChartDonutDTO donut in Model.DonutDTO)
+                        {
+                            if (Model.DonutDTO.First().Id == donut.Id)
+                            {
+
+                                <li class="active">
+                                    <a href="#nav-tab-@donut.Id" data-toggle="tab">@donut.Chart_Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class=""><a href="#nav-tab-@donut.Id" data-toggle="tab">@donut.Chart_Title</a></li>
+                            }
+                        }
+                        <li class="next-button"><a href="javascript:;" data-click="next-tab" class="text-success"><i class="fa fa-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                @foreach (ChartDonutDTO donut in Model.DonutDTO)
+                {
+                    var activeclass = "tab-pane fade";
+                    if (Model.DonutDTO.First().Id == donut.Id)
+                    {
+                        activeclass = "tab-pane fade active in";
+                    }
+                    <div class="@activeclass" id="nav-tab-@donut.Id">
+                        <div id="loading-bar-@donut.Id">please wait...</div>
+                        <div class="text-right">
+                            <a href="#modal-rawdata" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Raw Data" onclick="get_Raw_Data('@donut.Id', '@Model.Chart_Type', '@donut.Chart_Common_Property_DTO.From_Date', '@donut.Chart_Common_Property_DTO.To_Date')" data-original-title="Raw Data"><i class="fa fa-cloud-download"></i></a>
+                            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@donut.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+                            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Chart_Type', '@donut.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" onclick="Remove_Chart('@Model.Chart_Type','@donut.Id', '@Model.Dashboard_Id')"><i class="fa fa-times"></i></a>
+                        </div>
+
+
+
+                        <div id='@("Donutchart" + donut.Id)' style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                    @*    <div id='@("Donutchart_Footer" + donut.Id)' class="panel-footer">
+    <h4><span class="semi-bold">Out of Hours 342,200 kWh</span></h4>
+     <h4><span class="semi-bold">Core Hours 400,700 kWh </span></h4>
+                        </div>*@
+
+                        <div class="panel-footer">
+                            <span id="div_donut_timeline_@donut.Id"></span>:-
+                            <span id="div_donut_fromdate_@donut.Id"></span> -
+                            <span id="div_donut_todate_@donut.Id"></span>
+                            <span id="div_donut_none_@donut.Id"></span>
+                        </div>
+                        <script>
+
+                            $(function () {
+
+                                var common_properties;
+                                if ('@donut.Chart_Common_Property_DTO.Time_Line' !== '') {
+                                    common_properties = ChangeDates('@donut.Chart_Common_Property_DTO.Time_Line', '@donut.Chart_Common_Property_DTO.From_Date', '@donut.Chart_Common_Property_DTO.To_Date');
+                                }
+                                else {
+                                    common_properties = ChangeDates('None', '@donut.Chart_Common_Property_DTO.From_Date', '@donut.Chart_Common_Property_DTO.To_Date');
+                                }
+
+                                if (common_properties !== null) {
+                                    $("#div_donut_timeline_@donut.Id").html('@donut.Chart_Common_Property_DTO.Time_Line');
+                                    $("#div_donut_fromdate_@donut.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                                    $("#div_donut_todate_@donut.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+                                    //$("#gauge_fromdate").val(common_properties.startDateTime)
+                                    // $("#gauge_todate").val(common_properties.startDateTime)
+                                }
+                                else {
+                                    $("#div_donut_none_@donut.Id").html("Global Calender");
+                                }
+
+                                var donut_chart = new donut("@donut.Id", '@("Donutchart_Footer" + donut.Id)', "loading-bar-@donut.Id", '@("Donutchart" + donut.Id)', "@donut.Chart_Title", "@donut.Chart_Common_Property_DTO.Precision");
+                                list_of_donut.push(donut_chart);
+
+                            });
+                        </script>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+}
+
+<script>
+    function populate_donut_Chart(char_id, donutchart_footer_id, data, precision) {
+        $('#' + donutchart_footer_id).html('');
+        //Footer
+        //for (j = 0; j < data.length; j++)
+        //{
+        //    $('#' + donutchart_footer_id).append('<h4><span class="semi-bold">' + data[j].name + ' ' + data[j].y + ' kWh</span></h4>');
+        //}
+        //End Footer
+
+
+        var donut_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: char_id,
+                type: 'pie'
+            },
+
+            title: {
+                text: ''
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%']
+                }
+            },
+            title: {
+                text: '',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 50
+            },
+            tooltip: {
+                formatter: function () {
+                    // display only if larger than 1
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y.format(precision, 3, ',', '.') + this.point.unit_symbol : null;
+                }
+            },
+            series: [{
+                name: 'Value',
+                data: data,
+                size: '80%',
+                innerSize: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        // display only if larger than 1
+                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y.format(precision, 3, ',', '.') + this.point.unit_symbol : null;
+                    }
+                    // ,distance: -10 //label distance
+                },
+                showInLegend: true
+            }
+            ]
+
+        });
+        list_of_Charts.push(donut_chart);
+
+        //$('#' + char_id).highcharts({
+        //    chart: {
+        //        type: 'pie'
+        //    },
+        //    title: {
+        //        text: ''
+        //    },
+        //    yAxis: {
+        //        title: {
+        //            text: ''
+        //        }
+        //    },
+
+        //    plotOptions: {
+        //        pie: {
+        //            shadow: false,
+        //            center: ['50%', '50%']
+        //        }
+        //    },
+        //    title: {
+        //        text: '',
+        //        align: 'center',
+        //        verticalAlign: 'middle',
+        //        y: 50
+        //    },
+        //    tooltip: {
+        //        formatter: function () {
+        //            // display only if larger than 1
+        //            return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y.format(precision, 3, ',', '.') + this.point.unit_symbol : null;
+        //        }
+        //    },
+        //    series: [{
+        //        name: 'Value',
+        //        data: data,
+        //        size: '80%',
+        //        innerSize: '60%',
+        //        dataLabels: {
+        //            formatter: function () {
+        //                // display only if larger than 1
+        //                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y.format(precision, 3, ',', '.') + this.point.unit_symbol : null;
+        //            }
+        //           // ,distance: -10 //label distance
+        //        },
+        //        showInLegend: true
+        //    }
+        //    ]
+        //});
+    }
+</script>

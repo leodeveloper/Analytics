@@ -1,0 +1,95 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+<div class="panel panel-inverse" id="@Model.Id" data-sortable-id="index-@Model.Id">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>*@
+            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@Model.PieDTO.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+            <a href="#modal-dialog1" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-default" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" data-click="panel-widget-edit-option"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title">@Model.Widget_Title</h4>
+    </div>
+
+    <div class="panel-body">
+        <div id="loading-bar-@Model.PieDTO.Id"></div>
+        <div id='@("piechart" + Model.PieDTO.Id)' style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <div class="panel-footer">
+        <span id="div_pie_timeline_@Model.PieDTO.Id"></span>:-
+        <span id="div_pie_fromdate_@Model.PieDTO.Id"></span> -
+        <span id="div_pie_todate_@Model.PieDTO.Id"></span>
+        <span id="div_pie_none_@Model.PieDTO.Id"></span>
+    </div>
+    <script>
+
+    $(function () {
+
+        var common_properties;
+        if ('@Model.PieDTO.Chart_Common_Property_DTO.Time_Line' !== '') {
+            common_properties = ChangeDates('@Model.PieDTO.Chart_Common_Property_DTO.Time_Line', '@Model.PieDTO.Chart_Common_Property_DTO.From_Date', '@Model.PieDTO.Chart_Common_Property_DTO.To_Date');
+        }
+        else {
+            common_properties = ChangeDates('None', '@Model.PieDTO.Chart_Common_Property_DTO.From_Date', '@Model.PieDTO.Chart_Common_Property_DTO.To_Date');
+        }
+
+        if (common_properties !== null) {
+            $("#div_pie_timeline_@Model.PieDTO.Id").html('@Model.PieDTO.Chart_Common_Property_DTO.Time_Line');
+            $("#div_pie_fromdate_@Model.PieDTO.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+            $("#div_pie_todate_@Model.PieDTO.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+        }
+        else {
+            $("#div_pie_none_@Model.PieDTO.Id").html("Global Calender");
+        }
+
+        var pie_chart = new pie("@Model.PieDTO.Id", "loading-bar-@Model.PieDTO.Id", '@("piechart" + Model.PieDTO.Id)', "@Model.PieDTO.Chart_Title");
+        list_of_pie.push(pie_chart);
+
+});
+
+            function populate_Pie_Chart(char_id, data)
+            {
+                $('#' + char_id).highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "",
+                        colorByPoint: true,
+                        data: data
+                    }]
+                });
+
+
+            }
+
+
+
+    </script>
+</div>

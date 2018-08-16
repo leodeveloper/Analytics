@@ -1,0 +1,51 @@
+﻿
+@using Resources;
+@model InnonAnalytics.Model.DTO.LivePoint_DTO
+
+@using (Ajax.BeginForm("DataConnection_TestConnection", "DataConnection", null, new { @class = "form-horizontal", @id = "frmConnection", role = "form", enctype = "multipart/form-data" }))
+{
+
+    <!--Partial view does not need the antiforgeytoken, it is in the parent page-->
+    <div id="loading-indicator" style="display:none;" role="alert"></div>
+    <table id="tblPoint" style="width:100%">
+        <tr>
+            <th>Set Live Point Value</th>
+        </tr>
+        <tr>
+            <td>Value</td>
+            <td>
+                <div id="decimal_value" >
+                    @Html.Kendo().NumericTextBoxFor(m => m.Current_Value.dValue)
+                </div>
+
+                <div id="bool_value" >
+                    @( Html.Kendo().DropDownListFor(m => m.Current_Value.bValue)
+        .DataTextField("Text")
+        .DataValueField("Value")
+    //     .ValuePrimitive(false)
+    .OptionLabel(new { Text = @Resources.DropDownConnectorSelect, Value = 0 })
+       .HtmlAttributes(new { data_value_primitive = "false" }).BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "True",
+                  Value = "true"
+              },
+              new SelectListItem() {
+                  Text = "False",
+                  Value = "false"
+              }
+          })
+                    )
+
+                </div>
+
+                
+
+               
+
+            </td>
+        </tr>
+    </table>
+}
+
+
+

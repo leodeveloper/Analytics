@@ -1,0 +1,78 @@
+﻿
+<script src="@Url.Content("~/Scripts/application/dashboard_live_point.js")" type="text/javascript"></script>
+<h1 >@Resources.Resources.LivePoint_Heading</h1>
+@(Html.Kendo().Grid<InnonAnalytics.Model.DTO.LivePoint_DTO>()
+                  .Name("livepoint_grid")
+           .ColumnMenu(c => c.Enabled(true)).Columns(
+        columns =>
+        {
+            columns.Bound(datacolumn => datacolumn.Element_Parent_Child.Site_Name).Title("Client Name");
+            columns.Bound(datacolumn => datacolumn.Element_Parent_Child.Equip_Name).Title("Site Name");
+            columns.Bound(datacolumn => datacolumn.Address);
+            columns.Bound(datacolumn => datacolumn.Element_Parent_Child.Element_Name).Title("Point Name");
+            columns.Bound(datacolumn => datacolumn.Live_Value).Title("Live");
+            columns.Bound(datacolumn => datacolumn.Unit.Unit_Symbol).Title("Unit");
+            columns.Bound(datacolumn => datacolumn.Last_Comment.Comment).ClientTemplate(// this model define in the _layout.cshtml and getNotes function define in the note.js
+                    "<a href='\\#modal-notes' data-toggle=\"modal\" class=\"text-warning\" onclick=\"getNotes('#:Point_Id#', 'tblElement');return false;\" > #:Last_Comment.Comment#</a>");
+            columns.Bound(datacolumn => datacolumn.Last_Changes).ClientTemplate(// this model define in the _layout.cshtml and getAudit function define in the audit.js
+                        "<a href='\\#modal-audit' data-toggle=\"modal\" class=\"text-danger\" onclick=\"getAudit('#:Point_Id#');return false;\" > #:Last_Changes#</a>"
+                    );
+            columns.Bound(datacolumn => datacolumn.Last_Updated).Title("Updated");
+            columns.Bound(datacolumn => datacolumn.Error_Info).Title("Status").ClientTemplate(
+                "#if(Error_Info != null){#" +
+                    "<label class=\"label label-danger\">#:Error_Info.ErrorInfo# </label> " +
+                " #}#"
+
+                );
+            columns.Command(commands =>
+            {
+                commands.Edit().Text("Edit").HtmlAttributes(new { @title = "Edit", @width = "500px" }).UpdateText("Update");
+            }).Title("").Width("200px");
+        }
+           ).ToolBar(toolbar => { toolbar.Excel(); })
+           .Excel(excel => excel.FileName("livepoints.xlsx").Filterable(true).ProxyURL(Url.Action("ExportExcel", "Home")).AllPages(true))
+             // .Pdf(pdf => pdf.FileName("PointList.pdf").ProxyURL(Url.Action("ExportPdf", "Home")))
+             .Editable(editable => { editable.Mode(GridEditMode.PopUp).CreateAt(GridInsertRowPosition.Top).TemplateName("_SetLivePoint_Value"); })
+          .Pageable(t => t.ButtonCount(2)) // Enable paging
+          .Sortable() // Enable sorting
+          .Filterable() //Enable filter
+          .Groupable()
+          .Selectable(t => t.Mode(GridSelectionMode.Single))
+            .Events(events => { events.Edit("onEditLivePoint"); events.DataBound("onEditLiveDataBound"); })
+          .DataSource(dataSource => dataSource
+            .Ajax().ServerOperation(false).PageSize(25)
+            .Model(model => model.Id(p => p.Point_Id))
+            .Read(read => { read.Action("GetLivePointsForGrid", "DashBoard"); })
+            .Update(update => { update.Action("UpdateLive_Value", "DashBoard"); }).Events(requestevent => requestevent.RequestEnd("onLivePointUpdateRequestEnd").Error("onRequestError"))
+        )
+//.Events(events => { events.Edit("OnSelect");  })
+)
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+
+
+
+
+@*onclick="CheckBoxClick('#: ElementSourceID#')"*@
+@*<script id="Livepoint_template" type="text/x-kendo-template">
+
+    #if (Data_Type == 'bool')  { #
+        <select name='boolseletedIds' >
+            <option value='true' >true</option>
+            <option value='false'>false</option>
+        </select>
+    # } else if  (Data_Type == 'real'){ #
+        <input name='selectedIds' class='chkb' id='#: Point_Id#' value='#: Current_Value#' type='text' />
+    #} else if  (Data_Type == 'enum'){#
+        <select name='enumseletedIds'>
+            <option value='0'>AUTO</option>
+            <option value='1'>ON</option>
+            <option value='2'>OFF</option>
+        </select>
+    #}#
+
+</script>*@

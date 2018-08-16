@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9eaa9cc97eed4f609d3e5e598fdbd844" Name="Diagram1">
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AspNetRole" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AspNetUser" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Attribute" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AttributeType" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AttributeTypeElementType" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.AttributeTypeValue" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Company" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Country" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.DataSourceElement" Width="1.5" PointX="7.5" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.DataSourceType" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.DBLog" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Description" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Element" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.ElementType" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Formula" Width="1.5" PointX="7.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.FormulaItem" Width="1.5" PointX="9.75" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Language" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.LanguageDescription" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.Menu" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.ScheduleHour" Width="1.5" PointX="7.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.SelectionRole" Width="1.5" PointX="5.25" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.SelectionType" Width="1.5" PointX="3" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.SelectionTypeValue" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.sysdiagram" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalytics_Model.DATASCHEMA" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Attribute_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Attribute_ElementType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_AttributeType_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_AttributeTypeElementType_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_AttributeTypeValue_AttributeType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_AttributeTypeElementType_ElementType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Company_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Company_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_DataSourceElement_DataSourceType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_DataSourceElement_Element" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Element_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_ElementType_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_LanguageDescription_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Menu_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_SelectionType_Description" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Element_ElementType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Formula_SelectionTypeValue" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_FormulaItem_Formula" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_FormulaItem_SelectionTypeValue" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_LanguageDescription_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_Menu_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_ScheduleHour_SelectionTypeValue" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_SelectionRole_SelectionType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.FK_SelectionTypeValue_SelectionType" ManuallyRouted="false" />
+        <AssociationConnector Association="InnonAnalytics_Model.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

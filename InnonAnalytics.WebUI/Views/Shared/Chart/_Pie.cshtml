@@ -1,0 +1,210 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+
+@if (Model.PieDTO != null)
+{
+    <div class="energymaptab">
+
+
+        <div class="panel panel-default panel-with-tabs">
+            <div class="panel-heading p-0">
+                <div class="panel-heading-btn m-r-10 m-t-10">
+                    @if (Model.homepage_widgets != null)
+                    {
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="unPin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Remove')" data-original-title="unPin to home page"><i class="fa fa-thumb-tack"></i></a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" title="Pin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Add')" data-original-title="Pin to home page"><i class="fa fa-thumb-tack"></i></a>
+                    }
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                    <a href="#modal-dialog1" data-toggle="modal" id="Add_new_tab" onclick="Add_New_Tab('@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success" data-original-title="" title=""><i class="fa fa-plus"></i></a>
+                </div>
+                <!-- begin nav-tabs -->
+                <div class="tab-overflow">
+                    <ul class="nav nav-tabs">
+                        <li class="prev-button"><a href="javascript:;" data-click="prev-tab" class="text-success"><i class="fa fa-arrow-left"></i></a></li>
+                        @foreach (ChartPieDTO pie in Model.PieDTO)
+                        {
+                            if (Model.PieDTO.First().Id == pie.Id)
+                            {
+
+                                <li class="active">
+                                    <a href="#nav-tab-@pie.Id" data-toggle="tab">@pie.Chart_Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class=""><a href="#nav-tab-@pie.Id" data-toggle="tab">@pie.Chart_Title</a></li>
+                            }
+                        }
+                        <li class="next-button"><a href="javascript:;" data-click="next-tab" class="text-success"><i class="fa fa-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                @foreach (ChartPieDTO pie in Model.PieDTO)
+                {
+                    var activeclass = "tab-pane fade";
+                    if (Model.PieDTO.First().Id == pie.Id)
+                    {
+                        activeclass = "tab-pane fade active in";
+                    }
+                    <div class="@activeclass" id="nav-tab-@pie.Id">
+                        <div id="loading-bar-@pie.Id">please wait...</div>
+                        <div class="text-right">
+                            <a href="#modal-rawdata" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Raw Data" onclick="get_Raw_Data('@pie.Id', '@Model.Chart_Type', '@pie.Chart_Common_Property_DTO.From_Date', '@pie.Chart_Common_Property_DTO.To_Date')" data-original-title="Raw Data"><i class="fa fa-cloud-download"></i></a>
+                            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@pie.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+                            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Chart_Type', '@pie.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" onclick="Remove_Chart('@Model.Chart_Type','@pie.Id', '@Model.Dashboard_Id')"><i class="fa fa-times"></i></a>
+                        </div>
+
+                        <div id='@("piechart" + pie.Id)' style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+                        <div class="panel-footer">
+                            <span id="div_pie_timeline_@pie.Id"></span>:-
+                            <span id="div_pie_fromdate_@pie.Id"></span> -
+                            <span id="div_pie_todate_@pie.Id"></span>
+                            <span id="div_pie_none_@pie.Id"></span>
+                        </div>
+                        <script>
+
+                            $(function () {
+
+                                var common_properties;
+                                if ('@pie.Chart_Common_Property_DTO.Time_Line' !== '') {
+                                    common_properties = ChangeDates('@pie.Chart_Common_Property_DTO.Time_Line', '@pie.Chart_Common_Property_DTO.From_Date', '@pie.Chart_Common_Property_DTO.To_Date');
+                                }
+                                else {
+                                    common_properties = ChangeDates('None', '@pie.Chart_Common_Property_DTO.From_Date', '@pie.Chart_Common_Property_DTO.To_Date');
+                                }
+
+                                if (common_properties !== null) {
+                                    $("#div_pie_timeline_@pie.Id").html('@pie.Chart_Common_Property_DTO.Time_Line');
+                                    $("#div_pie_fromdate_@pie.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                                    $("#div_pie_todate_@pie.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+                                }
+                                else {
+                                    $("#div_pie_none_@pie.Id").html("Global Calender");
+                                }
+
+                                var pie_chart = new pie("@pie.Id", "loading-bar-@pie.Id", '@("piechart" + pie.Id)', "@pie.Chart_Title", "@pie.Chart_Common_Property_DTO.Precision");
+                                list_of_pie.push(pie_chart);
+
+                            });
+
+
+
+
+
+                        </script>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function populate_Pie_Chart(char_id, data, precision) {
+
+
+        var pie_chart = new Highcharts.Chart({
+            chart: {
+                renderTo: char_id,
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                //pointFormat: '{series.name}: <b>{point.percentage:,.1f} {point.unit_symbol}</b>'
+
+                formatter: function () {
+                    // display only if larger than 1
+                    return '<b>' + this.point.name + ':</b> ' + this.point.percentage.format(precision, 3, ',', '.') + this.point.unit_symbol;
+                }
+
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        distance: 60,
+                        //format: '<b>{point.name}</b>: {point.percentage:,.1f} {point.unit_symbol}',
+                        formatter: function () {
+                            // display only if larger than 1
+                            return '<b>' + this.point.name + ':</b> ' + this.point.percentage.format(precision, 3, ',', '.') + this.point.unit_symbol;
+                        },
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }, showInLegend: true
+                }
+            },
+            series: [{
+                name: "",
+                colorByPoint: true,
+                data: data
+            }]
+        });
+        list_of_Charts.push(pie_chart);
+
+        //$('#' + char_id).highcharts({
+        //    chart: {
+        //        plotBackgroundColor: null,
+        //        plotBorderWidth: null,
+        //        plotShadow: false,
+        //        type: 'pie'
+        //    },
+        //    title: {
+        //        text: ''
+        //    },
+        //    tooltip: {
+        //        //pointFormat: '{series.name}: <b>{point.percentage:,.1f} {point.unit_symbol}</b>'
+
+        //        formatter: function () {
+        //            // display only if larger than 1
+        //            return '<b>' + this.point.name + ':</b> ' + this.point.percentage.format(precision, 3, ',', '.') + this.point.unit_symbol;
+        //}
+
+        //    },
+        //    plotOptions: {
+        //        pie: {
+        //            allowPointSelect: true,
+        //            cursor: 'pointer',
+        //            dataLabels: {
+        //                enabled: true,
+        //                distance: 60,
+        //                //format: '<b>{point.name}</b>: {point.percentage:,.1f} {point.unit_symbol}',
+        //                formatter: function () {
+        //                    // display only if larger than 1
+        //                    return '<b>' + this.point.name + ':</b> ' + this.point.percentage.format(precision, 3, ',', '.') + this.point.unit_symbol;
+        //                },
+        //                style: {
+        //                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        //                }
+        //            }, showInLegend: true
+        //        }
+        //    },
+        //    series: [{
+        //        name: "",
+        //        colorByPoint: true,
+        //        data: data
+        //    }]
+        //});
+
+
+    }
+</script>
+
+
+

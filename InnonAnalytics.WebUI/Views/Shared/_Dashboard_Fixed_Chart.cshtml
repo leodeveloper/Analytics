@@ -1,0 +1,708 @@
+﻿@{
+    //ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1600">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Energy Last Day</h4>
+            </div>
+            <div class="panel-body">
+                
+                <div id="donut_chart_1" style="width: 100%; height: auto; margin: 0 auto"></div>
+                <script>
+                    $(function () {
+
+                        var colors = Highcharts.getOptions().colors,
+                            categories = ['MSIE', 'Firefox'],
+                            data = [{
+                               // y: 54.07,
+                                color: colors[0],
+                                drilldown: {
+                                    name: 'Out of Hours',
+                                    categories: ['Out of Hours'],
+                                    data: [342200],
+                                    color: colors[0]
+                                }
+                            }, {
+                                // y: 54.07,
+                                color: colors[1],
+                                drilldown: {
+                                    name: 'Core Hours',
+                                    categories: ['Core Hours'],
+                                    data: [400700],
+                                    color: colors[1]
+                                }
+                            }],
+                            browserData = [],
+                            versionsData = [],
+                            i,
+                            j,
+                            dataLen = data.length,
+                            drillDataLen,
+                            brightness;
+
+
+                        // Build the data arrays
+                        for (i = 0; i < dataLen; i += 1) {
+
+                            // add browser data
+                            browserData.push({
+                                name: categories[i],
+                                y: data[i].y,
+                                color: data[i].color
+                            });
+
+                            // add version data
+                            drillDataLen = data[i].drilldown.data.length;
+                            for (j = 0; j < drillDataLen; j += 1) {
+                                brightness = 0.2 - (j / drillDataLen) / 5;
+                                versionsData.push({
+                                    name: data[i].drilldown.categories[j],
+                                    y: data[i].drilldown.data[j],
+                                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                                });
+                            }
+                        }
+
+                        console.log(browserData);
+                        console.log(versionsData);
+
+                        // Create the chart
+                        $('#donut_chart_1').highcharts({
+                            chart: {
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Browser market share, April, 2011'
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Total percent market share'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    shadow: false,
+                                    center: ['50%', '50%']
+                                }
+                            },
+                            title: {
+                                text: '650kWh<br/>Peak',
+                                align: 'center',
+                                verticalAlign: 'middle',
+                                y: 50
+                            },
+                            tooltip: {
+                                valueSuffix: 'kWh'
+                            }
+                            ,
+                            series: [{
+                                name: 'Browsers',
+                                data: browserData,
+                                size: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        return this.y > 5 ? this.point.name : null;
+                                    },
+                                    color: 'white',
+                                    distance: -30
+                                }
+                            }
+                            , {
+                                name: 'Kilo watt hour',
+                                data: versionsData,
+                                size: '80%',
+                                innerSize: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        // display only if larger than 1
+                                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + 'kWh' : null;
+                                    }
+                                    ,
+                                    distance: -10 //label distance
+                                }
+                            }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Out of Hours 342,200 kWh</span></h4>
+                <h4><span class="semi-bold">Core Hours 400,700 kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Energy Last Day</h4>
+            </div>
+            <div class="panel-body">
+
+                <div id="donut_chart_2" style="width: 100%; height: auto; margin: 0 auto"></div>
+                <script>
+                    $(function () {
+
+                        var colors = Highcharts.getOptions().colors,
+                            categories = ['MSIE', 'Firefox'],
+                            data = [{
+                                //y: 54.07,
+                                color: colors[0],
+                                drilldown: {
+                                    name: 'Out of Hours',
+                                    categories: ['Out of Hours'],
+                                    data: [342200],
+                                    color: colors[0]
+                                }
+                            }, {
+                                // y: 54.07,
+                                color: colors[1],
+                                drilldown: {
+                                    name: 'Core Hours',
+                                    categories: ['Core Hours'],
+                                    data: [400700],
+                                    color: colors[1]
+                                }
+                            }],
+                            browserData = [],
+                            versionsData = [],
+                            i,
+                            j,
+                            dataLen = data.length,
+                            drillDataLen,
+                            brightness;
+
+
+                        // Build the data arrays
+                        for (i = 0; i < dataLen; i += 1) {
+
+                            // add browser data
+                            browserData.push({
+                                name: categories[i],
+                                y: data[i].y,
+                                color: data[i].color
+                            });
+
+                            // add version data
+                            drillDataLen = data[i].drilldown.data.length;
+                            for (j = 0; j < drillDataLen; j += 1) {
+                                brightness = 0.2 - (j / drillDataLen) / 5;
+                                versionsData.push({
+                                    name: data[i].drilldown.categories[j],
+                                    y: data[i].drilldown.data[j],
+                                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                                });
+                            }
+                        }
+
+                        // Create the chart
+                        $('#donut_chart_2').highcharts({
+                            chart: {
+                                type: 'pie'
+                            },
+                            //title: {
+                            //    text: 'Browser market share, April, 2011'
+                            //},
+                            yAxis: {
+                                title: {
+                                    text: 'Total percent market share'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    shadow: false,
+                                    center: ['50%', '50%']
+                                }
+                            },
+                            title: {
+                                text: '650kWh<br/>Peak',
+                                align: 'center',
+                                verticalAlign: 'middle',
+                                y: 50
+                            },
+                            tooltip: {
+                                valueSuffix: 'kWh'
+                            }
+                            ,
+                            series: [{
+                                name: 'Browsers',
+                                data: browserData,
+                                size: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        return this.y > 5 ? this.point.name : null;
+                                    },
+                                    color: 'white',
+                                    distance: -30
+                                }
+                            }
+                            , {
+                                name: 'Kilo watt hour',
+                                data: versionsData,
+                                size: '80%',
+                                innerSize: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        // display only if larger than 1
+                                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + 'kWh' : null;
+                                    }
+                                    ,
+                                    distance: -10 //label distance
+                                }
+                            }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Out of Hours 342,200 kWh</span></h4>
+                <h4><span class="semi-bold">Core Hours 400,700 kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Energy Last Month</h4>
+            </div>
+            <div class="panel-body">
+
+                <div id="donut_chart_3" style="width: 100%; height: auto; margin: 0 auto"></div>
+                <script>
+                    $(function () {
+
+                        var colors = Highcharts.getOptions().colors,
+                            categories = ['MSIE', 'Firefox'],
+                            data = [{
+                                //y: 54.07,
+                                color: colors[0],
+                                drilldown: {
+                                    name: 'Out of Hours',
+                                    categories: ['Out of Hours'],
+                                    data: [342200],
+                                    color: colors[0]
+                                }
+                            }, {
+                                // y: 54.07,
+                                color: colors[1],
+                                drilldown: {
+                                    name: 'Core Hours',
+                                    categories: ['Core Hours'],
+                                    data: [400700],
+                                    color: colors[1]
+                                }
+                            }],
+                            browserData = [],
+                            versionsData = [],
+                            i,
+                            j,
+                            dataLen = data.length,
+                            drillDataLen,
+                            brightness;
+
+
+                        // Build the data arrays
+                        for (i = 0; i < dataLen; i += 1) {
+
+                            // add browser data
+                            browserData.push({
+                                name: categories[i],
+                                y: data[i].y,
+                                color: data[i].color
+                            });
+
+                            // add version data
+                            drillDataLen = data[i].drilldown.data.length;
+                            for (j = 0; j < drillDataLen; j += 1) {
+                                brightness = 0.2 - (j / drillDataLen) / 5;
+                                versionsData.push({
+                                    name: data[i].drilldown.categories[j],
+                                    y: data[i].drilldown.data[j],
+                                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                                });
+                            }
+                        }
+
+                        // Create the chart
+                        $('#donut_chart_3').highcharts({
+                            chart: {
+                                type: 'pie'
+                            },
+                            //title: {
+                            //    text: 'Browser market share, April, 2011'
+                            //},
+                            yAxis: {
+                                title: {
+                                    text: 'Total percent market share'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    shadow: false,
+                                    center: ['50%', '50%']
+                                }
+                            },
+                            title: {
+                                text: '650kWh<br/>Peak',
+                                align: 'center',
+                                verticalAlign: 'middle',
+                                y: 50
+                            },
+                            tooltip: {
+                                valueSuffix: 'kWh'
+                            }
+                            ,
+                            series: [{
+                                name: 'Browsers',
+                                data: browserData,
+                                size: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        return this.y > 5 ? this.point.name : null;
+                                    },
+                                    color: 'white',
+                                    distance: -30
+                                }
+                            }
+                            , {
+                                name: 'Kilo watt hour',
+                                data: versionsData,
+                                size: '80%',
+                                innerSize: '60%',
+                                dataLabels: {
+                                    formatter: function () {
+                                        // display only if larger than 1
+                                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + 'kWh' : null;
+                                    }
+                                    ,
+                                    distance: -10 //label distance
+                                }
+                            }
+                            ]
+                        });
+                    });
+                </script>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Out of Hours 342,200 kWh</span></h4>
+                <h4><span class="semi-bold">Core Hours 400,700 kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1609">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Total Energy Delivered vs Target</h4>
+            </div>
+            <div class="panel-body">
+              
+             
+
+                <div id="bar_chart1" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+                <script>
+                    $(function () {
+                        $('#bar_chart1').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Efficiency Optimization by Branch'
+                            },
+                            xAxis: {
+                                categories: [
+                                    'Jan 2015',
+                                    'Feb 2015',
+                                    'Mar 2015'
+                                ]
+                            },
+                            yAxis: [{
+                                min: 0,
+                                title: {
+                                    text: 'Energy'
+                                }
+                            }, {
+                                title: {
+                                    text: 'Consumption '
+                                },
+                                opposite: true
+                            }],
+                            legend: {
+                                shadow: false
+                            },
+                            tooltip: {
+                                shared: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    grouping: false,
+                                    shadow: false,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Target',
+                                color: '#B6E0AF',
+                                data: [150, 73, 20,135],
+                                pointPadding: 0.3,
+                                pointPlacement: -0.2
+                            }, {
+                                name: 'Total Energy Delivered',
+                                color: '#63BC4C',
+                                data: [140, 90, 40, 140],
+                                pointPadding: 0.4,
+                                pointPlacement: -0.2
+                            }]
+                        });
+                    });
+                </script>
+
+            </div>
+
+        </div>
+        <!-- end panel -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1609">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Electricity by system</h4>
+            </div>
+            <div class="panel-body">
+
+
+
+                <div id="stacked-chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+                <script>
+                    $(function () {
+                        $('#stacked-chart').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Stacked column chart'
+                            },
+                            xAxis: {
+                                categories: ['Jan 2015', 'Feb 2015', 'March 2015', 'April 2015', 'May 2015']
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Total Electricity consumption'
+                                },
+                                stackLabels: {
+                                    enabled: true,
+                                    style: {
+                                        fontWeight: 'bold',
+                                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                    }
+                                }
+                            },
+                            legend: {
+                                align: 'right',
+                                x: -30,
+                                verticalAlign: 'top',
+                                y: 25,
+                                floating: true,
+                                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                                borderColor: '#CCC',
+                                borderWidth: 1,
+                                shadow: false
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    return '<b>' + this.x + '</b><br/>' +
+                                        this.series.name + ': ' + this.y + '<br/>' +
+                                        'Total: ' + this.point.stackTotal;
+                                }
+                            },
+                            plotOptions: {
+                                column: {
+                                    stacking: 'normal',
+                                    dataLabels: {
+                                        enabled: true,
+                                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                                        style: {
+                                            textShadow: '0 0 3px black'
+                                        }
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'lighting',
+                                data: [5, 3, 4, 7, 2]
+                            }, {
+                                name: 'Small Power',
+                                data: [2, 2, 3, 2, 1]
+                            }, {
+                                name: 'Electrical Equipment',
+                                data: [3, 4, 4, 2, 5]
+                            }]
+                        });
+                    });
+                </script>
+
+            </div>
+
+        </div>
+        <!-- end panel -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1609">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Electricity Actaul vs Target by system</h4>
+            </div>
+            <div class="panel-body">
+
+
+
+                <div id="bar_chart2" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+                <script>
+                    $(function () {
+                        $('#bar_chart2').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: [
+                                    'Lighting,Small Power,Medical Equipment'
+                                ]
+                            },
+                            yAxis: [{
+                                min: 0,
+                                title: {
+                                    text: 'kWh'
+                                }
+                            }, {
+                                title: {
+                                    text: 'Consumption '
+                                },
+                                opposite: true
+                            }],
+                            legend: {
+                                shadow: false
+                            },
+                            tooltip: {
+                                shared: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    grouping: false,
+                                    shadow: false,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Lighting',
+                                color: 'rgba(165,170,217,1)',
+                                data: [150],
+                                pointPadding: 0.3,
+                                pointPlacement: -0.2,
+                                yAxis: 1
+                            }, {
+                                name: 'Lighting Target',
+                                color: 'rgba(126,86,134,.9)',
+                                data: [140],
+                                pointPadding: 0.4,
+                                pointPlacement: -0.2,
+                                yAxis: 1
+                            }, {
+                                name: 'Small Power',
+                                color: 'rgba(248,161,63,1)',
+                                data: [183.6],
+                                tooltip: {
+                                    valuePrefix: '',
+                                    valueSuffix: ' M'
+                                },
+                                pointPadding: 0.3,
+                                pointPlacement: 0.2,
+                                yAxis: 1
+                            }, {
+                                name: 'Small Power Target',
+                                color: 'rgba(186,60,61,.9)',
+                                data: [203.6],
+                                tooltip: {
+                                    valuePrefix: '',
+                                    valueSuffix: ' M'
+                                },
+                                pointPadding: 0.4,
+                                pointPlacement: 0.2,
+                                yAxis: 1
+                            }]
+                        });
+                    });
+                </script>
+
+            </div>
+
+        </div>
+        <!-- end panel -->
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model IList<InnonAnalytics.Model.DTO.Note_DTO>
+
+<div id="content" class="content" style="margin-left:45px;" >
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right"></ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Notes Timeline <small></small></h1>
+    <!-- end page-header -->
+    <!-- begin timeline -->
+    <ul class="timeline">
+
+        <li>
+            <!-- begin timeline-time -->
+            <div class="timeline-time">
+                <span class="date">@System.DateTime.Now.ToShortDateString()</span>
+                <span class="time">@System.DateTime.Now.ToShortTimeString()</span>
+            </div>
+            <!-- end timeline-time -->
+            <!-- begin timeline-icon -->
+            <div class="timeline-icon">
+                <a href="javascript:;"><i class="fa fa-edit"></i></a>
+            </div>
+            <!-- end timeline-icon -->
+            <!-- begin timeline-body -->
+            <div class="timeline-body">
+                <div class="timeline-header">
+                    <span class="userimage"><img src="../Content/assets/img/user-6.jpg" alt=""></span>
+                    <span class="username"> @User.Identity.Name </span>
+                    @*<span class="pull-right text-muted">1,282 Views</span>*@
+                </div>
+
+                    <div class="timeline-content">
+                        <p class="lead">
+                            <i class="fa fa-fw pull-left"></i>
+                            <textarea class="form-control" id="notes" placeholder="write note here" rows="5"></textarea>
+                            <i class="fa fa-fw pull-right"></i>
+                        </p>
+                    </div>
+                    <div class="timeline-footer">
+                        @*<a href="javascript:;" class="m-r-15"><i class="fa fa-thumbs-up fa-fw"></i> Like</a>*@
+                        <a onclick="SaveComments()" href="javascript:;" ><i class="fa fa-comments fa-fw"></i> Save Note</a>
+                    </div>
+                
+            </div>
+            <!-- end timeline-body -->
+        </li>
+
+        @foreach (var note in Model)
+        {
+            <li>
+                <!-- begin timeline-time -->
+                <div class="timeline-time">
+                    <span class="date">@note.Last_Updated.ToShortDateString()</span>
+                    <span class="time">@note.Last_Updated.ToShortTimeString()</span>
+                </div>
+                <!-- end timeline-time -->
+                <!-- begin timeline-icon -->
+                <div class="timeline-icon">
+                    <a href="javascript:;"><i class="fa fa-edit"></i></a>
+                </div>
+                <!-- end timeline-icon -->
+                <!-- begin timeline-body -->
+                <div class="timeline-body">
+                    <div class="timeline-header">
+                        <span class="userimage"><img src="../Content/assets/img/user-6.jpg" alt=""></span>
+                        <span class="username">@note.User_Id</span>
+                        @*<span class="pull-right text-muted">1,282 Views</span>*@
+                    </div>
+                    <div class="timeline-content">
+                        <p class="lead">
+                            <i class="fa fa-fw pull-left"></i>
+                            @note.Comments
+                            <i class="fa fa-fw pull-right"></i>
+                        </p>
+                    </div>
+                    <div class="timeline-footer">
+                        @*<a href="javascript:;" class="m-r-15"><i class="fa fa-thumbs-up fa-fw"></i> Like</a>
+                            <a href="javascript:;"><i class="fa fa-comments fa-fw"></i> Comment</a>*@
+                    </div>
+                </div>
+                <!-- end timeline-body -->
+            </li>
+        }
+    </ul>
+    <!-- end timeline -->
+</div>

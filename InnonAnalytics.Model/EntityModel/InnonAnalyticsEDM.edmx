@@ -1,0 +1,1916 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InnonAnalytics_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElementID_FK" Type="int" Nullable="false" />
+          <Property Name="AttributeValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+          <Property Name="AttributeTypeID_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AttributeType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+          <Property Name="ValueType" Type="smallint" Nullable="false" />
+          <Property Name="DataType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DefaultValue" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AttributeTypeElementType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttributeTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AttributeTypeValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttributeValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+          <Property Name="AttributeTypeID_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="AddressLine2" Type="varchar" MaxLength="75" />
+          <Property Name="Postcode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="35" />
+          <Property Name="Disable" Type="bit" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="DateOfRegistration" Type="datetime" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="CountryID_FK" Type="int" Nullable="false" />
+          <Property Name="ProfilePic" Type="varchar" MaxLength="75" />
+          <Property Name="ColorScheme" Type="varchar" MaxLength="15" />
+          <Property Name="Header" Type="varchar" MaxLength="50" />
+          <Property Name="Footer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'InnonAnalytics_Dev.dbo.DATASCHEMA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DATASCHEMA">
+          <Key>
+            <PropertyRef Name="Timestamp" />
+          </Key>
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="VALUE" Type="float" />
+        </EntityType>
+        <EntityType Name="DataSourceElement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataSourceTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="ConnectionString" Type="varchar" MaxLength="350" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DataSourceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DBLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID_FK" Type="int" Nullable="false" />
+          <Property Name="TableName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RowID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LogLevel" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateofEntry" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Description">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="ParentID_FK" Type="int" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+          <Property Name="ExternalUniqueRef" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ElementType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Formula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="SaveAsTemplate" Type="bit" Nullable="false" />
+          <Property Name="SelectionTypeValueID_FK" Type="int" Nullable="false" />
+          <Property Name="Disable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FormulaItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulaID_FK" Type="int" Nullable="false" />
+          <Property Name="SelectionTypeItemValueID_FK" Type="int" />
+          <Property Name="SelectionType" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="Value" Type="numeric" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CultureValue" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LanguageDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="LanguageID_FK" Type="int" Nullable="false" />
+          <Property Name="ShortDescription" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LongDescription" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="NavigateToURL" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="Disable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleHour">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SelectionTypeItemValueID_FK" Type="int" Nullable="false" />
+          <Property Name="DateofDay" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SelectionRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SelectionTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="RoleID_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SelectionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="DefaultValue" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Disabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SelectionTypeValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SelectionTypeID_FK" Type="int" Nullable="false" />
+          <Property Name="SelectionValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SelectionText" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Attribute_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attribute">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attribute_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attribute">
+              <PropertyRef Name="ElementID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeElementType_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="AttributeTypeElementType" Type="Self.AttributeTypeElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeElementType">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeElementType_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="AttributeTypeElementType" Type="Self.AttributeTypeElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeElementType">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeValue_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="AttributeTypeValue" Type="Self.AttributeTypeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeValue">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Company1" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CountryID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_DataSourceType">
+          <End Role="DataSourceType" Type="Self.DataSourceType" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSourceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="DataSourceTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_Element">
+          <End Role="Element" Type="Self.Element" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Element_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="Element" Type="Self.Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Element_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="Element" Type="Self.Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ElementType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ElementType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formula_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="1" />
+          <End Role="Formula" Type="Self.Formula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Formula">
+              <PropertyRef Name="SelectionTypeValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulaItem_Formula">
+          <End Role="Formula" Type="Self.Formula" Multiplicity="1" />
+          <End Role="FormulaItem" Type="Self.FormulaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FormulaItem">
+              <PropertyRef Name="FormulaID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulaItem_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="0..1" />
+          <End Role="FormulaItem" Type="Self.FormulaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FormulaItem">
+              <PropertyRef Name="SelectionTypeItemValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LanguageDescription_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="LanguageDescription" Type="Self.LanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LanguageDescription">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LanguageDescription_Language">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="LanguageDescription" Type="Self.LanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LanguageDescription">
+              <PropertyRef Name="LanguageID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleHour_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="1" />
+          <End Role="ScheduleHour" Type="Self.ScheduleHour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduleHour">
+              <PropertyRef Name="SelectionTypeItemValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionRole_SelectionType">
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="1" />
+          <End Role="SelectionRole" Type="Self.SelectionRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionRole">
+              <PropertyRef Name="SelectionTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionTypeValue_SelectionType">
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="1" />
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionTypeValue">
+              <PropertyRef Name="SelectionTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetElementData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ServerName" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="DataBaseName" Type="varchar" Mode="In" />
+          <Parameter Name="TableNames" Type="varchar(max)" Mode="In" />
+          <Parameter Name="FormDate" Type="varchar" Mode="In" />
+          <Parameter Name="ToDate" Type="varchar" Mode="In" />
+          <Parameter Name="Rollup" Type="varchar" Mode="In" />
+          <Parameter Name="Interval" Type="varchar" Mode="In" />
+          <Parameter Name="RollUpFunction" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="InnonAnalytics_ModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attribute" EntityType="Self.Attribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttributeType" EntityType="Self.AttributeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttributeTypeElementType" EntityType="Self.AttributeTypeElementType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttributeTypeValue" EntityType="Self.AttributeTypeValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSourceElement" EntityType="Self.DataSourceElement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DataSourceType" EntityType="Self.DataSourceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DBLog" EntityType="Self.DBLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Element" EntityType="Self.Element" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ElementType" EntityType="Self.ElementType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formula" EntityType="Self.Formula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormulaItem" EntityType="Self.FormulaItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageDescription" EntityType="Self.LanguageDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleHour" EntityType="Self.ScheduleHour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectionRole" EntityType="Self.SelectionRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectionType" EntityType="Self.SelectionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectionTypeValue" EntityType="Self.SelectionTypeValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DATASCHEMA" EntityType="Self.DATASCHEMA" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DATASCHEMA].[Timestamp] AS [Timestamp], 
+    [DATASCHEMA].[VALUE] AS [VALUE]
+    FROM [dbo].[DATASCHEMA] AS [DATASCHEMA]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Attribute_AttributeType" Association="Self.FK_Attribute_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeType" />
+            <End Role="Attribute" EntitySet="Attribute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attribute_ElementType" Association="Self.FK_Attribute_ElementType">
+            <End Role="ElementType" EntitySet="ElementType" />
+            <End Role="Attribute" EntitySet="Attribute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeType_Description" Association="Self.FK_AttributeType_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="AttributeType" EntitySet="AttributeType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeElementType_AttributeType" Association="Self.FK_AttributeTypeElementType_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeType" />
+            <End Role="AttributeTypeElementType" EntitySet="AttributeTypeElementType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeElementType_ElementType" Association="Self.FK_AttributeTypeElementType_ElementType">
+            <End Role="ElementType" EntitySet="ElementType" />
+            <End Role="AttributeTypeElementType" EntitySet="AttributeTypeElementType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeValue_AttributeType" Association="Self.FK_AttributeTypeValue_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeType" />
+            <End Role="AttributeTypeValue" EntitySet="AttributeTypeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Company" Association="Self.FK_Company_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Company1" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Country" Association="Self.FK_Company_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_DataSourceType" Association="Self.FK_DataSourceElement_DataSourceType">
+            <End Role="DataSourceType" EntitySet="DataSourceType" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_Element" Association="Self.FK_DataSourceElement_Element">
+            <End Role="Element" EntitySet="Element" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Element_Description" Association="Self.FK_Element_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="Element" EntitySet="Element" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Element_ElementType" Association="Self.FK_Element_ElementType">
+            <End Role="ElementType" EntitySet="ElementType" />
+            <End Role="Element" EntitySet="Element" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ElementType_Description" Association="Self.FK_ElementType_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="ElementType" EntitySet="ElementType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formula_SelectionTypeValue" Association="Self.FK_Formula_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValue" />
+            <End Role="Formula" EntitySet="Formula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulaItem_Formula" Association="Self.FK_FormulaItem_Formula">
+            <End Role="Formula" EntitySet="Formula" />
+            <End Role="FormulaItem" EntitySet="FormulaItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulaItem_SelectionTypeValue" Association="Self.FK_FormulaItem_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValue" />
+            <End Role="FormulaItem" EntitySet="FormulaItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LanguageDescription_Description" Association="Self.FK_LanguageDescription_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="LanguageDescription" EntitySet="LanguageDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LanguageDescription_Language" Association="Self.FK_LanguageDescription_Language">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="LanguageDescription" EntitySet="LanguageDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Description" Association="Self.FK_Menu_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="Menu1" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleHour_SelectionTypeValue" Association="Self.FK_ScheduleHour_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValue" />
+            <End Role="ScheduleHour" EntitySet="ScheduleHour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionRole_SelectionType" Association="Self.FK_SelectionRole_SelectionType">
+            <End Role="SelectionType" EntitySet="SelectionType" />
+            <End Role="SelectionRole" EntitySet="SelectionRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionType_Description" Association="Self.FK_SelectionType_Description">
+            <End Role="Description" EntitySet="Description" />
+            <End Role="SelectionType" EntitySet="SelectionType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionTypeValue_SelectionType" Association="Self.FK_SelectionTypeValue_SelectionType">
+            <End Role="SelectionType" EntitySet="SelectionType" />
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InnonAnalytics_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElementID_FK" Type="Int32" Nullable="false" />
+          <Property Name="AttributeValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="AttributeTypeID_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AttributeType" Relationship="Self.FK_Attribute_AttributeType" FromRole="Attribute" ToRole="AttributeType" />
+          <NavigationProperty Name="ElementType" Relationship="Self.FK_Attribute_ElementType" FromRole="Attribute" ToRole="ElementType" />
+        </EntityType>
+        <EntityType Name="AttributeType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="ValueType" Type="Int16" Nullable="false" />
+          <Property Name="DataType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DefaultValue" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_Attribute_AttributeType" FromRole="AttributeType" ToRole="Attribute" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_AttributeType_Description" FromRole="AttributeType" ToRole="Description" />
+          <NavigationProperty Name="AttributeTypeElementTypes" Relationship="Self.FK_AttributeTypeElementType_AttributeType" FromRole="AttributeType" ToRole="AttributeTypeElementType" />
+          <NavigationProperty Name="AttributeTypeValues" Relationship="Self.FK_AttributeTypeValue_AttributeType" FromRole="AttributeType" ToRole="AttributeTypeValue" />
+        </EntityType>
+        <EntityType Name="AttributeTypeElementType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AttributeType" Relationship="Self.FK_AttributeTypeElementType_AttributeType" FromRole="AttributeTypeElementType" ToRole="AttributeType" />
+          <NavigationProperty Name="ElementType" Relationship="Self.FK_AttributeTypeElementType_ElementType" FromRole="AttributeTypeElementType" ToRole="ElementType" />
+        </EntityType>
+        <EntityType Name="AttributeTypeValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="AttributeTypeID_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AttributeType" Relationship="Self.FK_AttributeTypeValue_AttributeType" FromRole="AttributeTypeValue" ToRole="AttributeType" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Disable" Type="Boolean" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="DateOfRegistration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="City" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ProfilePic" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="ColorScheme" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Footer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK_Company_Company" FromRole="Company" ToRole="Company1" />
+          <NavigationProperty Name="Company2" Relationship="Self.FK_Company_Company" FromRole="Company1" ToRole="Company" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Company_Country" FromRole="Company" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK_Company_Country" FromRole="Country" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="DataSourceElement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataSourceTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ConnectionString" Type="String" MaxLength="350" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DataSourceType" Relationship="Self.FK_DataSourceElement_DataSourceType" FromRole="DataSourceElement" ToRole="DataSourceType" />
+          <NavigationProperty Name="Element" Relationship="Self.FK_DataSourceElement_Element" FromRole="DataSourceElement" ToRole="Element" />
+        </EntityType>
+        <EntityType Name="DataSourceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DataSourceElements" Relationship="Self.FK_DataSourceElement_DataSourceType" FromRole="DataSourceType" ToRole="DataSourceElement" />
+        </EntityType>
+        <EntityType Name="DBLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID_FK" Type="Int32" Nullable="false" />
+          <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RowID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LogLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateofEntry" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Description">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AttributeTypes" Relationship="Self.FK_AttributeType_Description" FromRole="Description" ToRole="AttributeType" />
+          <NavigationProperty Name="Elements" Relationship="Self.FK_Element_Description" FromRole="Description" ToRole="Element" />
+          <NavigationProperty Name="ElementTypes" Relationship="Self.FK_ElementType_Description" FromRole="Description" ToRole="ElementType" />
+          <NavigationProperty Name="LanguageDescriptions" Relationship="Self.FK_LanguageDescription_Description" FromRole="Description" ToRole="LanguageDescription" />
+          <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_Description" FromRole="Description" ToRole="Menu" />
+          <NavigationProperty Name="SelectionTypes" Relationship="Self.FK_SelectionType_Description" FromRole="Description" ToRole="SelectionType" />
+        </EntityType>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ElementTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ParentID_FK" Type="Int32" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalUniqueRef" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DataSourceElements" Relationship="Self.FK_DataSourceElement_Element" FromRole="Element" ToRole="DataSourceElement" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_Element_Description" FromRole="Element" ToRole="Description" />
+          <NavigationProperty Name="ElementType" Relationship="Self.FK_Element_ElementType" FromRole="Element" ToRole="ElementType" />
+        </EntityType>
+        <EntityType Name="ElementType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Attributes" Relationship="Self.FK_Attribute_ElementType" FromRole="ElementType" ToRole="Attribute" />
+          <NavigationProperty Name="AttributeTypeElementTypes" Relationship="Self.FK_AttributeTypeElementType_ElementType" FromRole="ElementType" ToRole="AttributeTypeElementType" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_ElementType_Description" FromRole="ElementType" ToRole="Description" />
+          <NavigationProperty Name="Elements" Relationship="Self.FK_Element_ElementType" FromRole="ElementType" ToRole="Element" />
+        </EntityType>
+        <EntityType Name="Formula">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="SaveAsTemplate" Type="Boolean" Nullable="false" />
+          <Property Name="SelectionTypeValueID_FK" Type="Int32" Nullable="false" />
+          <Property Name="Disable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SelectionTypeValue" Relationship="Self.FK_Formula_SelectionTypeValue" FromRole="Formula" ToRole="SelectionTypeValue" />
+          <NavigationProperty Name="FormulaItems" Relationship="Self.FK_FormulaItem_Formula" FromRole="Formula" ToRole="FormulaItem" />
+        </EntityType>
+        <EntityType Name="FormulaItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaID_FK" Type="Int32" Nullable="false" />
+          <Property Name="SelectionTypeItemValueID_FK" Type="Int32" />
+          <Property Name="SelectionType" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Formula" Relationship="Self.FK_FormulaItem_Formula" FromRole="FormulaItem" ToRole="Formula" />
+          <NavigationProperty Name="SelectionTypeValue" Relationship="Self.FK_FormulaItem_SelectionTypeValue" FromRole="FormulaItem" ToRole="SelectionTypeValue" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CultureValue" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LanguageDescriptions" Relationship="Self.FK_LanguageDescription_Language" FromRole="Language" ToRole="LanguageDescription" />
+        </EntityType>
+        <EntityType Name="LanguageDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="LanguageID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ShortDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LongDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_LanguageDescription_Description" FromRole="LanguageDescription" ToRole="Description" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_LanguageDescription_Language" FromRole="LanguageDescription" ToRole="Language" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="NavigateToURL" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_Menu_Description" FromRole="Menu" ToRole="Description" />
+          <NavigationProperty Name="Menu1" Relationship="Self.FK_Menu_Menu" FromRole="Menu" ToRole="Menu1" />
+          <NavigationProperty Name="Menu2" Relationship="Self.FK_Menu_Menu" FromRole="Menu1" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="ScheduleHour">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SelectionTypeItemValueID_FK" Type="Int32" Nullable="false" />
+          <Property Name="DateofDay" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="SelectionTypeValue" Relationship="Self.FK_ScheduleHour_SelectionTypeValue" FromRole="ScheduleHour" ToRole="SelectionTypeValue" />
+        </EntityType>
+        <EntityType Name="SelectionRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SelectionTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="RoleID_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SelectionType" Relationship="Self.FK_SelectionRole_SelectionType" FromRole="SelectionRole" ToRole="SelectionType" />
+        </EntityType>
+        <EntityType Name="SelectionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="DefaultValue" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Description" Relationship="Self.FK_SelectionType_Description" FromRole="SelectionType" ToRole="Description" />
+          <NavigationProperty Name="SelectionRoles" Relationship="Self.FK_SelectionRole_SelectionType" FromRole="SelectionType" ToRole="SelectionRole" />
+          <NavigationProperty Name="SelectionTypeValues" Relationship="Self.FK_SelectionTypeValue_SelectionType" FromRole="SelectionType" ToRole="SelectionTypeValue" />
+        </EntityType>
+        <EntityType Name="SelectionTypeValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SelectionTypeID_FK" Type="Int32" Nullable="false" />
+          <Property Name="SelectionValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SelectionText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Formulae" Relationship="Self.FK_Formula_SelectionTypeValue" FromRole="SelectionTypeValue" ToRole="Formula" />
+          <NavigationProperty Name="FormulaItems" Relationship="Self.FK_FormulaItem_SelectionTypeValue" FromRole="SelectionTypeValue" ToRole="FormulaItem" />
+          <NavigationProperty Name="ScheduleHours" Relationship="Self.FK_ScheduleHour_SelectionTypeValue" FromRole="SelectionTypeValue" ToRole="ScheduleHour" />
+          <NavigationProperty Name="SelectionType" Relationship="Self.FK_SelectionTypeValue_SelectionType" FromRole="SelectionTypeValue" ToRole="SelectionType" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="DATASCHEMA">
+          <Key>
+            <PropertyRef Name="Timestamp" />
+          </Key>
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VALUE" Type="Double" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attribute_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attribute">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attribute_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attribute">
+              <PropertyRef Name="ElementID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeElementType_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="AttributeTypeElementType" Type="Self.AttributeTypeElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeElementType">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeValue_AttributeType">
+          <End Role="AttributeType" Type="Self.AttributeType" Multiplicity="1" />
+          <End Role="AttributeTypeValue" Type="Self.AttributeTypeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttributeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeValue">
+              <PropertyRef Name="AttributeTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttributeTypeElementType_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="AttributeTypeElementType" Type="Self.AttributeTypeElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AttributeTypeElementType">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Company1" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CountryID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_DataSourceType">
+          <End Role="DataSourceType" Type="Self.DataSourceType" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataSourceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="DataSourceTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataSourceElement_Element">
+          <End Role="Element" Type="Self.Element" Multiplicity="1" />
+          <End Role="DataSourceElement" Type="Self.DataSourceElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DataSourceElement">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Element_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="Element" Type="Self.Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ElementType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ElementType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LanguageDescription_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="LanguageDescription" Type="Self.LanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LanguageDescription">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionType_Description">
+          <End Role="Description" Type="Self.Description" Multiplicity="1" />
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Description">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionType">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Element_ElementType">
+          <End Role="ElementType" Type="Self.ElementType" Multiplicity="1" />
+          <End Role="Element" Type="Self.Element" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ElementType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Element">
+              <PropertyRef Name="ElementTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Formula_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="1" />
+          <End Role="Formula" Type="Self.Formula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Formula">
+              <PropertyRef Name="SelectionTypeValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulaItem_Formula">
+          <End Role="Formula" Type="Self.Formula" Multiplicity="1" />
+          <End Role="FormulaItem" Type="Self.FormulaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formula">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FormulaItem">
+              <PropertyRef Name="FormulaID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormulaItem_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="0..1" />
+          <End Role="FormulaItem" Type="Self.FormulaItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FormulaItem">
+              <PropertyRef Name="SelectionTypeItemValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LanguageDescription_Language">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="LanguageDescription" Type="Self.LanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LanguageDescription">
+              <PropertyRef Name="LanguageID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="Menu1" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleHour_SelectionTypeValue">
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="1" />
+          <End Role="ScheduleHour" Type="Self.ScheduleHour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionTypeValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ScheduleHour">
+              <PropertyRef Name="SelectionTypeItemValueID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionRole_SelectionType">
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="1" />
+          <End Role="SelectionRole" Type="Self.SelectionRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionRole">
+              <PropertyRef Name="SelectionTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SelectionTypeValue_SelectionType">
+          <End Role="SelectionType" Type="Self.SelectionType" Multiplicity="1" />
+          <End Role="SelectionTypeValue" Type="Self.SelectionTypeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SelectionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SelectionTypeValue">
+              <PropertyRef Name="SelectionTypeID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="InnonAnalyticsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Attributes" EntityType="Self.Attribute" />
+          <EntitySet Name="AttributeTypes" EntityType="Self.AttributeType" />
+          <EntitySet Name="AttributeTypeElementTypes" EntityType="Self.AttributeTypeElementType" />
+          <EntitySet Name="AttributeTypeValues" EntityType="Self.AttributeTypeValue" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="DataSourceElements" EntityType="Self.DataSourceElement" />
+          <EntitySet Name="DataSourceTypes" EntityType="Self.DataSourceType" />
+          <EntitySet Name="DBLogs" EntityType="Self.DBLog" />
+          <EntitySet Name="Descriptions" EntityType="Self.Description" />
+          <EntitySet Name="Elements" EntityType="Self.Element" />
+          <EntitySet Name="ElementTypes" EntityType="Self.ElementType" />
+          <EntitySet Name="Formulae" EntityType="Self.Formula" />
+          <EntitySet Name="FormulaItems" EntityType="Self.FormulaItem" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="LanguageDescriptions" EntityType="Self.LanguageDescription" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="ScheduleHours" EntityType="Self.ScheduleHour" />
+          <EntitySet Name="SelectionRoles" EntityType="Self.SelectionRole" />
+          <EntitySet Name="SelectionTypes" EntityType="Self.SelectionType" />
+          <EntitySet Name="SelectionTypeValues" EntityType="Self.SelectionTypeValue" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="DATASCHEMAs" EntityType="Self.DATASCHEMA" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attribute_AttributeType" Association="Self.FK_Attribute_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeTypes" />
+            <End Role="Attribute" EntitySet="Attributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attribute_ElementType" Association="Self.FK_Attribute_ElementType">
+            <End Role="ElementType" EntitySet="ElementTypes" />
+            <End Role="Attribute" EntitySet="Attributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeType_Description" Association="Self.FK_AttributeType_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="AttributeType" EntitySet="AttributeTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeElementType_AttributeType" Association="Self.FK_AttributeTypeElementType_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeTypes" />
+            <End Role="AttributeTypeElementType" EntitySet="AttributeTypeElementTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeValue_AttributeType" Association="Self.FK_AttributeTypeValue_AttributeType">
+            <End Role="AttributeType" EntitySet="AttributeTypes" />
+            <End Role="AttributeTypeValue" EntitySet="AttributeTypeValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttributeTypeElementType_ElementType" Association="Self.FK_AttributeTypeElementType_ElementType">
+            <End Role="ElementType" EntitySet="ElementTypes" />
+            <End Role="AttributeTypeElementType" EntitySet="AttributeTypeElementTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Company" Association="Self.FK_Company_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Company1" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Country" Association="Self.FK_Company_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_DataSourceType" Association="Self.FK_DataSourceElement_DataSourceType">
+            <End Role="DataSourceType" EntitySet="DataSourceTypes" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataSourceElement_Element" Association="Self.FK_DataSourceElement_Element">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="DataSourceElement" EntitySet="DataSourceElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Element_Description" Association="Self.FK_Element_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ElementType_Description" Association="Self.FK_ElementType_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="ElementType" EntitySet="ElementTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LanguageDescription_Description" Association="Self.FK_LanguageDescription_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="LanguageDescription" EntitySet="LanguageDescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Description" Association="Self.FK_Menu_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionType_Description" Association="Self.FK_SelectionType_Description">
+            <End Role="Description" EntitySet="Descriptions" />
+            <End Role="SelectionType" EntitySet="SelectionTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Element_ElementType" Association="Self.FK_Element_ElementType">
+            <End Role="ElementType" EntitySet="ElementTypes" />
+            <End Role="Element" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Formula_SelectionTypeValue" Association="Self.FK_Formula_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValues" />
+            <End Role="Formula" EntitySet="Formulae" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulaItem_Formula" Association="Self.FK_FormulaItem_Formula">
+            <End Role="Formula" EntitySet="Formulae" />
+            <End Role="FormulaItem" EntitySet="FormulaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormulaItem_SelectionTypeValue" Association="Self.FK_FormulaItem_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValues" />
+            <End Role="FormulaItem" EntitySet="FormulaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LanguageDescription_Language" Association="Self.FK_LanguageDescription_Language">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="LanguageDescription" EntitySet="LanguageDescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Menu" Association="Self.FK_Menu_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="Menu1" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleHour_SelectionTypeValue" Association="Self.FK_ScheduleHour_SelectionTypeValue">
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValues" />
+            <End Role="ScheduleHour" EntitySet="ScheduleHours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionRole_SelectionType" Association="Self.FK_SelectionRole_SelectionType">
+            <End Role="SelectionType" EntitySet="SelectionTypes" />
+            <End Role="SelectionRole" EntitySet="SelectionRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SelectionTypeValue_SelectionType" Association="Self.FK_SelectionTypeValue_SelectionType">
+            <End Role="SelectionType" EntitySet="SelectionTypes" />
+            <End Role="SelectionTypeValue" EntitySet="SelectionTypeValues" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <FunctionImport Name="GetElementData" EntitySet="DATASCHEMAs" ReturnType="Collection(InnonAnalytics_Model.DATASCHEMA)">
+            <Parameter Name="ServerName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="DataBaseName" Mode="In" Type="String" />
+            <Parameter Name="TableNames" Mode="In" Type="String" />
+            <Parameter Name="FormDate" Mode="In" Type="String" />
+            <Parameter Name="ToDate" Mode="In" Type="String" />
+            <Parameter Name="Rollup" Mode="In" Type="String" />
+            <Parameter Name="Interval" Mode="In" Type="String" />
+            <Parameter Name="RollUpFunction" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InnonAnalytics_ModelStoreContainer" CdmEntityContainer="InnonAnalyticsEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Attribute">
+              <MappingFragment StoreEntitySet="Attribute">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ElementID_FK" ColumnName="ElementID_FK" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="AttributeTypeID_FK" ColumnName="AttributeTypeID_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttributeTypes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AttributeType">
+              <MappingFragment StoreEntitySet="AttributeType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="ValueType" ColumnName="ValueType" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttributeTypeElementTypes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AttributeTypeElementType">
+              <MappingFragment StoreEntitySet="AttributeTypeElementType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AttributeTypeID_FK" ColumnName="AttributeTypeID_FK" />
+                <ScalarProperty Name="ElementTypeID_FK" ColumnName="ElementTypeID_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttributeTypeValues">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.AttributeTypeValue">
+              <MappingFragment StoreEntitySet="AttributeTypeValue">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AttributeValue" ColumnName="AttributeValue" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="AttributeTypeID_FK" ColumnName="AttributeTypeID_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="DateOfRegistration" ColumnName="DateOfRegistration" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CountryID_FK" ColumnName="CountryID_FK" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="ColorScheme" ColumnName="ColorScheme" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Footer" ColumnName="Footer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSourceElements">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.DataSourceElement">
+              <MappingFragment StoreEntitySet="DataSourceElement">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DataSourceTypeID_FK" ColumnName="DataSourceTypeID_FK" />
+                <ScalarProperty Name="ElementTypeID_FK" ColumnName="ElementTypeID_FK" />
+                <ScalarProperty Name="ConnectionString" ColumnName="ConnectionString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DataSourceTypes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.DataSourceType">
+              <MappingFragment StoreEntitySet="DataSourceType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DBLogs">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.DBLog">
+              <MappingFragment StoreEntitySet="DBLog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID_FK" ColumnName="UserID_FK" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="LogLevel" ColumnName="LogLevel" />
+                <ScalarProperty Name="DateofEntry" ColumnName="DateofEntry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Descriptions">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Description">
+              <MappingFragment StoreEntitySet="Description">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Element">
+              <MappingFragment StoreEntitySet="Element">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="ElementTypeID_FK" ColumnName="ElementTypeID_FK" />
+                <ScalarProperty Name="ParentID_FK" ColumnName="ParentID_FK" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="ExternalUniqueRef" ColumnName="ExternalUniqueRef" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ElementTypes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.ElementType">
+              <MappingFragment StoreEntitySet="ElementType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formulae">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Formula">
+              <MappingFragment StoreEntitySet="Formula">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="SaveAsTemplate" ColumnName="SaveAsTemplate" />
+                <ScalarProperty Name="SelectionTypeValueID_FK" ColumnName="SelectionTypeValueID_FK" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormulaItems">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.FormulaItem">
+              <MappingFragment StoreEntitySet="FormulaItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FormulaID_FK" ColumnName="FormulaID_FK" />
+                <ScalarProperty Name="SelectionTypeItemValueID_FK" ColumnName="SelectionTypeItemValueID_FK" />
+                <ScalarProperty Name="SelectionType" ColumnName="SelectionType" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CultureValue" ColumnName="CultureValue" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageDescriptions">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.LanguageDescription">
+              <MappingFragment StoreEntitySet="LanguageDescription">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="LanguageID_FK" ColumnName="LanguageID_FK" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="NavigateToURL" ColumnName="NavigateToURL" />
+                <ScalarProperty Name="Disable" ColumnName="Disable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleHours">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.ScheduleHour">
+              <MappingFragment StoreEntitySet="ScheduleHour">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SelectionTypeItemValueID_FK" ColumnName="SelectionTypeItemValueID_FK" />
+                <ScalarProperty Name="DateofDay" ColumnName="DateofDay" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectionRoles">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.SelectionRole">
+              <MappingFragment StoreEntitySet="SelectionRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SelectionTypeID_FK" ColumnName="SelectionTypeID_FK" />
+                <ScalarProperty Name="RoleID_FK" ColumnName="RoleID_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectionTypes">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.SelectionType">
+              <MappingFragment StoreEntitySet="SelectionType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectionTypeValues">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.SelectionTypeValue">
+              <MappingFragment StoreEntitySet="SelectionTypeValue">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SelectionTypeID_FK" ColumnName="SelectionTypeID_FK" />
+                <ScalarProperty Name="SelectionValue" ColumnName="SelectionValue" />
+                <ScalarProperty Name="SelectionText" ColumnName="SelectionText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DATASCHEMAs">
+            <EntityTypeMapping TypeName="InnonAnalytics_Model.DATASCHEMA">
+              <MappingFragment StoreEntitySet="DATASCHEMA">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="InnonAnalytics_Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetElementData" FunctionName="InnonAnalytics_Model.Store.GetElementData" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

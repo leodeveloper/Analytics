@@ -1,0 +1,6 @@
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\bin\WebUI3dModel.dll.config
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\bin\WebUI3dModel.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\bin\WebUI3dModel.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\obj\Debug\WebUI3dModel.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\obj\Debug\WebUI3dModel.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\WebUI3dModel\obj\Debug\WebUI3dModel.csprojResolveAssemblyReference.cache

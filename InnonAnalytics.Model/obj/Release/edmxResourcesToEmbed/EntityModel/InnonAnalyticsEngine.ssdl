@@ -1,0 +1,1151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InnonAnalyticsEngineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetUserDashboard">
+    <Key>
+      <PropertyRef Name="User_Id" />
+      <PropertyRef Name="DashBoard_Id" />
+    </Key>
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DashBoard_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserElement">
+    <Key>
+      <PropertyRef Name="User_Id" />
+      <PropertyRef Name="Element_Id" />
+    </Key>
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Element_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserMetric">
+    <Key>
+      <PropertyRef Name="User_Id" />
+      <PropertyRef Name="Metric_Id" />
+    </Key>
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblAudit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Table_Row_Id" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Table_Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Old_Values" Type="varchar(max)" Nullable="false" />
+    <Property Name="New_Values" Type="varchar(max)" Nullable="false" />
+    <Property Name="Comments" Type="varchar(max)" />
+    <Property Name="Last_Update" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Bar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="Target_Metric_Id" Type="int" />
+    <Property Name="Group_By" Type="varchar" MaxLength="75" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Counter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Donut">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Gauge">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="Target_Matric_Id" Type="int" Nullable="false" />
+    <Property Name="Minor_Unit" Type="int" Nullable="false" />
+    <Property Name="Start_Angle" Type="int" Nullable="false" />
+    <Property Name="End_Angle" Type="int" Nullable="false" />
+    <Property Name="Min" Type="int" Nullable="false" />
+    <Property Name="Max" Type="int" Nullable="false" />
+    <Property Name="Metric_Label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Target_Matric_Label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Gauge_Range_Color">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="From_Value" Type="int" Nullable="false" />
+    <Property Name="To_Value" Type="int" Nullable="false" />
+    <Property Name="Color_Code" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Chart_Gauge_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Heatmap">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Line">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Group_By" Type="varchar" MaxLength="75" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Metric">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pie_Chart_Id" Type="int" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="Stacked_Chart_Id" Type="int" />
+    <Property Name="Donut_Chart_Id" Type="int" />
+    <Property Name="Line_Chart_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="tblChart_Pie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Group_By" Type="varchar" MaxLength="75" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_Stacked">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Chart_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Group_By" Type="varchar" MaxLength="75" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblChart_TreeMap">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DashboardWidget_Id" Type="int" Nullable="false" />
+    <Property Name="Tree_Map_Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Metric_Id" Type="int" Nullable="false" />
+    <Property Name="Group_By" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="Time_Line" Type="varchar" MaxLength="75" />
+    <Property Name="From_Date" Type="datetime" />
+    <Property Name="To_Date" Type="datetime" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Target_Metric_Id" Type="int" Nullable="false" />
+    <Property Name="Precision" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblConnector">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Connection_Name" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="Server_Name" Type="nvarchar" MaxLength="75" Nullable="false" />
+    <Property Name="User_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port_Number" Type="int" />
+    <Property Name="Default_Path" Type="nvarchar" MaxLength="150" />
+    <Property Name="FTP_Mode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Database_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Data_Connector_Connection_Type" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Gateway_Type" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="SessionID" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Company_ID" Type="int" />
+    <Property Name="Is_Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblContainer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Container_Name" Type="nvarchar" MaxLength="75" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblDashboard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="75" Nullable="false" />
+    <Property Name="Accessibility" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="Layout_Option" Type="int" Nullable="false" />
+    <Property Name="Widget_Positions" Type="varchar(max)" />
+    <Property Name="Parent_Id" Type="int" />
+    <Property Name="Dashboard_Type" Type="varchar" MaxLength="75" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblDashboard_Widget">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Widget_Title" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Chart_Type" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Dashboard_Id" Type="int" Nullable="false" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+    <Property Name="widget_x" Type="int" Nullable="false" />
+    <Property Name="widget_y" Type="int" Nullable="false" />
+    <Property Name="widget_width" Type="int" Nullable="false" />
+    <Property Name="widget_height" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblDatabaseLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_ID" Type="bigint" Nullable="false" />
+    <Property Name="Table_Name" Type="varchar" MaxLength="512" Nullable="false" />
+    <Property Name="Row_ID" Type="bigint" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="512" />
+    <Property Name="Message" Type="varchar" MaxLength="512" />
+    <Property Name="Log_Level" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Log_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblDatawareHouseMigrationLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Element_ID" Type="bigint" Nullable="false" />
+    <Property Name="Last_Run_Start" Type="datetime" Nullable="false" />
+    <Property Name="Last_Run_End" Type="datetime" />
+    <Property Name="Total_Record_Fetch" Type="bigint" Nullable="false" />
+    <Property Name="Is_Black_List" Type="bit" Nullable="false" />
+    <Property Name="Timestamp_From" Type="datetime" Nullable="false" />
+    <Property Name="Timestamp_To" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblDescription">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExternalID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="tblElement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Element_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Source_Element_Name_Live" Type="nvarchar(max)" />
+    <Property Name="Source_Element_Name_History" Type="nvarchar(max)" />
+    <Property Name="Connector_Live_ID" Type="int" />
+    <Property Name="Connector_History_ID" Type="int" />
+    <Property Name="Is_Disabled" Type="bit" Nullable="false" />
+    <Property Name="Parent_Element_ID" Type="bigint" />
+    <Property Name="ExternalID" Type="bigint" />
+    <Property Name="Element_Tag_Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Unit_ID" Type="int" />
+    <Property Name="Freq" Type="bigint" />
+    <Property Name="Freq_Unit" Type="varchar" MaxLength="5" />
+    <Property Name="Recorded_Freq" Type="bigint" />
+    <Property Name="Recorded_Freq_Unit" Type="varchar" MaxLength="5" />
+    <Property Name="Min_Value" Type="float" />
+    <Property Name="Max_Value" Type="float" />
+    <Property Name="Data_Type" Type="varchar" MaxLength="8" />
+    <Property Name="Value_Type" Type="varchar" MaxLength="15" />
+    <Property Name="IsRead_Only" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblElement_Extension">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address1" Type="varchar" MaxLength="250" />
+    <Property Name="Address2" Type="varchar" MaxLength="250" />
+    <Property Name="Contact_Number1" Type="varchar" MaxLength="250" />
+    <Property Name="Conatct_Number2" Type="varchar" MaxLength="250" />
+    <Property Name="Element_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblHomePage_Widget">
+    <Key>
+      <PropertyRef Name="Widget_Id" />
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="Widget_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="widget_x" Type="int" Nullable="false" />
+    <Property Name="widget_y" Type="int" Nullable="false" />
+    <Property Name="widget_width" Type="int" Nullable="false" />
+    <Property Name="widget_height" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblLanguage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Language_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Culture_Value" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="Is_Disabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblLanguageDescription">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description_ID" Type="bigint" Nullable="false" />
+    <Property Name="Language_ID" Type="int" Nullable="false" />
+    <Property Name="Short_Desription" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Long_Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tblMetric">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Metric_Name" Type="nvarchar" MaxLength="55" Nullable="false" />
+    <Property Name="Rollup_Function" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Source" Type="varchar(max)" Nullable="false" />
+    <Property Name="Unit_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblNote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comments" Type="varchar(max)" />
+    <Property Name="Last_Updated" Type="datetime" Nullable="false" />
+    <Property Name="Table_Row_Id" Type="nvarchar" MaxLength="128" />
+    <Property Name="Table_Name" Type="nvarchar" MaxLength="128" />
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblPoints">
+    <Key>
+      <PropertyRef Name="TableRefKey" />
+    </Key>
+    <Property Name="PointName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="TableRefKey" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblTag_Type_Mapping">
+    <Key>
+      <PropertyRef Name="Tag_Type" />
+    </Key>
+    <Property Name="Tag_Type" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Point_Dim_Mapping" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblTagElement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tag_ID" Type="bigint" Nullable="false" />
+    <Property Name="Element_ID" Type="bigint" Nullable="false" />
+    <Property Name="Value" Type="varchar" MaxLength="128" />
+    <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblTags">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description_ID" Type="bigint" />
+    <Property Name="Tag_Kind" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Tag_Type" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Tag_Value" Type="nvarchar" MaxLength="80" />
+    <Property Name="Parent_Tag_ID" Type="bigint" />
+    <Property Name="Is_Disabled" Type="bit" Nullable="false" />
+    <Property Name="Container_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUnits">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UName" Type="varchar" MaxLength="200" />
+    <Property Name="USymbol" Type="varchar" MaxLength="200" />
+    <Property Name="Is_Disabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tblChart___Targe__379037E3">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_TreeMap" Type="Self.tblChart_TreeMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_TreeMap">
+        <PropertyRef Name="Target_Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserDashboard_tblDashboard">
+    <End Role="tblDashboard" Type="Self.tblDashboard" Multiplicity="1" />
+    <End Role="AspNetUserDashboard" Type="Self.AspNetUserDashboard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserDashboard">
+        <PropertyRef Name="DashBoard_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserElement_tblElement">
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="1" />
+    <End Role="AspNetUserElement" Type="Self.AspNetUserElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblElement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AspNetUserElement">
+        <PropertyRef Name="Element_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserMetric_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="AspNetUserMetric" Type="Self.AspNetUserMetric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserMetric">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Bar_tblChart_Bar">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Bar" Type="Self.tblChart_Bar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Bar">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Bar_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Bar" Type="Self.tblChart_Bar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Bar">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Bar_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="0..1" />
+    <End Role="tblChart_Bar" Type="Self.tblChart_Bar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Bar">
+        <PropertyRef Name="Target_Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Counter_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Counter" Type="Self.tblChart_Counter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Counter">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Counter_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Counter" Type="Self.tblChart_Counter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Counter">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Donut_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Donut" Type="Self.tblChart_Donut" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Donut">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Gauge_Range_Color_tblChart_Gauge">
+    <End Role="tblChart_Gauge" Type="Self.tblChart_Gauge" Multiplicity="1" />
+    <End Role="tblChart_Gauge_Range_Color" Type="Self.tblChart_Gauge_Range_Color" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblChart_Gauge">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Gauge_Range_Color">
+        <PropertyRef Name="Chart_Gauge_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Gauge_tblDashboardWidget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Gauge" Type="Self.tblChart_Gauge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Gauge">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Gauge_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Gauge" Type="Self.tblChart_Gauge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Gauge">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Gauge_tblMetric_Target">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Gauge" Type="Self.tblChart_Gauge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Gauge">
+        <PropertyRef Name="Target_Matric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Heatmap_tblChart_Heatmap">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Heatmap" Type="Self.tblChart_Heatmap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Heatmap">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Heatmap_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Heatmap" Type="Self.tblChart_Heatmap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Heatmap">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Line_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Line" Type="Self.tblChart_Line" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Line">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Metric_tblChart_Donut">
+    <End Role="tblChart_Donut" Type="Self.tblChart_Donut" Multiplicity="0..1" />
+    <End Role="tblChart_Metric" Type="Self.tblChart_Metric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblChart_Donut">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Metric">
+        <PropertyRef Name="Donut_Chart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Metric_tblChart_Line">
+    <End Role="tblChart_Line" Type="Self.tblChart_Line" Multiplicity="0..1" />
+    <End Role="tblChart_Metric" Type="Self.tblChart_Metric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblChart_Line">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Metric">
+        <PropertyRef Name="Line_Chart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Metric_tblChart_Pie">
+    <End Role="tblChart_Pie" Type="Self.tblChart_Pie" Multiplicity="0..1" />
+    <End Role="tblChart_Metric" Type="Self.tblChart_Metric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblChart_Pie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Metric">
+        <PropertyRef Name="Pie_Chart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Metric_tblChart_Stacked">
+    <End Role="tblChart_Stacked" Type="Self.tblChart_Stacked" Multiplicity="0..1" />
+    <End Role="tblChart_Metric" Type="Self.tblChart_Metric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblChart_Stacked">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Metric">
+        <PropertyRef Name="Stacked_Chart_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Metric_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_Metric" Type="Self.tblChart_Metric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Metric">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Pie_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Pie" Type="Self.tblChart_Pie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Pie">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_Stacked_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_Stacked" Type="Self.tblChart_Stacked" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_Stacked">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_TreeMap_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblChart_TreeMap" Type="Self.tblChart_TreeMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_TreeMap">
+        <PropertyRef Name="DashboardWidget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblChart_TreeMap_tblMetric">
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="1" />
+    <End Role="tblChart_TreeMap" Type="Self.tblChart_TreeMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMetric">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblChart_TreeMap">
+        <PropertyRef Name="Metric_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDashboard_tblDashboard">
+    <End Role="tblDashboard" Type="Self.tblDashboard" Multiplicity="0..1" />
+    <End Role="tblDashboard1" Type="Self.tblDashboard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblDashboard1">
+        <PropertyRef Name="Parent_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDashboard_Widget_tblDashboard">
+    <End Role="tblDashboard" Type="Self.tblDashboard" Multiplicity="1" />
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblDashboard_Widget">
+        <PropertyRef Name="Dashboard_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblElement_Extension_tblElement">
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="1" />
+    <End Role="tblElement_Extension" Type="Self.tblElement_Extension" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblElement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblElement_Extension">
+        <PropertyRef Name="Element_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblElement_tblConnector">
+    <End Role="tblConnector" Type="Self.tblConnector" Multiplicity="0..1" />
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblConnector">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblElement">
+        <PropertyRef Name="Connector_Live_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblElement_tblConnector1">
+    <End Role="tblConnector" Type="Self.tblConnector" Multiplicity="0..1" />
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblConnector">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblElement">
+        <PropertyRef Name="Connector_History_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblElement_tblElement">
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="0..1" />
+    <End Role="tblElement1" Type="Self.tblElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblElement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblElement1">
+        <PropertyRef Name="Parent_Element_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblElement_tblUnits">
+    <End Role="tblUnits" Type="Self.tblUnits" Multiplicity="0..1" />
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnits">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblElement">
+        <PropertyRef Name="Unit_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblHomePage_Widget_tblDashboard_Widget">
+    <End Role="tblDashboard_Widget" Type="Self.tblDashboard_Widget" Multiplicity="1" />
+    <End Role="tblHomePage_Widget" Type="Self.tblHomePage_Widget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDashboard_Widget">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblHomePage_Widget">
+        <PropertyRef Name="Widget_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblLanguageDescription_tblDescription">
+    <End Role="tblDescription" Type="Self.tblDescription" Multiplicity="1" />
+    <End Role="tblLanguageDescription" Type="Self.tblLanguageDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDescription">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblLanguageDescription">
+        <PropertyRef Name="Description_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblLanguageDescription_tblLanguage">
+    <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+    <End Role="tblLanguageDescription" Type="Self.tblLanguageDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLanguage">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblLanguageDescription">
+        <PropertyRef Name="Language_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblMetric_tblUnit">
+    <End Role="tblUnits" Type="Self.tblUnits" Multiplicity="1" />
+    <End Role="tblMetric" Type="Self.tblMetric" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUnits">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblMetric">
+        <PropertyRef Name="Unit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTagElement_tblElement">
+    <End Role="tblElement" Type="Self.tblElement" Multiplicity="1" />
+    <End Role="tblTagElement" Type="Self.tblTagElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblElement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTagElement">
+        <PropertyRef Name="Element_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTagElement_tblTags">
+    <End Role="tblTags" Type="Self.tblTags" Multiplicity="1" />
+    <End Role="tblTagElement" Type="Self.tblTagElement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTags">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTagElement">
+        <PropertyRef Name="Tag_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTags_tblContainer">
+    <End Role="tblContainer" Type="Self.tblContainer" Multiplicity="0..1" />
+    <End Role="tblTags" Type="Self.tblTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblContainer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblTags">
+        <PropertyRef Name="Container_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTags_tblDescription">
+    <End Role="tblDescription" Type="Self.tblDescription" Multiplicity="0..1" />
+    <End Role="tblTags" Type="Self.tblTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDescription">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTags">
+        <PropertyRef Name="Description_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTags_tblTags">
+    <End Role="tblTags" Type="Self.tblTags" Multiplicity="0..1" />
+    <End Role="tblTags1" Type="Self.tblTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTags">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTags1">
+        <PropertyRef Name="Parent_Tag_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetRawData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServerName" Type="varchar" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="DataBaseName" Type="varchar" Mode="In" />
+    <Parameter Name="TableName" Type="varchar(max)" Mode="In" />
+    <Parameter Name="TimeStamp_From" Type="datetime" Mode="In" />
+    <Parameter Name="TimeStamp_To" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="GetTableName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ServerName" Type="varchar" Mode="In" />
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="Password" Type="varchar" Mode="In" />
+    <Parameter Name="DataBaseName" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="InnonAnalyticsEngineModelStoreContainer">
+    <EntitySet Name="AspNetUserDashboard" EntityType="Self.AspNetUserDashboard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserElement" EntityType="Self.AspNetUserElement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserMetric" EntityType="Self.AspNetUserMetric" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblAudit" EntityType="Self.tblAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Bar" EntityType="Self.tblChart_Bar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Counter" EntityType="Self.tblChart_Counter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Donut" EntityType="Self.tblChart_Donut" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Gauge" EntityType="Self.tblChart_Gauge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Gauge_Range_Color" EntityType="Self.tblChart_Gauge_Range_Color" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Heatmap" EntityType="Self.tblChart_Heatmap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Line" EntityType="Self.tblChart_Line" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Metric" EntityType="Self.tblChart_Metric" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Pie" EntityType="Self.tblChart_Pie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_Stacked" EntityType="Self.tblChart_Stacked" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChart_TreeMap" EntityType="Self.tblChart_TreeMap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblConnector" EntityType="Self.tblConnector" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblContainer" EntityType="Self.tblContainer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDashboard" EntityType="Self.tblDashboard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDashboard_Widget" EntityType="Self.tblDashboard_Widget" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDatabaseLog" EntityType="Self.tblDatabaseLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDatawareHouseMigrationLog" EntityType="Self.tblDatawareHouseMigrationLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDescription" EntityType="Self.tblDescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblElement" EntityType="Self.tblElement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblElement_Extension" EntityType="Self.tblElement_Extension" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblHomePage_Widget" EntityType="Self.tblHomePage_Widget" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLanguageDescription" EntityType="Self.tblLanguageDescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMetric" EntityType="Self.tblMetric" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblNote" EntityType="Self.tblNote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPoints" EntityType="Self.tblPoints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTag_Type_Mapping" EntityType="Self.tblTag_Type_Mapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTagElement" EntityType="Self.tblTagElement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTags" EntityType="Self.tblTags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUnits" EntityType="Self.tblUnits" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblChart___Targe__379037E3" Association="Self.FK__tblChart___Targe__379037E3">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_TreeMap" EntitySet="tblChart_TreeMap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserDashboard_tblDashboard" Association="Self.FK_AspNetUserDashboard_tblDashboard">
+      <End Role="tblDashboard" EntitySet="tblDashboard" />
+      <End Role="AspNetUserDashboard" EntitySet="AspNetUserDashboard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserElement_tblElement" Association="Self.FK_AspNetUserElement_tblElement">
+      <End Role="tblElement" EntitySet="tblElement" />
+      <End Role="AspNetUserElement" EntitySet="AspNetUserElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserMetric_tblMetric" Association="Self.FK_AspNetUserMetric_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="AspNetUserMetric" EntitySet="AspNetUserMetric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Bar_tblChart_Bar" Association="Self.FK_tblChart_Bar_tblChart_Bar">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Bar" EntitySet="tblChart_Bar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Bar_tblDashboard_Widget" Association="Self.FK_tblChart_Bar_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Bar" EntitySet="tblChart_Bar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Bar_tblMetric" Association="Self.FK_tblChart_Bar_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Bar" EntitySet="tblChart_Bar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Counter_tblDashboard_Widget" Association="Self.FK_tblChart_Counter_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Counter" EntitySet="tblChart_Counter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Counter_tblMetric" Association="Self.FK_tblChart_Counter_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Counter" EntitySet="tblChart_Counter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Donut_tblDashboard_Widget" Association="Self.FK_tblChart_Donut_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Donut" EntitySet="tblChart_Donut" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Gauge_Range_Color_tblChart_Gauge" Association="Self.FK_tblChart_Gauge_Range_Color_tblChart_Gauge">
+      <End Role="tblChart_Gauge" EntitySet="tblChart_Gauge" />
+      <End Role="tblChart_Gauge_Range_Color" EntitySet="tblChart_Gauge_Range_Color" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Gauge_tblDashboardWidget" Association="Self.FK_tblChart_Gauge_tblDashboardWidget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Gauge" EntitySet="tblChart_Gauge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Gauge_tblMetric" Association="Self.FK_tblChart_Gauge_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Gauge" EntitySet="tblChart_Gauge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Gauge_tblMetric_Target" Association="Self.FK_tblChart_Gauge_tblMetric_Target">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Gauge" EntitySet="tblChart_Gauge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Heatmap_tblChart_Heatmap" Association="Self.FK_tblChart_Heatmap_tblChart_Heatmap">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Heatmap" EntitySet="tblChart_Heatmap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Heatmap_tblDashboard_Widget" Association="Self.FK_tblChart_Heatmap_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Heatmap" EntitySet="tblChart_Heatmap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Line_tblDashboard_Widget" Association="Self.FK_tblChart_Line_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Line" EntitySet="tblChart_Line" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Metric_tblChart_Donut" Association="Self.FK_tblChart_Metric_tblChart_Donut">
+      <End Role="tblChart_Donut" EntitySet="tblChart_Donut" />
+      <End Role="tblChart_Metric" EntitySet="tblChart_Metric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Metric_tblChart_Line" Association="Self.FK_tblChart_Metric_tblChart_Line">
+      <End Role="tblChart_Line" EntitySet="tblChart_Line" />
+      <End Role="tblChart_Metric" EntitySet="tblChart_Metric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Metric_tblChart_Pie" Association="Self.FK_tblChart_Metric_tblChart_Pie">
+      <End Role="tblChart_Pie" EntitySet="tblChart_Pie" />
+      <End Role="tblChart_Metric" EntitySet="tblChart_Metric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Metric_tblChart_Stacked" Association="Self.FK_tblChart_Metric_tblChart_Stacked">
+      <End Role="tblChart_Stacked" EntitySet="tblChart_Stacked" />
+      <End Role="tblChart_Metric" EntitySet="tblChart_Metric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Metric_tblMetric" Association="Self.FK_tblChart_Metric_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_Metric" EntitySet="tblChart_Metric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Pie_tblDashboard_Widget" Association="Self.FK_tblChart_Pie_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Pie" EntitySet="tblChart_Pie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_Stacked_tblDashboard_Widget" Association="Self.FK_tblChart_Stacked_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_Stacked" EntitySet="tblChart_Stacked" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_TreeMap_tblDashboard_Widget" Association="Self.FK_tblChart_TreeMap_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblChart_TreeMap" EntitySet="tblChart_TreeMap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblChart_TreeMap_tblMetric" Association="Self.FK_tblChart_TreeMap_tblMetric">
+      <End Role="tblMetric" EntitySet="tblMetric" />
+      <End Role="tblChart_TreeMap" EntitySet="tblChart_TreeMap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDashboard_tblDashboard" Association="Self.FK_tblDashboard_tblDashboard">
+      <End Role="tblDashboard" EntitySet="tblDashboard" />
+      <End Role="tblDashboard1" EntitySet="tblDashboard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDashboard_Widget_tblDashboard" Association="Self.FK_tblDashboard_Widget_tblDashboard">
+      <End Role="tblDashboard" EntitySet="tblDashboard" />
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblElement_Extension_tblElement" Association="Self.FK_tblElement_Extension_tblElement">
+      <End Role="tblElement" EntitySet="tblElement" />
+      <End Role="tblElement_Extension" EntitySet="tblElement_Extension" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblElement_tblConnector" Association="Self.FK_tblElement_tblConnector">
+      <End Role="tblConnector" EntitySet="tblConnector" />
+      <End Role="tblElement" EntitySet="tblElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblElement_tblConnector1" Association="Self.FK_tblElement_tblConnector1">
+      <End Role="tblConnector" EntitySet="tblConnector" />
+      <End Role="tblElement" EntitySet="tblElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblElement_tblElement" Association="Self.FK_tblElement_tblElement">
+      <End Role="tblElement" EntitySet="tblElement" />
+      <End Role="tblElement1" EntitySet="tblElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblElement_tblUnits" Association="Self.FK_tblElement_tblUnits">
+      <End Role="tblUnits" EntitySet="tblUnits" />
+      <End Role="tblElement" EntitySet="tblElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblHomePage_Widget_tblDashboard_Widget" Association="Self.FK_tblHomePage_Widget_tblDashboard_Widget">
+      <End Role="tblDashboard_Widget" EntitySet="tblDashboard_Widget" />
+      <End Role="tblHomePage_Widget" EntitySet="tblHomePage_Widget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblLanguageDescription_tblDescription" Association="Self.FK_tblLanguageDescription_tblDescription">
+      <End Role="tblDescription" EntitySet="tblDescription" />
+      <End Role="tblLanguageDescription" EntitySet="tblLanguageDescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblLanguageDescription_tblLanguage" Association="Self.FK_tblLanguageDescription_tblLanguage">
+      <End Role="tblLanguage" EntitySet="tblLanguage" />
+      <End Role="tblLanguageDescription" EntitySet="tblLanguageDescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblMetric_tblUnit" Association="Self.FK_tblMetric_tblUnit">
+      <End Role="tblUnits" EntitySet="tblUnits" />
+      <End Role="tblMetric" EntitySet="tblMetric" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTagElement_tblElement" Association="Self.FK_tblTagElement_tblElement">
+      <End Role="tblElement" EntitySet="tblElement" />
+      <End Role="tblTagElement" EntitySet="tblTagElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTagElement_tblTags" Association="Self.FK_tblTagElement_tblTags">
+      <End Role="tblTags" EntitySet="tblTags" />
+      <End Role="tblTagElement" EntitySet="tblTagElement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTags_tblContainer" Association="Self.FK_tblTags_tblContainer">
+      <End Role="tblContainer" EntitySet="tblContainer" />
+      <End Role="tblTags" EntitySet="tblTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTags_tblDescription" Association="Self.FK_tblTags_tblDescription">
+      <End Role="tblDescription" EntitySet="tblDescription" />
+      <End Role="tblTags" EntitySet="tblTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTags_tblTags" Association="Self.FK_tblTags_tblTags">
+      <End Role="tblTags" EntitySet="tblTags" />
+      <End Role="tblTags1" EntitySet="tblTags" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,868 @@
+﻿@using Resources;
+@using InnonAnalytics.Common.Enums;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li><a href="javascript:;">Point Tagging</a></li>
+    <li class="active">Tagging</li>
+</ol>
+<h1 class="page-header">Tagging <small>Meaning full data of points</small></h1>
+
+
+
+<div class="wrapper">
+    @(Html.Kendo().PanelBar()
+        .Name("panelbar")
+        .ExpandMode(PanelBarExpandMode.Multiple)
+        .Items(panelbar =>
+        {
+            panelbar.Add().Text("Properties").Content(
+                @<div style="padding: 10px;">
+
+    <table >
+        <tr>
+           
+            <td>
+
+                <table>
+                    <tr>
+                        <td>Point</td>
+                        <td>
+                            @Html.TextBox("Point_name")
+                        </td>
+                        <td>Replace with</td>
+                        <td>@Html.TextBox("Point_name_new")</td>
+                    </tr>
+                    <tr>
+                        <td>Unit</td>
+                        <td>
+                            @(Html.Kendo().DropDownList()
+        .Name("Unit")
+        .OptionLabel("Select unit")
+        .HtmlAttributes(new { style = "width:312px" })
+        .Filter("contains")
+        .BindTo(ViewData["unit"] as SelectList)
+        .Events(events => events.Select("onUnitSelect"))
+
+        .DataValueField("Value")
+        .DataTextField("Text")
+                            )
+                        </td>
+
+                        <td>Data Type</td>
+                        <td>
+                            @(Html.Kendo().DropDownList()
+        .Name("Data_Type")
+        .OptionLabel("Select Data Type")
+        .BindTo(Enum.GetNames(typeof(InnonAnalytics.Common.Enums.Data_Formate)).ToList())
+
+                            )
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Min</td>
+                        <td>
+                            @(Html.Kendo().NumericTextBox<double>()
+        .Name("Min_Value")
+        .Format("#")
+        .Placeholder("Enter numeric value")
+                            )
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Max</td>
+                        <td>
+                            @(Html.Kendo().NumericTextBox<double>()
+        .Name("Max_Value")
+        .Format("#")
+        .Placeholder("Enter numeric value")
+                            )
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Freq</td>
+                        <td>
+                            @(Html.Kendo().NumericTextBox<long>()
+        .Name("Freq")
+        .Format("#")
+        .Placeholder("Enter numeric value")
+                            )
+
+                            @(Html.Kendo().DropDownList()
+        .Name("Freq_Unit")
+        .BindTo(Enum.GetNames(typeof(InnonAnalytics.Common.Enums.Time_Unit)).ToList()))
+
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Recorded Freq</td>
+                        <td>
+                            @(Html.Kendo().NumericTextBox<long>()
+        .Name("Recorded_Freq")
+        .Format("#")
+        .Placeholder("Enter numeric value")
+                            )
+
+                            @(Html.Kendo().DropDownList()
+        .Name("Recorded_Freq_Unit")
+        .BindTo(Enum.GetNames(typeof(InnonAnalytics.Common.Enums.Time_Unit)).ToList()))
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button id="btnReplace" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>update</button>
+                            <button id="btnClear" class="k-button k-button-icontext ">clear</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+           
+
+        </tr>
+        <tr>
+            <td><hr /></td>
+        </tr>
+        <tr>
+            <td>
+
+                <table width="100%">
+                    <tr>
+                        <td>Tag</td>
+                        <td>
+
+                            @(Html.Kendo().DropDownList()
+        .Name("ddl_assign_tag")
+        .OptionLabel("Select assign tag")
+        .HtmlAttributes(new { style = "width:312px" })
+        .Filter("contains")
+                .DataSource(source =>
+                                                    {
+                                                        source.Read(read =>
+                                                        {
+                                                            read.Action("Tag_Select", "PointMeaningFullData");
+                                                        });
+                                                    })
+                .DataValueField("ID")
+                .DataTextField("Tag_Value")
+                            )
+
+                           
+                        </td>
+                        <td>Replace with </td>
+                        <td>
+                            @(Html.Kendo().DropDownList()
+        .Name("ddl_replace_tag")
+        .OptionLabel("Select replace tag")
+        .HtmlAttributes(new { style = "width:312px" })
+        .Filter("contains")
+                .DataSource(source =>
+                                                    {
+                                                        source.Read(read =>
+                                                        {
+                                                            read.Action("Tag_Select", "PointMeaningFullData");
+                                                        });
+                                                    })
+                .DataValueField("ID")
+                .DataTextField("Tag_Value")
+                            )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button id="btn_bulk_update_tag" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>update tags</button></td>
+                    </tr>
+                </table>
+
+            </td>
+
+        </tr>
+    </table>
+</div>
+
+    );
+
+        })
+)
+</div>
+<br />
+
+<div class="wrapper">
+   
+    @(Html.Kendo().Splitter()
+        .Name("splitter")
+        .Orientation(SplitterOrientation.Horizontal)
+
+        .Panes(panes =>
+        {
+            panes.Add().Content(@<div style="padding: 10px;">
+
+                <div class="k-header">Site</div>
+
+
+                @(Html.Kendo().MultiSelect()
+
+                                            .Name("multi_site_selecttags")
+                                            .Events(events => events.Open("onMultiSelectOpen"))
+                                            .AutoBind(false)
+                                            .DataTextField("Tag_Value")
+                                            .Placeholder("Select tag for site")
+                                            .DataValueField("ID")
+                                            .Filter(FilterType.Contains)
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("Tag_Select_By_Point", "PointMeaningFullData", new { element_tag_type = "site" });
+                                                });
+                                            })
+                                            .Height(300)
+                                            .HeaderTemplate("<span class=\"k-state-default\">Tag Type</span>" + " | " + "<span class=\"k-state-default\">Tag</span>")
+                                            .ItemTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                                            .TagTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                    )
+                                     <div style="padding: 10px;" id="container_site"></div>
+                                   
+
+            </div>);
+            panes.Add().Content(@<div style="padding: 10px;">
+            <div class="k-header">
+                Equip
+            </div>
+
+            @(Html.Kendo().MultiSelect()
+
+                                            .Name("multi_equip_selecttags")
+                                            .Events(events => events.Open("onMultiSelectOpen"))
+                                                    .Placeholder("Select tag for equip")
+                                                             .AutoBind(false)
+                                            .DataTextField("Tag_Value")
+                                            .DataValueField("ID")
+                                            .Filter(FilterType.Contains)
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("Tag_Select_By_Point", "PointMeaningFullData", new { element_tag_type = "equip" });
+                                                });
+                                            })
+                                            .Height(300)
+                                            .HeaderTemplate("<span class=\"k-state-default\">Tag Type</span>" + " | " + "<span class=\"k-state-default\">Tag</span>")
+                                            .ItemTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                                            .TagTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                )
+                                     <div style="padding: 10px;" id="container_equip"></div>
+                                    
+
+        </div>);
+            panes.Add().Content(@<div style="padding: 10px;">
+            <div class="k-header">
+                Point
+            </div>
+
+            @(Html.Kendo().MultiSelect()
+
+                                            .Name("multi_point_selecttags")
+                                            .Events(events => events.Open("onMultiSelectOpen"))
+                                                    .Placeholder("Select tag for point")
+                                                             .AutoBind(false)
+                                            .DataTextField("Tag_Value")
+                                            .DataValueField("ID")
+                                            .Filter(FilterType.Contains)
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("Tag_Select_By_Point", "PointMeaningFullData", new { element_tag_type = "point" });
+                                                });
+                                            })
+                                            .Height(300)
+                                            .HeaderTemplate("<span class=\"k-state-default\">Tag Type</span>" + " | " + "<span class=\"k-state-default\">Tag</span>")
+                                            .ItemTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                                            .TagTemplate("<span class=\"k-state-default\">#: Tag_Type_String #</span>" + " | " + "<span class=\"k-state-default\">#: Tag_Value #</span>")
+                )<div style="padding: 10px;" id="container_point"></div>
+
+        </div>);
+        }))
+
+    <button id="btn_bulk_add_tag" class="k-button k-button-icontext k-grid-edit"><span class="k-icon k-edit"></span>add tags</button>
+
+</div>
+                                 <div id="loading-indicator" style="display:none" role="alert"></div><br />
+
+
+                                 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+                                {
+                                     @Html.AntiForgeryToken()
+                                 }
+
+                                 <br />
+
+
+                                 <script id="Element_Name_template" type="text/x-kendo-template">
+                                     <input name="selectedIds" class='chkb' onclick="CheckBoxClick('#: ID#')" id="#: ID#" value='#: ID#' type='checkbox' /> #: Element_Name #
+                                 </script>
+                                 <script id="unit-template" type="text/x-kendo-template">
+                                     <div title=" #:Unit.Unit_Name_Symbol#">#: Unit.Unit_Symbol #</div>
+                                 </script>
+
+<!--This script is for to show the tags-->
+<script type="text/javascript">
+    function print_Tags(data) {
+        var result = "<ul role=\"listbox\" unselectable=\"on\" class=\"k-reset\" >";
+        var j = data.length;
+
+        result += "<li class=\"k-button\" unselectable=\"on\"><span unselectable=\"on\">No tags assign</span></li>";
+
+        for (var i = 0; i < j; i++) {
+
+            if (i == 0)
+                result = "";
+            result += "<li class=\"k-button\" unselectable=\"on\"><span unselectable=\"on\">" + data[i].Tag_Type_String + " | " + data[i].Tag_Value + "</span></li>";          
+        }
+
+        result += "</ul>";
+
+        return result;
+    }
+</script>
+<!--end script is for to show the tags-->
+
+                                 @(Html.Kendo().TreeList<InnonAnalytics.Model.DTO.ElementDTO>()
+            .Events(events => events.Expand("onExpand").Edit("onEdit").Save("onSave").Change("onTreeChange")).Name("treelist2")
+    .Height(500).Scrollable(true)
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.Element_Name).Width(550).Title("Point").TemplateId("Element_Name_template");//.Template("#: Element_Name # (#: Element_Tag_Type #)").FooterTemplate("Total:- #= count #");
+        columns.Add().Field(f => f.Tags).Title("Tags").Width(250).Template("#=print_Tags(Tags)#");
+        columns.Add().Field(e => e.Element_Tag_Type_String).Title("Type");
+        columns.Add().Field(e => e.Unit.ID).Title("Unit").TemplateId("unit-template");
+        columns.Add().Field(e => e.Data_Type).Title("Data Type")
+
+        .Template(
+        "# if (Element_Tag_Type_String == 'site' || Element_Tag_Type_String == 'equip') { #" +
+        "" +
+        "# }else { #" +
+        "#:Data_Type_String#" +
+        "# } #"
+        );
+        columns.Add().Field(e => e.Freq).Template(
+        "# if (Element_Tag_Type_String == 'site' || Element_Tag_Type_String == 'equip') { #" +
+        "" +
+        "# }else { #" +
+        "#:Freq# #:Freq_Unit_String#" +
+        "# } #"
+        );
+        columns.Add().Field(e => e.Recorded_Freq).Template(
+        "# if (Element_Tag_Type_String == 'site' || Element_Tag_Type_String == 'equip') { #" +
+        "" +
+        "# }else { #" +
+        "#:Recorded_Freq# #:Recorded_Freq_Unit_String#" +
+        "# } #"
+        );
+        columns.Add().Field(e => e.Min_Value).Title("Min").Template(
+        "# if (Element_Tag_Type_String == 'site' || Element_Tag_Type_String == 'equip') { #" +
+        "" +
+        "# }else { #" +
+        "#:Min_Value#" +
+        "# } #"
+        );
+        columns.Add().Field(e => e.Max_Value).Title("Max").Template(
+
+        //http://docs.telerik.com/kendo-ui/aspnet-mvc/helpers/grid/faq#how-do-i-have-conditional-logic-in-a-column-client-template?
+
+        "# if (Element_Tag_Type_String == 'site' || Element_Tag_Type_String == 'equip') { #" +
+        "" +
+        "# }else { #" +
+        "#:Max_Value#" +
+        "# } #"
+        );
+        columns.Add().Command(c =>
+        {
+            c.Edit();
+            // c.Destroy().Text("Disable");
+        });
+
+    })
+.Editable(e => e.Mode("popup").TemplateName("PointMeaningFullDataEditorTemplate"))
+.Filterable()
+.Sortable()
+.DataSource(dataSource => dataSource
+.Read(read => read.Action("Element_Select", "PointMeaningFullData"))
+.Update(update => update.Action("Element_Update", "PointMeaningFullData"))
+.Destroy(delete => delete.Action("Disable_Point", "PointMeaningFullData"))
+
+.ServerOperation(false)
+.Model(m =>
+{
+    m.Id(f => f.ID);
+    m.Field(f => f.ID).Editable(false);
+    m.Field(f => f.TagElements).DefaultValue(new List<InnonAnalytics.Model.DTO.TagElementDTO>());
+    m.Field(f => f.Unit);
+    m.ParentId(f => f.Parent_Element_ID);
+    m.Field(f => f.Data_Type);
+    m.Field(f => f.Element_Name);
+    m.Field(f => f.Parent_Element_ID).Editable(false);
+    m.Field(f => f.Min_Value).DefaultValue(0);
+    m.Field(f => f.Max_Value).DefaultValue(0);
+    m.Field(f => f.IsRead_Only);
+})
+)
+)
+
+
+                <script>
+                    waitingmessage = '@Resources.PleaseWait';
+                    pleaseselectpointmessage = '@Resources.PleaseSelectPoint';
+                </script>
+
+                <script>
+                    //This varible is use for refresh tree crrent state (Checkbox checked or not)
+                    var refreshTree = false;
+
+                    //this models contain the dataitem of checked checkbox in the treelist, 
+                    var models = [];
+                    var multiselect;
+
+                   
+                    //This function is checking how many items selected from  the tree, If no item selected it will prevent to open the multiselect, For bulk tag update, not popup edit multiselect
+                    function onMultiSelectOpen(e) {
+
+                       
+                        if (models.length > 0) {
+
+                        }
+                        else {
+                            alert(pleaseselectpointmessage);
+                            e.preventDefault();
+                        }
+                    }
+
+                    $(document).ready(function () {
+                     
+                        $(document).ajaxStart(function (e) {                            
+                            OnBegin();
+                        }).ajaxStop(function () {
+                           
+                            if (refreshTree === true)
+                            {                                
+                                RefreshTreeDataSource();
+                               // update_container();
+                                refreshTree = false;
+                            }                     
+                            Hide();
+                        }
+                        );
+
+                        $("#btnClear").click(function () {
+                            clear_all_properties();
+                        });
+
+                        multiselect = $("#multiselecttags").data("kendoMultiSelect");
+                    });
+
+                    function reinstate_tree(child_Id) {
+
+                        var row = $("#" + child_Id).closest("tr");
+
+                        var grid = $("#treelist2").data("kendoTreeList");
+                        var dataItem = grid.dataItem(row);
+
+                        if (dataItem.hasChildren === true) {
+                            grid.expand(row);
+                        }
+
+                        if (dataItem.parentId > 0) {
+                            reinstate_tree(dataItem.parentId);
+                        }
+
+                    }
+
+                    function clear_all_properties() {
+                        $("#Point_name").val("");
+                        $("#Point_name_new").val("");
+
+                        var ddl_unit = $("#Unit").data("kendoDropDownList");
+                        ddl_unit.select(0);
+
+                        var ddl_Data_Type = $("#Data_Type").data("kendoDropDownList");
+                        ddl_Data_Type.select(0);
+
+                        $("#Min_Value").kendoNumericTextBox({
+                            value: ""
+                        });
+
+                        $("#Max_Value").kendoNumericTextBox({
+                            value: ""
+                        });
+                        $("#Freq").kendoNumericTextBox({
+                            value: ""
+                        });
+                        $("#Freq_Unit").val("");
+                        $("#Recorded_Freq").kendoNumericTextBox({
+                            value: ""
+                        });
+                        $("#Recorded_Freq_Unit").val("");
+
+                    }
+
+
+                    function onUnitSelect(e) {
+                        var dataItem = this.dataItem(e.item.index());
+
+                        if (dataItem.Text.indexOf('--') == 0) {
+                            e.preventDefault();
+                        }
+                    }
+
+                    function onUnitNewSelect(e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.Text.indexOf('--') == 0) {
+                            e.preventDefault();
+                        }
+                    }
+
+
+
+                    $("#btnReplace").click(function () {
+
+                        if (models.length > 0) {
+                            //var data =  $('#treelist2').data('kendoTreeList').dataSource._params();
+                            //var prepared = $('#treelist2').data('kendoTreeList').dataSource.transport.parameterMap(data);
+                            var form = $('#__AjaxAntiForgeryForm');
+                            var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+                            var datapost = {
+
+                                Point_Name: $("#Point_name").val(),
+                                Point_Name_New: $("#Point_name_new").val(),
+                                Unit: $("#Unit").val(),
+                                Min_Value: $("#Min_Value").val(),
+                                Max_Value: $("#Max_Value").val(),
+                                Freq: $("#Freq").val(),
+                                Freq_Unit: $("#Freq_Unit").val(),
+                                Recorded_Freq: $("#Recorded_Freq").val(),
+                                Recorded_Freq_Unit: $("#Recorded_Freq_Unit").val(),
+                                Data_Type: $("#Data_Type").val(),
+                                elementDto: models,
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/PointMeaningFullData/Update_Point_Properties',
+                                // contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                                contentType: 'application/json; charset=utf-8',
+                                headers: { "__RequestVerificationToken": token },
+                                dataType: 'json',
+                                cache: false,
+                                data: JSON.stringify(datapost), //JSON.stringify({ 'datapost': datapost, 'request': prepared }),
+                            }).then(function (response) {
+
+
+                                var treelist = $("#treelist2").data("kendoTreeList");
+                                treelist.dataSource.read();
+                               
+                                refreshTree = true;
+                              
+                                //console.log(response);
+                            }).done(function () {
+                                // console.log(models);
+
+                            });
+                        }
+                        else {
+                            alert(pleaseselectpointmessage);
+                        }
+
+
+                    });
+
+
+                    //This function is to bulk add new tags
+                    $("#btn_bulk_add_tag").click(function () {
+                       // console.log(models);
+                        if (models.length > 0) {
+                            //var data =  $('#treelist2').data('kendoTreeList').dataSource._params();
+                            //var prepared = $('#treelist2').data('kendoTreeList').dataSource.transport.parameterMap(data);
+                            var form = $('#__AjaxAntiForgeryForm');
+                            var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+                            var datapost = {
+
+                                site_tag: $("#multi_site_selecttags").val(),
+                                equip_tag: $("#multi_equip_selecttags").val(),
+                                point_tag: $("#multi_point_selecttags").val(),
+                                elementDto: models,
+                            };
+
+                           // console.log(datapost);
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/PointMeaningFullData/Add_tagging',
+                                // contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                                contentType: 'application/json; charset=utf-8',
+                                headers: { "__RequestVerificationToken": token },
+                                dataType: 'json',
+                                cache: false,
+                                data: JSON.stringify(datapost), //JSON.stringify({ 'datapost': datapost, 'request': prepared }),
+                            }).then(function (response) {
+
+
+                                var treelist = $("#treelist2").data("kendoTreeList");
+                                treelist.dataSource.read();
+
+                                refreshTree = true;
+
+                                //console.log(response);
+                            }).done(function () {
+                                // console.log(models);
+
+                            });
+                        }
+                        else {
+                            alert(pleaseselectpointmessage);
+                        }
+
+                    });
+
+
+                    //This function is to bulk replace/update tag, only one tag can be reaplce at once
+                    $("#btn_bulk_update_tag").click(function () {
+
+                     //   console.log(models);
+
+                        if (models.length > 0) {
+                            //var data =  $('#treelist2').data('kendoTreeList').dataSource._params();
+                            //var prepared = $('#treelist2').data('kendoTreeList').dataSource.transport.parameterMap(data);
+                            var form = $('#__AjaxAntiForgeryForm');
+                            var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+
+
+
+                            var data_check_post = {
+
+                                assign_tag: $("#ddl_assign_tag").val(),
+                                new_tag: $("#ddl_replace_tag").val()
+                            };
+
+                          //  console.log(data_check_post);
+
+                            if (data_check_post.assign_tag == null || data_check_post.assign_tag == "") {
+                                alert("Please select the tag");
+                            }
+                            else if (data_check_post.new_tag == null || data_check_post.new_tag == "") {
+                                alert("Please select the tag replace");
+                            }
+                            else if (data_check_post.assign_tag != data_check_post.new_tag) {
+                                // only one tag can be reaplce at once
+                                var datapost = {
+
+                                    assign_tag: data_check_post.assign_tag,
+                                    new_tag: data_check_post.new_tag,
+
+                                    elementDto: models,
+                                };
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/PointMeaningFullData/Update_tagging',
+                                    // contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                                    contentType: 'application/json; charset=utf-8',
+                                    headers: { "__RequestVerificationToken": token },
+                                    dataType: 'json',
+                                    cache: false,
+                                    data: JSON.stringify(datapost), //JSON.stringify({ 'datapost': datapost, 'request': prepared }),
+                                }).then(function (response) {
+
+
+                                    var treelist = $("#treelist2").data("kendoTreeList");
+                                    treelist.dataSource.read();
+
+                                    refreshTree = true;
+
+                                    //console.log(response);
+                                }).done(function () {
+                                    // console.log(models);
+
+                                });
+                            }
+                            else {
+                                alert("Tag and replace tag can not be same");
+                            }
+
+
+                        }
+                        else {
+                            alert(pleaseselectpointmessage);
+                        }
+
+                    });
+
+
+                    //Maintain the treelist check checked status after refreshing the treelist datasource
+                    function RefreshTreeDataSource()
+                    {                                          
+                        for (var i = 0; i < models.length; i++) {
+
+                            $("#" + models[i].ID).prop("checked", true);
+                            reinstate_tree(models[i].ID)
+                        }
+                    }
+
+
+                    function onTreeChange(e) {
+
+                        $('div#treelist2 input.chkb:checkbox').each(function () {
+
+                            var checkbox = $(this);
+                            checkbox.prop("checked", false);
+                        });
+
+                        refreshTree = true;
+                    }
+
+
+                    function Parent_Child_Checked(parentid, Ischecked) {
+                        var datasourcedata = $("#treelist2").data("kendoTreeList").dataSource.data();
+                        for (var i = 0; i < datasourcedata.length; i++) {
+
+                            if (datasourcedata[i].parentId == parentid) {
+                                var dataitem1 = datasourcedata[i];
+
+                                $("#" + dataitem1.ID).prop("checked", Ischecked);
+
+                                if (dataitem1.hasChildren === true) {
+                                    Parent_Child_Checked(datasourcedata[i].ID, Ischecked);
+
+                                    var checkbox = $("#" + datasourcedata[i].ID);
+                                    var row = $("#" + datasourcedata[i].ID).closest("tr");
+                                    var grid = $("#treelist2").data("kendoTreeList");
+                                    grid.expand(row);
+                                }
+                            }
+                        }
+                    }
+
+                    function CheckBoxClick(Id) {
+                        
+                        var checkbox = $("#" + Id);
+                        var row = $("#" + Id).closest("tr");
+
+                        var grid = $("#treelist2").data("kendoTreeList");
+                        var dataItem = grid.dataItem(row);
+
+                        if (dataItem.hasChildren === true) {
+
+                            if (checkbox.is(":checked") && !checkbox.is(":disabled")) {
+                                Parent_Child_Checked(Id, true);
+                            }
+                            else {
+                                Parent_Child_Checked(Id, false);
+                            }
+
+                            grid.expand(row);
+                        }
+                        models = [];
+                        update_container();
+                        //console.log(models);
+                    }
+
+
+                    //This function is for to update bulk container list for the bulk tagging, if you change the name of the point than the list automaticall update by using the following function
+                    function update_container()
+                    {
+                        $("#container_site").html("");
+                        $("#container_equip").html("");
+                        $("#container_point").html("");
+
+                        var site_counter = 0;
+                        var equip_counter = 0;
+                        var point_counter = 0;
+
+                        $('div#treelist2 input.chkb:checkbox').each(function () {
+
+                            var checkbox = $(this);
+                            if (checkbox.is(":checked") && !checkbox.is(":disabled")) {
+
+                                var row = $(this).closest("tr");
+                                // console.log(row);
+
+                                var grid = $("#treelist2").data("kendoTreeList");
+                                var dataItem = grid.dataItem(row);
+
+                                
+
+                                models.push(dataItem);
+                          //      console.log(dataItem);
+                                "1 is for site, 2 is equip, 3 is for point"
+                                if (dataItem.Element_Tag_Type == 1) {
+                                    site_counter++;
+                                    $("#container_site").append("<br /><br />" + site_counter + ". " + dataItem.Element_Name);
+                                }
+                                if (dataItem.Element_Tag_Type == 2) {
+                                    equip_counter++;
+                                    $("#container_equip").append("<br /><br />" + equip_counter + ". " + dataItem.Element_Name);
+                                }
+                                if (dataItem.Element_Tag_Type == 3) {
+                                    point_counter++;
+                                    $("#container_point").append("<br /><br />" + point_counter + ". " + dataItem.Element_Name);
+                                }
+                            }
+                        });
+                    }
+
+                    function onExpand(arg) {
+                        //console.log(arg);
+                    }
+
+
+
+                    function onEdit(e) {
+                        //  e.preventDefault();                    
+
+                        // Make sure it's not a new entry
+                        if (!e.model.isNew()) {
+
+                            if (e.model.Element_Tag_Type_String == 'site' || e.model.Element_Tag_Type_String == 'equip') {
+                                $('#tblPointMeaningFullData ._point').hide();
+                            }
+                            else {
+                                //console.log(e);
+                                $(e.currentTarget).closest("tr").addClass('k-state-selected');
+
+                                $('#tblPointMeaningFullData ._point').show();
+                                
+                            }                           
+                        }
+
+                    }
+
+                    //This function call when tree list popup editor save
+                    function onSave(e)
+                    {
+                        refreshTree = true;
+                    }     
+
+
+                </script>
+
+                <script src="~/Scripts/application/loading.js"></script>

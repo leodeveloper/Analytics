@@ -1,0 +1,25 @@
+﻿
+
+@model InnonAnalytics.Model.DTO.DataConnectorDTO
+
+
+@for (var i = 0; i < Model.NameofConnection.Count(); i++)
+{
+
+    @Html.HiddenFor(model => Model.NameofConnection[i].LanguageID_FK)
+    @Html.TextBoxFor(model => Model.NameofConnection[i].ShortValue)
+
+}
+
+
+ 
+
+
+
+@*<div class="input-group-addon"> @Html.DisplayFor(model => model.ConnectionNames[i].CultureValue)</div>*@@*@Html.ValidationMessageFor(model => model.ConnectionNames., "", new { @class = "text-danger" })*@
+
+@*@foreach (InnonAnalytics.Model.DTO.LanguageValueDTO n in Model.NameofConnection)
+{
+    @Html.HiddenFor(model => n.LanguageID_FK)
+    @Html.EditorFor(model => n.ShortValue)
+}*@

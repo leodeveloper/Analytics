@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InnonAnalyticsEngineModelStoreContainer" CdmEntityContainer="InnonAnalyticsEngineEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDatabaseLogs">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblDatabaseLog">
+        <MappingFragment StoreEntitySet="tblDatabaseLog">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Table_Name" ColumnName="Table_Name" />
+          <ScalarProperty Name="Row_ID" ColumnName="Row_ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Log_Level" ColumnName="Log_Level" />
+          <ScalarProperty Name="Log_Date" ColumnName="Log_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblPoints">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblPoint">
+        <MappingFragment StoreEntitySet="tblPoints">
+          <ScalarProperty Name="PointName" ColumnName="PointName" />
+          <ScalarProperty Name="TableRefKey" ColumnName="TableRefKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetTableName" FunctionName="InnonAnalyticsEngineModel.Store.GetTableName" />
+    <EntitySetMapping Name="tblDescriptions">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblDescription">
+        <MappingFragment StoreEntitySet="tblDescription">
+          <ScalarProperty Name="ExternalID" ColumnName="ExternalID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLanguages">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblLanguage">
+        <MappingFragment StoreEntitySet="tblLanguage">
+          <ScalarProperty Name="Is_Disabled" ColumnName="Is_Disabled" />
+          <ScalarProperty Name="Culture_Value" ColumnName="Culture_Value" />
+          <ScalarProperty Name="Language_Name" ColumnName="Language_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLanguageDescriptions">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblLanguageDescription">
+        <MappingFragment StoreEntitySet="tblLanguageDescription">
+          <ScalarProperty Name="Long_Description" ColumnName="Long_Description" />
+          <ScalarProperty Name="Short_Desription" ColumnName="Short_Desription" />
+          <ScalarProperty Name="Language_ID" ColumnName="Language_ID" />
+          <ScalarProperty Name="Description_ID" ColumnName="Description_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUnits">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblUnit">
+        <MappingFragment StoreEntitySet="tblUnits">
+          <ScalarProperty Name="Is_Disabled" ColumnName="Is_Disabled" />
+          <ScalarProperty Name="USymbol" ColumnName="USymbol" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConnectors">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblConnector">
+        <MappingFragment StoreEntitySet="tblConnector">
+          <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+          <ScalarProperty Name="Company_ID" ColumnName="Company_ID" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Gateway_Type" ColumnName="Gateway_Type" />
+          <ScalarProperty Name="Data_Connector_Connection_Type" ColumnName="Data_Connector_Connection_Type" />
+          <ScalarProperty Name="Database_Name" ColumnName="Database_Name" />
+          <ScalarProperty Name="FTP_Mode" ColumnName="FTP_Mode" />
+          <ScalarProperty Name="Default_Path" ColumnName="Default_Path" />
+          <ScalarProperty Name="Port_Number" ColumnName="Port_Number" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+          <ScalarProperty Name="Server_Name" ColumnName="Server_Name" />
+          <ScalarProperty Name="Connection_Name" ColumnName="Connection_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblContainers">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblContainer">
+        <MappingFragment StoreEntitySet="tblContainer">
+          <ScalarProperty Name="Container_Name" ColumnName="Container_Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTags">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblTag">
+        <MappingFragment StoreEntitySet="tblTags">
+          <ScalarProperty Name="Container_ID" ColumnName="Container_ID" />
+          <ScalarProperty Name="Is_Disabled" ColumnName="Is_Disabled" />
+          <ScalarProperty Name="Parent_Tag_ID" ColumnName="Parent_Tag_ID" />
+          <ScalarProperty Name="Tag_Value" ColumnName="Tag_Value" />
+          <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+          <ScalarProperty Name="Tag_Kind" ColumnName="Tag_Kind" />
+          <ScalarProperty Name="Description_ID" ColumnName="Description_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTagElements">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblTagElement">
+        <MappingFragment StoreEntitySet="tblTagElement">
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Element_ID" ColumnName="Element_ID" />
+          <ScalarProperty Name="Tag_ID" ColumnName="Tag_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDashboards">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblDashboard">
+        <MappingFragment StoreEntitySet="tblDashboard">
+          <ScalarProperty Name="Dashboard_Type" ColumnName="Dashboard_Type" />
+          <ScalarProperty Name="Parent_Id" ColumnName="Parent_Id" />
+          <ScalarProperty Name="Widget_Positions" ColumnName="Widget_Positions" />
+          <ScalarProperty Name="Layout_Option" ColumnName="Layout_Option" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="Accessibility" ColumnName="Accessibility" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetRawData" FunctionName="InnonAnalyticsEngineModel.Store.GetRawData" />
+    <EntitySetMapping Name="tblDatawareHouseMigrationLogs">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblDatawareHouseMigrationLog">
+        <MappingFragment StoreEntitySet="tblDatawareHouseMigrationLog">
+          <ScalarProperty Name="Timestamp_To" ColumnName="Timestamp_To" />
+          <ScalarProperty Name="Timestamp_From" ColumnName="Timestamp_From" />
+          <ScalarProperty Name="Is_Black_List" ColumnName="Is_Black_List" />
+          <ScalarProperty Name="Total_Record_Fetch" ColumnName="Total_Record_Fetch" />
+          <ScalarProperty Name="Last_Run_End" ColumnName="Last_Run_End" />
+          <ScalarProperty Name="Last_Run_Start" ColumnName="Last_Run_Start" />
+          <ScalarProperty Name="Element_ID" ColumnName="Element_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Gauge_Range_Color">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Gauge_Range_Color">
+        <MappingFragment StoreEntitySet="tblChart_Gauge_Range_Color">
+          <ScalarProperty Name="Chart_Gauge_Id" ColumnName="Chart_Gauge_Id" />
+          <ScalarProperty Name="Color_Code" ColumnName="Color_Code" />
+          <ScalarProperty Name="To_Value" ColumnName="To_Value" />
+          <ScalarProperty Name="From_Value" ColumnName="From_Value" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblDashboard_Widget">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblDashboard_Widget">
+        <MappingFragment StoreEntitySet="tblDashboard_Widget">
+          <ScalarProperty Name="widget_height" ColumnName="widget_height" />
+          <ScalarProperty Name="widget_width" ColumnName="widget_width" />
+          <ScalarProperty Name="widget_y" ColumnName="widget_y" />
+          <ScalarProperty Name="widget_x" ColumnName="widget_x" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="Dashboard_Id" ColumnName="Dashboard_Id" />
+          <ScalarProperty Name="Chart_Type" ColumnName="Chart_Type" />
+          <ScalarProperty Name="Widget_Title" ColumnName="Widget_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Gauge">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Gauge">
+        <MappingFragment StoreEntitySet="tblChart_Gauge">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Target_Matric_Label" ColumnName="Target_Matric_Label" />
+          <ScalarProperty Name="Metric_Label" ColumnName="Metric_Label" />
+          <ScalarProperty Name="Max" ColumnName="Max" />
+          <ScalarProperty Name="Min" ColumnName="Min" />
+          <ScalarProperty Name="End_Angle" ColumnName="End_Angle" />
+          <ScalarProperty Name="Start_Angle" ColumnName="Start_Angle" />
+          <ScalarProperty Name="Minor_Unit" ColumnName="Minor_Unit" />
+          <ScalarProperty Name="Target_Matric_Id" ColumnName="Target_Matric_Id" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Bar">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Bar">
+        <MappingFragment StoreEntitySet="tblChart_Bar">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Group_By" ColumnName="Group_By" />
+          <ScalarProperty Name="Target_Metric_Id" ColumnName="Target_Metric_Id" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTag_Type_Mapping">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblTag_Type_Mapping">
+        <MappingFragment StoreEntitySet="tblTag_Type_Mapping">
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="Point_Dim_Mapping" ColumnName="Point_Dim_Mapping" />
+          <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblElements">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblElement">
+        <MappingFragment StoreEntitySet="tblElement">
+          <ScalarProperty Name="IsRead_Only" ColumnName="IsRead_Only" />
+          <ScalarProperty Name="Value_Type" ColumnName="Value_Type" />
+          <ScalarProperty Name="Data_Type" ColumnName="Data_Type" />
+          <ScalarProperty Name="Max_Value" ColumnName="Max_Value" />
+          <ScalarProperty Name="Min_Value" ColumnName="Min_Value" />
+          <ScalarProperty Name="Recorded_Freq_Unit" ColumnName="Recorded_Freq_Unit" />
+          <ScalarProperty Name="Recorded_Freq" ColumnName="Recorded_Freq" />
+          <ScalarProperty Name="Freq_Unit" ColumnName="Freq_Unit" />
+          <ScalarProperty Name="Freq" ColumnName="Freq" />
+          <ScalarProperty Name="Unit_ID" ColumnName="Unit_ID" />
+          <ScalarProperty Name="Element_Tag_Type" ColumnName="Element_Tag_Type" />
+          <ScalarProperty Name="ExternalID" ColumnName="ExternalID" />
+          <ScalarProperty Name="Parent_Element_ID" ColumnName="Parent_Element_ID" />
+          <ScalarProperty Name="Is_Disabled" ColumnName="Is_Disabled" />
+          <ScalarProperty Name="Connector_History_ID" ColumnName="Connector_History_ID" />
+          <ScalarProperty Name="Connector_Live_ID" ColumnName="Connector_Live_ID" />
+          <ScalarProperty Name="Source_Element_Name_History" ColumnName="Source_Element_Name_History" />
+          <ScalarProperty Name="Source_Element_Name_Live" ColumnName="Source_Element_Name_Live" />
+          <ScalarProperty Name="Element_Name" ColumnName="Element_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Metric">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Metric">
+        <MappingFragment StoreEntitySet="tblChart_Metric">
+          <ScalarProperty Name="Line_Chart_Id" ColumnName="Line_Chart_Id" />
+          <ScalarProperty Name="Donut_Chart_Id" ColumnName="Donut_Chart_Id" />
+          <ScalarProperty Name="Stacked_Chart_Id" ColumnName="Stacked_Chart_Id" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Pie_Chart_Id" ColumnName="Pie_Chart_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Donut">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Donut">
+        <MappingFragment StoreEntitySet="tblChart_Donut">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Pie">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Pie">
+        <MappingFragment StoreEntitySet="tblChart_Pie">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="Group_By" ColumnName="Group_By" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Stacked">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Stacked">
+        <MappingFragment StoreEntitySet="tblChart_Stacked">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="Group_By" ColumnName="Group_By" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_TreeMap">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_TreeMap">
+        <MappingFragment StoreEntitySet="tblChart_TreeMap">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Target_Metric_Id" ColumnName="Target_Metric_Id" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="Group_By" ColumnName="Group_By" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Tree_Map_Title" ColumnName="Tree_Map_Title" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Heatmap">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Heatmap">
+        <MappingFragment StoreEntitySet="tblChart_Heatmap">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMetrics">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblMetric">
+        <MappingFragment StoreEntitySet="tblMetric">
+          <ScalarProperty Name="Unit_Id" ColumnName="Unit_Id" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Rollup_Function" ColumnName="Rollup_Function" />
+          <ScalarProperty Name="Metric_Name" ColumnName="Metric_Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Counter">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Counter">
+        <MappingFragment StoreEntitySet="tblChart_Counter">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblHomePage_Widget">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblHomePage_Widget">
+        <MappingFragment StoreEntitySet="tblHomePage_Widget">
+          <ScalarProperty Name="widget_height" ColumnName="widget_height" />
+          <ScalarProperty Name="widget_width" ColumnName="widget_width" />
+          <ScalarProperty Name="widget_y" ColumnName="widget_y" />
+          <ScalarProperty Name="widget_x" ColumnName="widget_x" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Widget_Id" ColumnName="Widget_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserDashboards">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.AspNetUserDashboard">
+        <MappingFragment StoreEntitySet="AspNetUserDashboard">
+          <ScalarProperty Name="DashBoard_Id" ColumnName="DashBoard_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserMetrics">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.AspNetUserMetric">
+        <MappingFragment StoreEntitySet="AspNetUserMetric">
+          <ScalarProperty Name="Metric_Id" ColumnName="Metric_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChart_Line">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblChart_Line">
+        <MappingFragment StoreEntitySet="tblChart_Line">
+          <ScalarProperty Name="Precision" ColumnName="Precision" />
+          <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+          <ScalarProperty Name="To_Date" ColumnName="To_Date" />
+          <ScalarProperty Name="From_Date" ColumnName="From_Date" />
+          <ScalarProperty Name="DashboardWidget_Id" ColumnName="DashboardWidget_Id" />
+          <ScalarProperty Name="Time_Line" ColumnName="Time_Line" />
+          <ScalarProperty Name="Group_By" ColumnName="Group_By" />
+          <ScalarProperty Name="Chart_Title" ColumnName="Chart_Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblElement_Extension">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblElement_Extension">
+        <MappingFragment StoreEntitySet="tblElement_Extension">
+          <ScalarProperty Name="Element_Id" ColumnName="Element_Id" />
+          <ScalarProperty Name="Conatct_Number2" ColumnName="Conatct_Number2" />
+          <ScalarProperty Name="Contact_Number1" ColumnName="Contact_Number1" />
+          <ScalarProperty Name="Address2" ColumnName="Address2" />
+          <ScalarProperty Name="Address1" ColumnName="Address1" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserElements">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.AspNetUserElement">
+        <MappingFragment StoreEntitySet="AspNetUserElement">
+          <ScalarProperty Name="Element_Id" ColumnName="Element_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblAudits">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblAudit">
+        <MappingFragment StoreEntitySet="tblAudit">
+          <ScalarProperty Name="Last_Update" ColumnName="Last_Update" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="New_Values" ColumnName="New_Values" />
+          <ScalarProperty Name="Old_Values" ColumnName="Old_Values" />
+          <ScalarProperty Name="Table_Name" ColumnName="Table_Name" />
+          <ScalarProperty Name="Table_Row_Id" ColumnName="Table_Row_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotes">
+      <EntityTypeMapping TypeName="InnonAnalyticsEngineModel.tblNote">
+        <MappingFragment StoreEntitySet="tblNote">
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Table_Name" ColumnName="Table_Name" />
+          <ScalarProperty Name="Table_Row_Id" ColumnName="Table_Row_Id" />
+          <ScalarProperty Name="Last_Updated" ColumnName="Last_Updated" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

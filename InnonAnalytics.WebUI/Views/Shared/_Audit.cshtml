@@ -1,0 +1,78 @@
+﻿@model IList<InnonAnalytics.Model.DTO.Audit_DTO>
+<div id="content" class="content" style="margin-left:45px;">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb pull-right"></ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Recent Timeline <small></small></h1>
+    <!-- end page-header -->
+    <!-- begin timeline -->
+    <ul class="timeline">     
+
+        @foreach (var audit in Model)
+        {
+            <li>
+                <!-- begin timeline-time -->
+                <div class="timeline-time">
+                    <span class="date">@audit.Last_Update.ToShortDateString()</span>
+                    <span class="time">@audit.Last_Update.ToShortTimeString()</span>
+                </div>
+                <!-- end timeline-time -->
+                <!-- begin timeline-icon -->
+                <div class="timeline-icon">
+                    <a href="javascript:;"><i class="fa fa-edit"></i></a>
+                </div>
+                <!-- end timeline-icon -->
+                <!-- begin timeline-body -->
+                <div class="timeline-body">
+                    <div class="timeline-header">
+                        <span class="userimage"><img src="../Content/assets/img/user-6.jpg" alt=""></span>
+                        <span class="username">@audit.User_Id</span>
+                        @*<span class="pull-right text-muted">1,282 Views</span>*@
+                    </div>                 
+
+
+                    <div class="timeline-content">
+                        <div class="row">
+                            <!-- begin col-3 -->
+                            <div class="col-md-3 col-sm-6">
+                                <div class="widget widget-stats bg-green">
+                                    <div class="stats-icon"><i class="fa fa-desktop"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Previous</h4>
+                                        <p>@audit.Old_Values</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        @*<a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col-3 -->
+                            <!-- begin col-3 -->
+                            <div class="col-md-3 col-sm-6">
+                                <div class="widget widget-stats bg-red">
+                                    <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Updated</h4>
+                                        <p>@audit.New_Values</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        @*<a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col-3 -->
+                        </div>
+                    </div>
+                    <div class="timeline-footer">
+                        <i class="fa fa-comments fa-fw"></i>Last update @audit.Last_Update
+                        @*<a href="javascript:;" class="m-r-15"><i class="fa fa-thumbs-up fa-fw"></i> Like</a>
+                            <a href="javascript:;"><i class="fa fa-comments fa-fw"></i> Comment</a>*@
+                    </div>
+                </div>
+                <!-- end timeline-body -->
+            </li>
+        }
+    </ul>
+    <!-- end timeline -->
+</div>

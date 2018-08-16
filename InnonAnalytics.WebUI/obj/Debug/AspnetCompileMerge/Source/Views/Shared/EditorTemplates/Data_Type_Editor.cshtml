@@ -1,0 +1,10 @@
+﻿
+
+@( Html.Kendo().DropDownListFor(m => m.Data_Type)
+          .DataTextField("Text")
+        .DataValueField("Value")
+.OptionLabel(new { Text = @Resources.DropDownConnectorSelect, Value = 0 })
+    .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.Data_Formate)))
+        //  .Events(events => { events.Select("OnSelect"); })
+)

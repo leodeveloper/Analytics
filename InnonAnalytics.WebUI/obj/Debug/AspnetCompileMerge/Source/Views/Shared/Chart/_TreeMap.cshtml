@@ -1,0 +1,139 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+<style>
+    .pwButtonClose {
+        border: 0;
+        background-color: transparent;
+        margin-left: 5px;
+        background-image: url(../content/images/close.png);
+        background-repeat: no-repeat;
+        height: 16px;
+        width: 16px;
+        padding: 0;
+    }
+</style>
+
+<script>
+    //function onSelect(e) {
+    //    console.log("hello");
+    //    console.log($(e.item)[0].innerHTML);
+
+    //    $(e.item)[0].innerHTML = "<span class=\"k-loading k-complete\"></span>" +
+    //                             "<span class=\"k-link\"style='font-size: 12px !important; padding-right:5px;'>" +
+    //                             $(e.item).find("> .k-link").text() +
+    //                             "<input class='pwButtonClose' type='button' onClick='closeTab($(this).closest(\"li\"));'></span>";
+    //}
+</script>
+
+<div class="panel panel-inverse" id="@Model.Id" data-sortable-id="index-@Model.Id">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+         @*   <a href="#modal-dialog1" data-toggle="modal" id="addnew_widget_tab" title="Add new tab" class="btn btn-xs btn-icon btn-circle btn-success">+</a>
+    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+         @*   <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+    <a href="#modal-dialog1" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-default" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" data-click="panel-widget-edit-option"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="Remove widget" data-click="panel-remove"><i class="fa fa-times"></i></a>*@
+            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@Model.TreeMapDTO.FirstOrDefault().Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title">@Model.Widget_Title</h4>
+    </div>
+
+
+    <div class="panel-body">       
+
+        <div id="energymaptab">
+
+@if (Model.TreeMapDTO != null)
+              {
+           
+    @(Html.Kendo().TabStrip().Name("tabstrip" + Model.Dashboard_Id).SelectedIndex(0)
+            .Items(tabstrip =>
+          {
+              if (Model.TreeMapDTO != null)
+              {
+                  foreach (ChartTreeMapDTO treemap in Model.TreeMapDTO)
+                  {
+                      tabstrip.Add().Text(treemap.Tree_Map_Title)                   
+                      .Content(@<text>
+
+                        <div id="loading-treemap-@treemap.Id">please wait...</div>
+
+            @*<div class="text-right">
+                <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Dashboard_Id', '@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                <a href="#modal-dialog1" data-toggle="modal" id="Remove_widget_tab" title="Remove tab" class="btn btn-xs btn-icon btn-circle btn-danger"><i class="fa fa-times"></i></a>
+            </div>*@          
+            <div id="treeMap-@treemap.Id" style="height: 600px; font-size: 12px;"></div>
+            <div class="box">
+                            <div>
+                                <table style="width:75%; padding:10px; ">
+                                    <tr>
+                                        <td>Legends:-</td>
+                                        <td><div style="background-color:#21610B">&nbsp;&nbsp;</div> </td>
+                                        <td>&nbsp; 5% or more below target</td>
+                                        <td><div style="background-color:#ff7a00">&nbsp;&nbsp;</div> </td>
+                                        <td>&nbsp; +/- 5% on target</td>
+                                        <td><div style="background-color:#FF0000">&nbsp;&nbsp;</div> </td>
+                                        <td>&nbsp; 5% or more above target</td>
+                                        <td><div style="background-color:#A4A4A4">&nbsp;&nbsp;</div> </td>
+                                        <td>&nbsp; size = Actual Consumption</td>
+                                    </tr>
+                                </table>
+                            </div>
+              </div>
+            <span id="div_treemap_timeline_@treemap.Id"></span>:-
+            <span id="div_treemap_fromdate_@treemap.Id"></span> -
+            <span id="div_treemap_todate_@treemap.Id"></span>
+            <span id="div_treemap_none_@treemap.Id"></span>
+            <script>
+
+    $("#treeMap-@treemap.Id").kendoTreeMap({
+        dataSource: {
+            data: [{
+                name: "No Data",
+                value: 0,
+                Items: []
+            }]
+        },
+        valueField: "Value",
+        textField: "Name"
+
+    });
+
+    $(function () {
+        
+        var common_properties;
+        if ('@treemap.Chart_Common_Property_DTO.Time_Line' !== '') {
+            common_properties = ChangeDates('@treemap.Chart_Common_Property_DTO.Time_Line', '@treemap.Chart_Common_Property_DTO.From_Date', '@treemap.Chart_Common_Property_DTO.To_Date');
+        }
+        else {
+            common_properties = ChangeDates('None', '@treemap.Chart_Common_Property_DTO.From_Date', '@treemap.Chart_Common_Property_DTO.To_Date');
+        }
+
+        if (common_properties !== null) {
+            $("#div_treemap_timeline_@treemap.Id").html('@treemap.Chart_Common_Property_DTO.Time_Line');
+            $("#div_treemap_fromdate_@treemap.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+            $("#div_treemap_todate_@treemap.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+            //$("#gauge_fromdate").val(common_properties.startDateTime)
+            // $("#gauge_todate").val(common_properties.startDateTime)
+        }
+        else {
+            $("#div_treemap_none_@treemap.Id").html("Global Calender");
+        }
+
+        var treemap_chart = new treemap("@treemap.Id", "treeMap-@treemap.Id", "loading-treemap-@treemap.Id");
+        list_of_tree_map.push(treemap_chart);
+
+    });
+ </script></text>);
+                  }
+              }
+          }))
+              }          
+        </div>
+    </div>
+</div>

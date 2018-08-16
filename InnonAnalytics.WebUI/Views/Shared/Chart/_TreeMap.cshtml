@@ -1,0 +1,161 @@
+﻿@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+<style>
+    .pwButtonClose {
+        border: 0;
+        background-color: transparent;
+        margin-left: 5px;
+        background-image: url(../content/images/close.png);
+        background-repeat: no-repeat;
+        height: 16px;
+        width: 16px;
+        padding: 0;
+    }
+</style>
+
+@if(Model.TreeMapDTO != null)
+    {
+<div id="energymaptab">
+
+   
+        <div class="panel panel-default panel-with-tabs" >
+        <div class="panel-heading p-0">
+            <div class="panel-heading-btn m-r-10 m-t-10">
+                @if (Model.homepage_widgets != null)
+                {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="unPin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Remove')" data-original-title="unPin to home page"><i class="fa fa-thumb-tack"></i></a>
+                }
+                else
+                {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" title="Pin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Add')" data-original-title="Pin to home page"><i class="fa fa-thumb-tack"></i></a>
+                }
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                <a href="#modal-dialog1" data-toggle="modal" id="Add_new_tab" onclick="Add_New_Tab('@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success" data-original-title="" title=""><i class="fa fa-plus"></i></a>
+            </div>
+            <!-- begin nav-tabs -->
+            <div class="tab-overflow">
+                <ul class="nav nav-tabs">
+                    <li class="prev-button"><a href="javascript:;" data-click="prev-tab" class="text-success"><i class="fa fa-arrow-left"></i></a></li>
+                    @foreach (ChartTreeMapDTO treemap in Model.TreeMapDTO)
+                    {
+                        if (Model.TreeMapDTO.First().Id == treemap.Id)
+                        {
+                            <li onclick="reloadtree('treeMap-@treemap.Id', 'tree-map-widget-@Model.Id')" class="active">
+                                <a href="#nav-tab-@treemap.Id" data-toggle="tab">@treemap.Tree_Map_Title</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li onclick="reloadtree('treeMap-@treemap.Id', 'tree-map-widget-@Model.Id')" class=""><a href="#nav-tab-@treemap.Id" data-toggle="tab">@treemap.Tree_Map_Title</a></li>
+                        }
+                    }
+                    <li class="next-button"><a href="javascript:;" data-click="next-tab" class="text-success"><i class="fa fa-arrow-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+            <div class="tab-content" id="tree-map-widget-@Model.Id">
+                @foreach (ChartTreeMapDTO treemap in Model.TreeMapDTO)
+                {
+                    var activeclass = "tab-pane fade";
+                    if (Model.TreeMapDTO.First().Id == treemap.Id)
+                    {
+                        activeclass = "tab-pane fade active in";
+                    }
+                    <div class="@activeclass" id="nav-tab-@treemap.Id">
+                        <div id="loading-treemap-@treemap.Id">please wait...</div>
+                        <div class="text-right">
+                            <a href="#modal-rawdata" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Raw Data" onclick="get_Raw_Data('@treemap.Id', '@Model.Chart_Type', '@treemap.Chart_Common_Property_DTO.From_Date', '@treemap.Chart_Common_Property_DTO.To_Date')" data-original-title="Raw Data"><i class="fa fa-cloud-download"></i></a>
+                            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@treemap.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+                            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Chart_Type', '@treemap.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" onclick="Remove_Chart('@Model.Chart_Type','@treemap.Id', '@Model.Dashboard_Id')"><i class="fa fa-times"></i></a>
+                        </div>
+                        <div id="treeMap-control-@treemap.Id">
+                            <div id="treeMap-@treemap.Id" class="treemapstyle"></div>
+                            <div class="box">
+                                <div>
+                                    <table style="width:75%; padding:10px; ">
+                                        <tr>
+                                            <td>Legends:-</td>
+                                            <td><div style="background-color:#21610B">&nbsp;&nbsp;</div> </td>
+                                            <td>&nbsp; 5% or more below target</td>
+                                            <td><div style="background-color:#ff7a00">&nbsp;&nbsp;</div> </td>
+                                            <td>&nbsp; +/- 5% on target</td>
+                                            <td><div style="background-color:#FF0000">&nbsp;&nbsp;</div> </td>
+                                            <td>&nbsp; 5% or more above target</td>
+                                            <td><div style="background-color:#A4A4A4">&nbsp;&nbsp;</div> </td>
+                                            <td>&nbsp; size = Actual Consumption</td>
+                                            <td><div style="background-color: #D3D3D3">&nbsp;&nbsp;</div> </td>
+                                            <td>&nbsp; No target found</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="div_treemap_timeline_@treemap.Id"></span>:-
+                        <span id="div_treemap_fromdate_@treemap.Id"></span> -
+                        <span id="div_treemap_todate_@treemap.Id"></span>
+                        <span id="div_treemap_none_@treemap.Id"></span>
+                        <script>
+
+    $("#treeMap-@treemap.Id").kendoTreeMap({
+        dataSource: {
+            data: [{
+                name: "No Data",
+                value: 0,
+                color: "#A4A4A4",
+                Items: []
+            }]
+        },
+        valueField: "Value",
+        textField: "Name",
+        colorField: "Color"
+
+    });
+
+    $("#treeMap-@treemap.Id").kendoTooltip({
+        filter: ".k-leaf,.k-treemap-title",
+        position: "top",
+        content: function (e) {
+            var treemap = $("#treeMap-@treemap.Id").data("kendoTreeMap");
+            var item = treemap.dataItem(e.target.closest(".k-treemap-tile"));
+            return item.Value > 1? item.Name + ": " + item.Value.format("@treemap.Chart_Common_Property_DTO.Precision", 3, ',', '.') + "<br /> Target " + item.Target_Value.format("@treemap.Chart_Common_Property_DTO.Precision", 3, ',', '.'): null;
+                                }
+                            });
+
+                            $(function () {
+
+                                var common_properties;
+                                if ('@treemap.Chart_Common_Property_DTO.Time_Line' !== '') {
+            common_properties = ChangeDates('@treemap.Chart_Common_Property_DTO.Time_Line', '@treemap.Chart_Common_Property_DTO.From_Date', '@treemap.Chart_Common_Property_DTO.To_Date');
+        }
+        else {
+            common_properties = ChangeDates('None', '@treemap.Chart_Common_Property_DTO.From_Date', '@treemap.Chart_Common_Property_DTO.To_Date');
+        }
+
+        if (common_properties !== null) {
+            $("#div_treemap_timeline_@treemap.Id").html('@treemap.Chart_Common_Property_DTO.Time_Line');
+            $("#div_treemap_fromdate_@treemap.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+            $("#div_treemap_todate_@treemap.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+            //$("#gauge_fromdate").val(common_properties.startDateTime)
+            // $("#gauge_todate").val(common_properties.startDateTime)
+        }
+        else {
+            $("#div_treemap_none_@treemap.Id").html("Global Calender");
+        }
+
+        var treemap_chart = new treemap("@treemap.Id", "treeMap-@treemap.Id", "loading-treemap-@treemap.Id");
+        list_of_tree_map.push(treemap_chart);
+    });
+                        </script>
+                    </div>
+                }
+            </div>
+    </div>
+   
+
+    
+        </div>
+   
+    }

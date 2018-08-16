@@ -1,0 +1,90 @@
+﻿@using Resources;
+@{
+    ViewBag.Title = "Innon Data Connection";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li><a href="javascript:;">Connections</a></li>
+    <li class="active">Connection</li>
+</ol>
+<h1 class="page-header">Connection Manager <small></small></h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<div id="clientsDb">
+    @(Html.Kendo().Grid<InnonAnalytics.Model.DTO.ConnectorDTO>()
+      .Name("grid")
+      .DataSource(dataSource => dataSource // Configure the grid data source
+          .Ajax() // Specify that ajax binding is used
+                                                  .Events(events => { events.Error("error_handler"); events.RequestEnd("onGridDataSourceRequestEnd"); })
+                  .ServerOperation(false) // Paging, sorting, filtering and grouping will be done client-side
+                          .Read(read => read.Action("DataConnection_Select", "DataConnection")) // Set the action method which will return the data in JSON format
+                          .Model(m =>
+                          {
+                              m.Id(f => f.ConnectionID);
+                              m.Field(f => f.DataConnectorType).DefaultValue(0);
+                              m.Field(f => f.GatewayType).DefaultValue(0);
+                             // m.Field(f => f.Mode).DefaultValue(0);
+                            //  m.Field(f => f.DataConnectorType).Editable(false);
+                          })
+                         .Create(update => { update.Action("DataConnection_Insert", "DataConnection"); })
+                          .Update(update => { update.Action("DataConnection_Update", "DataConnection"); })
+                          
+            //    .Destroy(update => update.Action("DataConnection_Update", "DataConnection"))
+       )
+       .ColumnMenu(c => c.Enabled(true))
+
+      .Columns(columns =>
+      {
+          columns.Bound(dataconnection => dataconnection.DataConnectorType);
+          columns.Bound(dataconnection => dataconnection.ConnectionName);
+          columns.Bound(dataconnection => dataconnection.IsActive).Title("Active").ClientTemplate(
+
+           //http://docs.telerik.com/kendo-ui/aspnet-mvc/helpers/grid/faq#how-do-i-have-conditional-logic-in-a-column-client-template?
+
+    "# if (IsActive == true) { #" +
+        "Yes" +
+    "# } else { #" +
+        "No" +
+    "# } #"
+);
+
+          columns.Command(commands =>
+          {
+              commands.Edit().Text("Edit").HtmlAttributes(new { @title = "Edit", @width = "500px" }).UpdateText("Update");
+
+
+          }).Title("").Width("200px");
+
+      }).ToolBar(toolbar => { toolbar.Create().Text("Add new connection"); })
+
+      .Editable(editable => { editable.Mode(GridEditMode.PopUp).CreateAt(GridInsertRowPosition.Top).TemplateName("ConnectionEditortTemplate"); }) //.Window(w => w.Width(500)) //ConnectionEditortTemplate is partial view which inside the Views/Shared/EditorTemplates
+      .Pageable(t => t.ButtonCount(2)) // Enable paging
+      .Sortable() // Enable sorting
+      .Filterable() //Enable filter
+      .Groupable()
+      .Selectable(t => t.Mode(GridSelectionMode.Single))
+              .Events(events => { events.Edit("insertPopupCaption");  } )
+    )
+</div>
+
+<script>
+    waitingmessage = '@Resources.PleaseWait';
+</script>
+
+<script src="@Url.Content("~/Scripts/application/loading.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/application/connector.js")" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+

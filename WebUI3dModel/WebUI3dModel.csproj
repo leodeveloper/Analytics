@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{210E5522-E3A5-4D27-B19F-3F702D6EFBBF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebUI3dModel</RootNamespace>
+    <AssemblyName>WebUI3dModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="json\apartment.json" />
+    <Content Include="json\canada.json" />
+    <Content Include="json\england.json" />
+    <Content Include="json\europe.json" />
+    <Content Include="json\france.json" />
+    <Content Include="json\germany.json" />
+    <Content Include="json\mall.json" />
+    <Content Include="json\usa.json" />
+    <Content Include="json\world.json" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="apartment.html" />
+    <Content Include="canada.html" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\map.css" />
+    <Content Include="css\style.css" />
+    <Content Include="england.html" />
+    <Content Include="europe.html" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="france.html" />
+    <Content Include="germany.html" />
+    <Content Include="images\apartment\lower-small.jpg" />
+    <Content Include="images\apartment\lower.jpg" />
+    <Content Include="images\apartment\upper-small.jpg" />
+    <Content Include="images\apartment\upper.jpg" />
+    <Content Include="images\background.jpg" />
+    <Content Include="images\browser.png" />
+    <Content Include="images\button-divider.png" />
+    <Content Include="images\cart.png" />
+    <Content Include="images\cloth.png" />
+    <Content Include="images\food.png" />
+    <Content Include="images\health.png" />
+    <Content Include="images\icon-browser.png" />
+    <Content Include="images\icon-landmark.png" />
+    <Content Include="images\icon-layer.png" />
+    <Content Include="images\icon-link.png" />
+    <Content Include="images\icon-mobile.png" />
+    <Content Include="images\icon-responsive.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\mail.png" />
+    <Content Include="images\maps\canada.svg" />
+    <Content Include="images\maps\england.svg" />
+    <Content Include="images\maps\europe-mini.jpg" />
+    <Content Include="images\maps\europe-old.svg" />
+    <Content Include="images\maps\europe.svg" />
+    <Content Include="images\maps\france-mini.jpg" />
+    <Content Include="images\maps\france.svg" />
+    <Content Include="images\maps\germany-mini.jpg" />
+    <Content Include="images\maps\germany.svg" />
+    <Content Include="images\maps\mall-ground-mini.jpg" />
+    <Content Include="images\maps\mall-ground.svg" />
+    <Content Include="images\maps\mall-level1-mini.jpg" />
+    <Content Include="images\maps\mall-level1.svg" />
+    <Content Include="images\maps\mall-underground-mini.jpg" />
+    <Content Include="images\maps\mall-underground.svg" />
+    <Content Include="images\maps\switzerland.svg" />
+    <Content Include="images\maps\usa-mini.jpg" />
+    <Content Include="images\maps\usa.svg" />
+    <Content Include="images\maps\world.svg" />
+    <Content Include="images\misc.png" />
+    <Content Include="images\thumbs\amc.jpg" />
+    <Content Include="images\thumbs\applebees.jpg" />
+    <Content Include="images\thumbs\att.jpg" />
+    <Content Include="images\thumbs\belk.jpg" />
+    <Content Include="images\thumbs\cvs.jpg" />
+    <Content Include="images\thumbs\gap.jpg" />
+    <Content Include="images\thumbs\hm.jpg" />
+    <Content Include="images\thumbs\jcpenney.jpg" />
+    <Content Include="images\thumbs\kfc.jpg" />
+    <Content Include="images\thumbs\macys.jpg" />
+    <Content Include="images\thumbs\mcdonalds.jpg" />
+    <Content Include="images\thumbs\oldnavy.jpg" />
+    <Content Include="images\thumbs\petco.jpg" />
+    <Content Include="images\thumbs\pizzahut.jpg" />
+    <Content Include="images\thumbs\pullbear.jpg" />
+    <Content Include="images\thumbs\sears.jpg" />
+    <Content Include="images\thumbs\sephora.jpg" />
+    <Content Include="images\thumbs\sportchek.jpg" />
+    <Content Include="images\thumbs\starbucks.JPG" />
+    <Content Include="images\thumbs\subway.jpg" />
+    <Content Include="images\thumbs\walgreens.jpg" />
+    <Content Include="images\thumbs\zara.jpg" />
+    <Content Include="images\window.png" />
+    <Content Include="images\wordpress.png" />
+    <Content Include="images\world\world.svg" />
+    <Content Include="images\wp.png" />
+    <Content Include="Index.html" />
+    <Content Include="js\hammer.min.js" />
+    <Content Include="js\html5shiv.js" />
+    <Content Include="js\jquery-1.11.2.min.js" />
+    <Content Include="js\jquery.easing.js" />
+    <Content Include="js\jquery.mousewheel.js" />
+    <Content Include="js\smoothscroll.js" />
+    <Content Include="mapplic\images\alpha20.png" />
+    <Content Include="mapplic\images\alpha50.png" />
+    <Content Include="mapplic\images\arrow-down%402x.png" />
+    <Content Include="mapplic\images\arrow-down.png" />
+    <Content Include="mapplic\images\arrow-up%402x.png" />
+    <Content Include="mapplic\images\arrow-up.png" />
+    <Content Include="mapplic\images\closedhand.cur" />
+    <Content Include="mapplic\images\cross%402x.png" />
+    <Content Include="mapplic\images\cross.png" />
+    <Content Include="mapplic\images\fullscreen-exit.png" />
+    <Content Include="mapplic\images\fullscreen.png" />
+    <Content Include="mapplic\images\loader.gif" />
+    <Content Include="mapplic\images\minus%402x.png" />
+    <Content Include="mapplic\images\minus.png" />
+    <Content Include="mapplic\images\openhand.cur" />
+    <Content Include="mapplic\images\pin%402x.png" />
+    <Content Include="mapplic\images\pin-blue%402x.png" />
+    <Content Include="mapplic\images\pin-blue-large%402x.png" />
+    <Content Include="mapplic\images\pin-blue-large.png" />
+    <Content Include="mapplic\images\pin-blue.png" />
+    <Content Include="mapplic\images\pin-filled.png" />
+    <Content Include="mapplic\images\pin-green%402x.png" />
+    <Content Include="mapplic\images\pin-green-large%402x.png" />
+    <Content Include="mapplic\images\pin-green-large.png" />
+    <Content Include="mapplic\images\pin-green.png" />
+    <Content Include="mapplic\images\pin-large%402x.png" />
+    <Content Include="mapplic\images\pin-large.png" />
+    <Content Include="mapplic\images\pin-orange%402x.png" />
+    <Content Include="mapplic\images\pin-orange-large%402x.png" />
+    <Content Include="mapplic\images\pin-orange-large.png" />
+    <Content Include="mapplic\images\pin-orange.png" />
+    <Content Include="mapplic\images\pin-purple%402x.png" />
+    <Content Include="mapplic\images\pin-purple-large%402x.png" />
+    <Content Include="mapplic\images\pin-purple-large.png" />
+    <Content Include="mapplic\images\pin-purple.png" />
+    <Content Include="mapplic\images\pin-yellow%402x.png" />
+    <Content Include="mapplic\images\pin-yellow-large%402x.png" />
+    <Content Include="mapplic\images\pin-yellow-large.png" />
+    <Content Include="mapplic\images\pin-yellow.png" />
+    <Content Include="mapplic\images\pin.png" />
+    <Content Include="mapplic\images\plus%402x.png" />
+    <Content Include="mapplic\images\plus.png" />
+    <Content Include="mapplic\images\reset%402x.png" />
+    <Content Include="mapplic\images\reset.png" />
+    <Content Include="mapplic\images\viewer%402x.png" />
+    <Content Include="mapplic\images\viewer.png" />
+    <Content Include="mapplic\mapplic-ie.css" />
+    <Content Include="mapplic\mapplic.css" />
+    <Content Include="mapplic\mapplic.js" />
+    <Content Include="usa.html" />
+    <Content Include="Web.config" />
+    <Content Include="world.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>23023</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:23023/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

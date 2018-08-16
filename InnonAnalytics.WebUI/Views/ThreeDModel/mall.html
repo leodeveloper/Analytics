@@ -1,0 +1,82 @@
+﻿<!-- Site content -->
+<div data-scrollbar="true" data-height="500px" style="overflow: hidden; width: auto; height: 500px;">
+
+    <div id="content_mapplic">
+
+        <section id="map-section" class="inner over">
+            <div class="editor-window">
+                <div class="window-mockup brown"></div>
+                <!--<div class="editor-body">
+                    <code>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;"id": "newlandmark",<br>
+                        &nbsp;&nbsp;&nbsp;"title": "New Landmark",<br>
+                        &nbsp;&nbsp;&nbsp;"description": "Creating a new landmark is that easy!",<br>
+                        &nbsp;&nbsp;&nbsp;"x": "<span class="mapplic-coordinates-x">0.0000</span>",<br>
+                        &nbsp;&nbsp;&nbsp;"y": "<span class="mapplic-coordinates-y">0.0000</span>",<br>
+                        &nbsp;&nbsp;&nbsp;...<br>
+                        }
+                    </code>
+                </div>-->
+            </div>
+
+            <!-- Map -->
+            <div class="map-container">
+                <div class="window-mockup">
+                    <div class="window-bar"></div>
+                </div>
+                <div id="mapplic"></div>
+            </div>
+
+            <ul id="examples">
+                <!--	<li class="active"><a href="./">Mall Map</a></li>
+                    <li><a href="apartment.html">Apartment</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="europe.html">Europe</a></li>
+                    <li><a href="usa.html">USA</a></li>
+                    <li><a href="canada.html">Canada</a></li>
+                    <li><a href="france.html">France</a></li>
+                    <li><a href="germany.html">Germany</a></li>
+                    <li><a href="england.html">England</a></li>-->
+            </ul>
+        </section>
+
+
+
+    </div>
+
+    </div>
+
+
+    <!-- Scripts -->
+    <!--<script type="text/javascript" src="../Content/ThirdParty3DModel/js/jquery-1.11.2.min.js"></script>-->
+    <script type="text/javascript" src="../Content/ThirdParty3DModel/js/hammer.min.js"></script>
+    <script type="text/javascript" src="../Content/ThirdParty3DModel/js/jquery.easing.js"></script>
+    <!--<script type="text/javascript" src="../Content/ThirdParty3DModel/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="../Content/ThirdParty3DModel/js/smoothscroll.js"></script>-->
+    <script type="text/javascript" src="../Content/ThirdParty3DModel/mapplic/mapplic.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#mapplic').mapplic({
+                source: '../Content/ThirdParty3DModel/json/mall.json',
+                height: 700,
+                sidebar: true,
+                minimap: true,
+                locations: false,
+                fullscreen: true,
+                hovertip: true,
+                developer: true,
+                maxscale: 3
+            });
+
+            $('.usage').click(function (e) {
+                e.preventDefault();
+
+                $('.editor-window').slideToggle(200);
+            });
+
+            $('.editor-window .window-mockup').click(function () {
+                $('.editor-window').slideUp(200);
+            });
+        });
+    </script>

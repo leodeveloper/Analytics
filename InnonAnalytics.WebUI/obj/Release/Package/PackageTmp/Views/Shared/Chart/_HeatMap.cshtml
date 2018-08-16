@@ -1,0 +1,427 @@
+﻿
+@using Resources
+@using InnonAnalytics.Model.DTO
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+
+
+@*<script src="http://code.highcharts.com/modules/exporting.js"></script>*@
+
+
+
+
+@if (Model.HeapMapDTO != null)
+{
+    <div class="energymaptab">
+
+
+        <div class="panel panel-default panel-with-tabs">
+            <div class="panel-heading p-0">
+                <div class="panel-heading-btn m-r-10 m-t-10">
+                   @if (Model.homepage_widgets != null)
+                   {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" title="unPin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Remove')" data-original-title="unPin to home page"><i class="fa fa-thumb-tack"></i></a>
+                   }
+                   else
+                   {
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" title="Pin to home page" onclick="WidgetUnPin_PintoHomePage('@Model.Id', 'Add')" data-original-title="Pin to home page"><i class="fa fa-thumb-tack"></i></a>
+                   }
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse" data-original-title="" title=""><i class="fa fa-minus"></i></a>
+                    <a href="#modal-dialog1" data-toggle="modal" id="Add_new_tab" onclick="Add_New_Tab('@Model.Id')" class="btn btn-xs btn-icon btn-circle btn-success" data-original-title="" title=""><i class="fa fa-plus"></i></a>
+                </div>
+                <!-- begin nav-tabs -->
+                <div class="tab-overflow">
+                    <ul class="nav nav-tabs">
+                        <li class="prev-button"><a href="javascript:;" data-click="prev-tab" class="text-success"><i class="fa fa-arrow-left"></i></a></li>
+                        @foreach (ChartHeatMapDTO heatmap in Model.HeapMapDTO)
+                        {
+                            if (Model.HeapMapDTO.First().Id == heatmap.Id)
+                            {
+
+                                <li class="active">
+                                    <a href="#nav-tab-@heatmap.Id" data-toggle="tab">@heatmap.Chart_Title</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class=""><a href="#nav-tab-@heatmap.Id" data-toggle="tab">@heatmap.Chart_Title</a></li>
+                            }
+                        }
+                        <li class="next-button"><a href="javascript:;" data-click="next-tab" class="text-success"><i class="fa fa-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                @foreach (ChartHeatMapDTO heatmap in Model.HeapMapDTO)
+                {
+                    var activeclass = "tab-pane fade";
+                    if (Model.HeapMapDTO.First().Id == heatmap.Id)
+                    {
+                        activeclass = "tab-pane fade active in";
+                    }
+                    <div class="@activeclass" id="nav-tab-@heatmap.Id">
+                        <div id="loading-bar-@heatmap.Id">please wait...</div>
+                        <div class="text-right">
+                            <a href="#modal-rawdata" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Raw Data" onclick="get_Raw_Data('@heatmap.Id', '@Model.Chart_Type', '@heatmap.Chart_Common_Property_DTO.From_Date', '@heatmap.Chart_Common_Property_DTO.To_Date')" data-original-title="Raw Data"><i class="fa fa-cloud-download"></i></a>
+                            <a href="#modal-timeline" data-toggle="modal" class="btn btn-xs btn-icon btn-circle btn-primary" title="Time Line" onclick="get_Time_Line('@heatmap.Id', '@Model.Chart_Type')" data-original-title="Time Line"><i class="fa fa-calendar"></i></a>
+                            <a href="#modal-dialog1" data-toggle="modal" id="Edit_widget_tab" title="Edit tab" onclick="Edit_Dashboard_Widget('@Model.Chart_Type', '@heatmap.Id')" class="btn btn-xs btn-icon btn-circle btn-success"><i class="fa fa-1x fa-gear"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" onclick="Remove_Chart('@Model.Chart_Type','@heatmap.Id', '@Model.Dashboard_Id')"><i class="fa fa-times"></i></a>
+                        </div>
+
+
+
+                        <div id="heatmap-metric-@heatmap.Id"></div>
+                        <div id="heatmap-@heatmap.Id" class="heatmapstyle"></div>
+
+                        <span id="div_heatmap_timeline_@heatmap.Id"></span>:-
+                        <span id="div_heatmap_fromdate_@heatmap.Id"></span> -
+                        <span id="div_heatmap_todate_@heatmap.Id"></span>
+                        <span id="div_heatmap_none_@heatmap.Id"></span>
+                        <script>
+                            $(function () {
+
+                                var common_properties;
+                                if ('@heatmap.Chart_Common_Property_DTO.Time_Line' !== '') {
+                                    common_properties = ChangeDates('@heatmap.Chart_Common_Property_DTO.Time_Line', '@heatmap.Chart_Common_Property_DTO.From_Date', '@heatmap.Chart_Common_Property_DTO.To_Date');
+                                }
+                                else {
+                                    common_properties = ChangeDates('None', '@heatmap.Chart_Common_Property_DTO.From_Date', '@heatmap.Chart_Common_Property_DTO.To_Date');
+                                }
+
+                                if (common_properties !== null) {
+                                    $("#div_heatmap_timeline_@heatmap.Id").html('@heatmap.Chart_Common_Property_DTO.Time_Line');
+
+
+                                    $("#div_heatmap_fromdate_@heatmap.Id").html((new Date(common_properties.startDateTime)).toUTCString());
+                                    $("#div_heatmap_todate_@heatmap.Id").html((new Date(common_properties.endDateTime)).toUTCString());
+                                }
+                                else {
+                                    $("#div_heatmap_none_@heatmap.Id").html("Global Calender");
+                                }
+
+                                var heatmap_chart = new heatmap("@heatmap.Id", "loading-bar-@heatmap.Id", '@("heatmap-" + heatmap.Id)', "@heatmap.Chart_Title", "@heatmap.Chart_Common_Property_DTO.Precision");
+                                list_of_heat_map.push(heatmap_chart);
+                            });
+                        </script>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+}
+
+
+
+
+<script>
+    function BindHighChart(containerID, min_value, max_value, _unit, precision) {
+
+            var min_date = new Date($("#fromdate").val());
+            var max_date = new Date($("#todate").val());
+            var unit = _unit;
+             /**
+             * This plugin extends Highcharts in two ways:
+             * - Use HTML5 canvas instead of SVG for rendering of the heatmap squares. Canvas
+             *   outperforms SVG when it comes to thousands of single shapes.
+             * - Add a K-D-tree to find the nearest point on mouse move. Since we no longer have SVG shapes
+             *   to capture mouseovers, we need another way of detecting hover points for the tooltip.
+             */
+            (function (H) {
+                var Series = H.Series,
+                    each = H.each,
+                    wrap = H.wrap,
+                    seriesTypes = H.seriesTypes;
+
+                /**
+                 * Create a hidden canvas to draw the graph on. The contents is later copied over 
+                 * to an SVG image element.
+                 */
+                Series.prototype.getContext = function () {
+                    if (!this.canvas) {
+                        this.canvas = document.createElement('canvas');
+                        this.canvas.setAttribute('width', this.chart.chartWidth);
+                        this.canvas.setAttribute('height', this.chart.chartHeight);
+                        this.image = this.chart.renderer.image('', 0, 0, this.chart.chartWidth, this.chart.chartHeight).add(this.group);
+                        this.ctx = this.canvas.getContext('2d');
+                    }
+                    return this.ctx;
+                };
+
+                /** 
+                 * Draw the canvas image inside an SVG image
+                 */
+                Series.prototype.canvasToSVG = function () {
+                    this.image.attr({ href: this.canvas.toDataURL('image/png') });
+                };
+
+                /**
+                 * Wrap the drawPoints method to draw the points in canvas instead of the slower SVG,
+                 * that requires one shape each point.
+                 */
+                H.wrap(H.seriesTypes.heatmap.prototype, 'drawPoints', function (proceed) {
+
+                    var ctx = this.getContext();
+
+                    if (ctx) {
+
+                        // draw the columns
+                        each(this.points, function (point) {
+                            var plotY = point.plotY,
+                                shapeArgs;
+
+                            if (plotY !== undefined && !isNaN(plotY) && point.y !== null) {
+                                shapeArgs = point.shapeArgs;
+
+                                ctx.fillStyle = point.pointAttr[''].fill;
+                                ctx.fillRect(shapeArgs.x, shapeArgs.y, shapeArgs.width, shapeArgs.height);
+                            }
+                        });
+
+                        this.canvasToSVG();
+
+                    } else {
+                        this.chart.showLoading("Your browser doesn't support HTML5 canvas, <br>please use a modern browser");
+
+                        // Uncomment this to provide low-level (slow) support in oldIE. It will cause script errors on
+                        // charts with more than a few thousand points.
+                        //proceed.call(this);
+                    }
+                });
+                H.seriesTypes.heatmap.prototype.directTouch = false; // Use k-d-tree
+            }(Highcharts));
+
+
+            var start;
+
+
+            var heatmap_chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: containerID,
+                    type: 'heatmap',
+                    width: $('.tab-content').width(),
+                    margin: [60, 10, 80, 60],
+                },
+
+                data: {
+                    csv: document.getElementById('csv2').innerHTML,
+                    parsed: function () {
+                        start = +new Date();
+                    }
+                },
+                title: {
+                    text: '',
+                    align: 'left',
+                    x: 40
+                },
+
+                subtitle: {
+                    text: '',
+                    align: 'left',
+                    x: 40
+                },
+
+                xAxis: {
+                    type: 'datetime',
+                    min: Date.UTC(min_date.getUTCFullYear(), min_date.getUTCMonth(), min_date.getUTCDate()), //$("#fromdate").val(), 'to_date': $("#todate").val()
+                    max: Date.UTC(max_date.getUTCFullYear(), max_date.getUTCMonth(), max_date.getUTCDate()),
+                    labels: {
+                        align: 'left',
+                        x: 5,
+                        y: 14,
+                        format: '{value:%d %b %y}' // long month
+                    },
+                    showLastLabel: false,
+                    tickLength: 16
+                },
+
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        format: '{value}:00'
+                    },
+                    minPadding: 0,
+                    maxPadding: 0,
+                    startOnTick: false,
+                    endOnTick: false,
+                    tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                    tickWidth: 1,
+                    min: 0,
+                    max: 23,
+                    reversed: true
+                },
+
+                colorAxis: {
+                    stops: [
+                        [0, '#3060cf'],
+                        [0.5, '#fffbbc'],
+                        [0.9, '#c4463a'],
+                        [1, '#c4463a']
+                    ],
+                    min: min_value,
+                    max: max_value,
+                    startOnTick: false,
+                    endOnTick: false,
+
+                    tickPositions: [min_value, max_value],
+                    tickWidth: 1,
+
+                    labels: {
+                        format: '{value}' + unit
+                    }
+                },
+
+                legend: {
+                    // align: 'right',
+                    //  layout: 'vertical',
+                    margin: 0,
+                    //  verticalAlign: 'top',
+                    y: 15,
+                    symbolWidth: 250
+                },
+                tooltip: {
+                    formatter: function () {
+                        // display only if larger than 1
+                        return 'Date Time, Value<br/>' + Highcharts.dateFormat('%e %b, %Y', this.point.x) + ' ' + this.point.y + ':00, ' + this.point.value.format(precision, 3, ',', '.') + unit;
+                    }
+                },
+
+                exporting: {
+                    enabled: true,
+                    scale: 2,
+                    sourceHeight: 400,
+                    sourceWidth: 1500
+                },
+
+                series: [{
+                    borderWidth: 0,
+                    nullColor: '#EFEFEF',
+                    colsize: 24 * 36e5, // one day
+                    //tooltip: {
+                    //    headerFormat: 'Date Time, Value<br/>',
+                    //    pointFormat: '{point.x:%e %b, %Y} {point.y}:00: <b> {point.value}' + unit + ' </b>',
+
+                    //},
+                    turboThreshold: Number.MAX_VALUE // #3404, remove after 4.0.5 release
+                }]
+            });
+            list_of_Charts.push(heatmap_chart);
+            //$('#' + containerID).highcharts({
+
+            //    data: {
+            //        csv: document.getElementById('csv2').innerHTML,
+            //        parsed: function () {
+            //            start = +new Date();
+            //        }
+            //    },
+            //    chart: {
+            //        type: 'heatmap',
+            //        width: $('.tab-content').width(),
+            //        margin: [60, 10, 80, 60], 
+                   
+            //    },
+            //    title: {
+            //        text: '',
+            //        align: 'left',
+            //        x: 40
+            //    },
+
+            //    subtitle: {
+            //        text: '',
+            //        align: 'left',
+            //        x: 40
+            //    },
+
+            //    xAxis: {
+            //        type: 'datetime',
+            //        min: Date.UTC(min_date.getUTCFullYear(), min_date.getUTCMonth() , min_date.getUTCDate()), //$("#fromdate").val(), 'to_date': $("#todate").val()
+            //        max: Date.UTC(max_date.getUTCFullYear(), max_date.getUTCMonth() , max_date.getUTCDate()),
+            //        labels: {
+            //            align: 'left',
+            //            x: 5,
+            //            y: 14,
+            //            format: '{value:%d %b %y}' // long month
+            //        },
+            //        showLastLabel: false,
+            //        tickLength: 16
+            //    },
+
+            //    yAxis: {
+            //        title: {
+            //            text: null
+            //        },
+            //        labels: {
+            //            format: '{value}:00'
+            //        },
+            //        minPadding: 0,
+            //        maxPadding: 0,
+            //        startOnTick: false,
+            //        endOnTick: false,
+            //        tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            //        tickWidth: 1,
+            //        min: 0,
+            //        max: 23,
+            //        reversed: true
+            //    },
+
+            //    colorAxis: {
+            //        stops: [
+            //            [0, '#3060cf'],
+            //            [0.5, '#fffbbc'],
+            //            [0.9, '#c4463a'],
+            //            [1, '#c4463a']
+            //        ],
+            //        min: min_value,
+            //        max: max_value,
+            //        startOnTick: false,
+            //        endOnTick: false,
+
+            //        tickPositions: [min_value, max_value],
+            //        tickWidth: 1,
+
+            //        labels: {
+            //            format: '{value}' + unit
+            //        }
+            //    },
+
+            //    legend: {
+            //       // align: 'right',
+            //      //  layout: 'vertical',
+            //        margin: 0,
+            //      //  verticalAlign: 'top',
+            //        y: 15,
+            //        symbolWidth: 250
+            //    },
+            //    tooltip: {
+            //        formatter: function () {
+            //            // display only if larger than 1
+            //            return 'Date Time, Value<br/>' + Highcharts.dateFormat('%e %b, %Y', this.point.x) + ' ' +this.point.y + ':00, ' + this.point.value.format(precision, 3, ',', '.') + unit;
+            //        }
+            //    },
+            //    series: [{
+            //        borderWidth: 0,
+            //        nullColor: '#EFEFEF',
+            //        colsize: 24 * 36e5, // one day
+            //        //tooltip: {
+            //        //    headerFormat: 'Date Time, Value<br/>',
+            //        //    pointFormat: '{point.x:%e %b, %Y} {point.y}:00: <b> {point.value}' + unit + ' </b>',
+
+            //        //},
+            //        turboThreshold: Number.MAX_VALUE // #3404, remove after 4.0.5 release
+            //    }]
+            //});
+            //console.log('Rendered in ' + (new Date() - start) + ' ms');
+   }
+</script>
+
+<pre id="csv2" style="display: none"></pre>
+
+

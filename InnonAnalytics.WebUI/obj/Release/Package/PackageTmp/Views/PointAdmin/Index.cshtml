@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Point Data Admin";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+<h2>@Resources.Resources.PointElementDataAdmin</h2>
+
+
+
+
+<script src="~/Scripts/application/Ajax_Request_Response.js"></script>
+<style>
+    #dashboardlist, #Userlist {
+        display: inline-block;
+        background-color: #1a2229;
+        color: #889097;
+        cursor: pointer;
+        vertical-align: top;
+        width: 100%;
+        /*height: 300px;*/
+        text-align: left;
+        margin: 0 -10px;
+        white-space: normal;
+    }
+</style>
+
+<table style="width:100%">
+    <tr>
+        <td></td>
+        <td><div id="loading" style="display:none"> <img src="~/Content/images/loading.gif" alt="please wait" /> Please wait.....</div></td>
+        <td align="right"><button class="k-button" id="updateElement_user">Update</button></td>
+    </tr>
+    <tr>
+        <td style="vertical-align:top;">
+
+            @(Html.Kendo().TreeList<InnonAnalytics.WebUI.Models.UserDTO>()
+              // .Events(events => events.DataBound("onDataBound"))
+              .HtmlAttributes(new { @class = "demo-section" })
+            .Name("Userlist").Height(400)
+    .Scrollable(true)
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.User_Name).Width(500).Title("List Users").TemplateId("User_template");//.Template("#: Element_Name # (#: Element_Tag_Type #)").FooterTemplate("Total:- #= count #");
+    })
+.Filterable()
+.Sortable()
+.DataSource(dataSource => dataSource
+.Read(read => read.Action("GetAllUsers", "Account"))
+.ServerOperation(false)
+.Model(m =>
+{
+    m.Id(f => f.Id);
+    m.ParentId(z => z.Parent_Id);
+})
+)
+            )
+
+        </td>
+        <td style="vertical-align:middle;text-align:center;width:5%">
+            <button class="k-button" id="get_element_user">Get Points</button>
+        </td>
+        <td style="vertical-align:top;">
+            @(Html.Kendo().TreeList<InnonAnalytics.Model.DTO.ElementDTO>()
+              //.Events(events => events.DataBound("onDataBound"))
+              .HtmlAttributes(new { @class = "demo-section" })
+            .Name("pointlist").Height(400)
+    .Scrollable(true)
+    .Columns(columns =>
+    {
+        columns.Add().Field(f => f.Element_Name).Width(500).Title("Point").TemplateId("Point_template");//.Template("#: Element_Name # (#: Element_Tag_Type #)").FooterTemplate("Total:- #= count #");
+    })
+.Filterable()
+.Sortable()
+.DataSource(dataSource => dataSource
+.Read(read => read.Action("Point_Select", "PointAdmin"))
+.ServerOperation(false)
+.Model(m =>
+{
+    m.Id(f => f.ID);
+    m.ParentId(f => f.Parent_Element_ID);
+})
+))
+    </td>
+</tr>
+</table>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<script id="Point_template" type="text/x-kendo-template">
+    <input name="selectedIds" class='chkb' onclick="CheckBoxClick('#: ID#', 'pointlist')" id="#: ID#" value='#: ID#' type='checkbox' /> #: Element_Name #
+</script>
+
+
+<script id="User_template" type="text/x-kendo-template">
+    <input name="selectedUserIds" class='chkb' onclick="CheckBoxClick('#: Id#', 'Userlist')" id="#: Id#" value='#: Id#' type='checkbox' /> #: User_Name #
+</script>
+
+
+<script>
+
+
+    var form = $('#__AjaxAntiForgeryForm');
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+    function CheckBoxClick(Id, treeview_name) {
+
+        var checkbox = $("#" + Id);
+        var row = $("#" + Id).closest("tr");
+
+        var grid = $("#" + treeview_name).data("kendoTreeList");
+        var dataItem = grid.dataItem(row);
+
+        if (dataItem.hasChildren === true) {
+
+            if (checkbox.is(":checked") && !checkbox.is(":disabled")) {
+                Parent_Child_Checked(Id, true, treeview_name);
+            }
+            else {
+                Parent_Child_Checked(Id, false, treeview_name);
+            }
+            grid.expand(row);
+        }
+
+    }
+
+    function Parent_Child_Checked(parentid, Ischecked, treeview_name) {
+
+        var datasourcedata = $("#" + treeview_name).data("kendoTreeList").dataSource.data();
+
+        for (var i = 0; i < datasourcedata.length; i++) {
+
+            if (datasourcedata[i].parentId == parentid) {
+                var dataitem1 = datasourcedata[i];
+
+                $("#" + dataitem1.ID).prop("checked", Ischecked);
+
+                if (dataitem1.hasChildren === true) {
+                    Parent_Child_Checked(datasourcedata[i].ID, Ischecked, treeview_name);
+
+                    var checkbox = $("#" + datasourcedata[i].ID);
+                    var row = $("#" + datasourcedata[i].ID).closest("tr");
+                    var grid = $("#" + treeview_name).data("kendoTreeList");
+                    grid.expand(row);
+                }
+            }
+        }
+    }
+
+    $("#updateElement_user").click(
+
+      function () {
+
+          var selected_list_elements = update_container("pointlist");
+          var selected_list_users = update_container("Userlist");
+
+          var Element_user_rights = {
+
+              userdto: selected_list_users,
+              elementdto: selected_list_elements
+
+          };
+
+          if (selected_list_elements !== undefined && selected_list_users !== undefined) {
+              // if (selected_list_dashboards.length > 0) {
+              if (selected_list_users.length > 0) {
+                  $("#loading").show();
+                  AjaxRequestResponse.Send('/PointAdmin/Update_User_Element',
+                      JSON.stringify(Element_user_rights),
+                      'POST',
+                      'json',
+                      true,
+                      function (serverResponse) {
+                          //console.log(serverResponse);
+                          $("#loading").hide();
+                          alert("update Successful");
+                      },
+                  'application/json; charset=utf-8', { "__RequestVerificationToken": token });
+
+              }
+              else {
+                  alert("Please select the Point and User ");
+              }
+              //}
+              //else {
+              //    alert("Please select the dashboard ");
+              //}
+          }
+      }
+
+  );
+    //This function is for to update bulk container list for the bulk tagging, if you change the name of the point than the list automaticall update by using the following function
+    function update_container(treeview_name) {
+        var models = [];
+        $('div#' + treeview_name + ' input.chkb:checkbox').each(function () {
+
+            var checkbox = $(this);
+            if (checkbox.is(":checked") && !checkbox.is(":disabled")) {
+                var row = $(this).closest("tr");
+                // console.log(row);
+                var grid = $("#" + treeview_name).data("kendoTreeList");
+                var dataItem = grid.dataItem(row);
+                models.push(dataItem);
+            }
+        });
+        return models;
+    }
+
+    $("#get_element_user").click(
+
+      function () {
+
+          var selected_list_users = update_container("Userlist");
+          if (selected_list_users.length > 0) {
+
+              var Element_user_rights = {
+                  userdto: selected_list_users
+              };
+              $("#loading").show();
+              AjaxRequestResponse.Send('/PointAdmin/Get_User_Elements',
+                            JSON.stringify(Element_user_rights),
+                            'POST',
+                            'json',
+                            true,
+                            function (serverResponse) {
+
+                                $("#loading").hide();
+
+                                //This function is for checked and unchecked the checkboxes of dashboardlist
+                                var datasourcedata = $("#pointlist").data("kendoTreeList").dataSource.data();
+                                for (var i = 0; i < datasourcedata.length; i++) {
+                                    $("#" + datasourcedata[i].ID).prop("checked", false);
+                                    for (var j = 0; j < serverResponse.length; j++) {
+                                        if (datasourcedata[i].ID === serverResponse[j].ID) {
+                                            $("#" + datasourcedata[i].ID).prop("checked", true);
+                                        }
+                                    }
+                                }
+
+                            },
+                        'application/json; charset=utf-8', { "__RequestVerificationToken": token });
+          }
+          else
+              alert("Please select the user ");
+      });
+</script>

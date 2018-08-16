@@ -1,0 +1,441 @@
+{
+	"mapwidth": "1286",
+	"mapheight": "745",
+	"categories": [
+		{
+			"id": "Level0",
+			"title": "Alderhay Lower Ground Floor",
+			"show": "true"
+		},
+		{
+			"id": "Level1",
+			"title": "Alderhay Ground Floor",
+			"show": "true"
+		},
+		{
+			"id": "Level2",
+			"title": "Alderhay First Floor",
+			"show": "true"
+		},
+		{
+			"id": "Level3",
+			"title": "Alderhay Second Floor",
+			"show": "true"
+		},
+		{
+			"id": "Level4",
+			"title": "Alderhay Third Floor",
+			"show": "true"
+		},
+		{
+			"id": "Level5",
+			"title": "Alderhay Fourth Floor",
+			"show": "true"
+		}
+	],
+	"levels": [
+		{
+			"id": "level0",
+			"title": "Basement",
+			"map": "../Content/ThirdParty3DModel/images/maps/level0.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level0_mini.png",
+			"locations": [
+				{
+					"id": "CarPark LG",
+					"title": "Car Park",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level0",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5979",
+					"y": " 0.3275"
+				},
+				{
+					"id": "OPDZ7LG",
+					"title": "OPD Z7 LG",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level0",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.6683",
+					"y": "0.4536"
+				},
+				{
+					"id": "MaterialsManagementLG",
+					"title": "Materials Management LG",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level0",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4013",
+					"y": "0.2609"
+				},
+				{
+					"id": "Plant25LG",
+					"title": "Plant Z5 LG",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level0",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4748",
+					"y": "0.1989"
+				}
+			]
+		},
+		{
+			"id": "level1",
+			"title": "GroudFloor",
+			"map": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level1.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level1_mini.png",
+			"locations": [
+				{
+					"id": "Daycare",
+					"title": "Day Care",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5135",
+					"y": " 0.6478"
+				},
+				{
+					"id": "OPDZ7L0",
+					"title": "OPD Z7 L0",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.6929",
+					"y": " 0.4939"
+				},
+				{
+					"id": "Atrium",
+					"title": "Atrium",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4826",
+					"y": " 0.4589"
+				},
+				{
+					"id": "PlantZ2L0",
+					"title": "Plant Z2 L0",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3518",
+					"y": " 0.6066"
+				},
+				{
+					"id": "Imaging",
+					"title": "Imaging",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4105",
+					"y": " 0.5393"
+				},
+				{
+					"id": "PlantZ1L0",
+					"title": "Plant Z1 L0",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.2216",
+					"y": " 0.4829"
+				},
+				{
+					"id": "Rainbow&Energy",
+					"title": "Rainbow & Energy",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3465",
+					"y": " 0.4311"
+				},
+				{
+					"id": "Bereavement&Mortuary",
+					"title": "Bereavement & Mortuary",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4414",
+					"y": " 0.2694"
+				},
+				{
+					"id": "MaterialsManagement",
+					"title": "Materials Management",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5060",
+					"y": " 0.2047"
+				},
+				{
+					"id": "PlantZ5L0",
+					"title": "Plant Z5 L0",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4939",
+					"y": " 0.2640"
+				},
+				{
+					"id": "CarParkL0",
+					"title": "Car Park",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level1",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5889",
+					"y": " 0.3406"
+				}
+			]
+		},
+		{
+			"id": "level2",
+			"title": "First Floor",
+			"map": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level2.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level2_mini.png",
+			"locations": [
+				{
+					"id": "Pathology",
+					"title": "Pathology",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level2",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4709",
+					"y": " 0.2525"
+				},
+				{
+					"id": "Ward1&Neo-natal",
+					"title": "Ward 1 & Neo-natal",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level2",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.2634",
+					"y": " 0.4518"
+				},
+				{
+					"id": "CriticalCare",
+					"title": "Critical Care",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level2",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3464",
+					"y": " 0.5909"
+				},
+				{
+					"id": "Theatres",
+					"title": "Theatres",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level2",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5050",
+					"y": " 0.6686"
+				},
+				{
+					"id": "OPDZ&L1",
+					"title": "OPD Z7 L1",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level2",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.6677",
+					"y": " 0.4290"
+				}
+				
+			]
+		},
+		{
+			"id": "level3",
+			"title": "Second Floor",
+			"map": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level3.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level3_mini.png",
+			"locations": [
+				{
+					"id": "Pharmacy",
+					"title": "Pharmacy",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4709",
+					"y": " 0.2525"
+				},
+				{
+					"id": "MedicalEngineering",
+					"title": "MedicalEngineering",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3178",
+					"y": " 0.4011"
+				},
+				{
+					"id": "PlantZ1L2",
+					"title": "Plant Z1 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.2160",
+					"y": " 0.4961"
+				},
+				{
+					"id": "OfficesZ1L2",
+					"title": "Offices Z1 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3295",
+					"y": " 0.4302"
+				},
+				{
+					"id": "PlantZ2L2",
+					"title": "Plant Z2 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3230",
+					"y": " 0.6242"
+				},
+				{
+					"id": "OfficesZ2L2",
+					"title": "Offices Z2 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4010",
+					"y": " 0.5382"
+				},
+				{
+					"id": "PlantZ3L2",
+					"title": "Plant Z3 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4756",
+					"y": " 0.6990"
+				},
+				{
+					"id": "OfficesZ3L2",
+					"title": "Offices Z3 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.5468",
+					"y": " 0.6130"
+				},
+				{
+					"id": "OPDZ7L2",
+					"title": "OPD Z7 L2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level3",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.6847",
+					"y": " 0.4219"
+				}
+				
+			]
+		},
+		{
+			"id": "level4",
+			"title": "Third Floor",
+			"map": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level4.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level4_mini.png",
+			"locations": [
+				{
+					"id": "Ward3&RenalOPD",
+					"title": "Ward 3 & Renal OPD",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level4",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.2768",
+					"y": " 0.4369"
+				},
+				{
+					"id": "Ward7&Oncology",
+					"title": "Ward 7 & Oncology",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level4",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3623",
+					"y": " 0.5848"
+				},
+				{
+					"id": "Ward4",
+					"title": "Ward 4",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level4",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4999",
+					"y": " 0.6928"
+				}
+				
+			]
+		},
+		{
+			"id": "level5",
+			"title": "Forth Floor",
+			"map": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level5.svg",
+			"minimap": "../Content/ThirdParty3DModel/images/maps/Alderhay_Level5_mini.png",
+			"locations": [
+				{
+					"id": "Ward2",
+					"title": "Ward 2",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level5",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.2768",
+					"y": " 0.4369"
+				},
+				{
+					"id": "Ward5",
+					"title": "Ward 5",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level5",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.3623",
+					"y": " 0.5848"
+				},
+				{
+					"id": "Ward5b",
+					"title": "Ward 5b",
+					"about": "Go to department dashboards",
+					"description": "<a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Electricity Dashboard</a><br/><a href='http://testanalytics.innon.co.uk:8080/Dashboard/Get_Dashboard_ID/2000'>Thermal Dashboard</a>",
+					"category": "Level5",
+					"thumbnail": "../Content/ThirdParty3DModel/images/thumbs/dashboard_dept.png",
+					"x": "0.4999",
+					"y": " 0.6928"
+				}
+				
+			]
+		}
+		
+	]
+}

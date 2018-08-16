@@ -1,0 +1,266 @@
+﻿@using Resources;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li><a href="javascript:;">Discovery</a></li>
+    <li class="active">Discovery</li>
+</ol>
+<h1 class="page-header">Discovery <small></small></h1>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+<br />
+
+@*onclick="CheckBoxClick('#: ElementSourceID#')"*@
+<script id="Element_Name_template" type="text/x-kendo-template">
+
+    #if (Structured == true)  { #
+    #:ElementSourceName# 
+    # } else { #
+    <input name="selectedIds" class='chkb' id="#: ElementSourceID#" value='#: ElementSourceID#' type='checkbox' />#:ElementSourceName# 
+    #}#
+
+</script>
+<script>
+    var _row_type, _element_source_id, _connector_id;
+    
+    function AdditionalValue()
+    {
+        return { row_type: _row_type, element_source_id: _element_source_id, connector_id: _connector_id };
+    }
+    //This function called when the connection treelist expand parent row for the child rows 
+    function connection_treelist_OnExpand(e)
+    {
+        _row_type = e.model.Row_Type_String;
+        _element_source_id = e.model.ElementSourceID;
+        _connector_id = e.model.Connector_Id;
+    }
+
+</script>
+<h3>
+    UnStructure list of points <a href="#">?</a>
+</h3>
+
+<div>
+    @(Html.Kendo().TreeList<InnonAnalytics.Model.DTO.DiscoveryPoint_DTO>()
+.Name("connection_treelist").Height(250)
+.Columns(columns =>
+{
+columns.Add().Field(e => e.ElementSourceName).Title("Connection/Point").TemplateId("Element_Name_template");
+columns.Add().Field(e => e.Row_Type_String).Title("Type");
+       columns.Add().Field(e => e.Structured);
+   }).Filterable(true).Scrollable(true).Sortable(true).Selectable(true)
+        .Events(_event => _event.Expand("connection_treelist_OnExpand"))
+        .DataSource(dataSource => dataSource
+             .Read(read => read.Action("Connection_Point_Select", "Discovery").Data("AdditionalValue"))
+             .ServerOperation(false)
+         .Model(m =>
+         {
+             m.Id(f => f.ID);
+             m.ParentId(f => f.Parent_ID);
+             m.Field(f => f.ElementSourceID);
+             m.Field(f => f.ElementSourceName);
+             m.Field(f => f.Row_Type_String);
+
+         })
+    )
+    )
+
+<hr />
+<button class="k-button"  id="addnewpoints">Add points</button>
+<hr />
+
+<div id="loading-indicator" style="display:none" role="alert"></div><br />
+
+<h3>
+    Structure list of points <a href="#">?</a>
+</h3>
+
+
+
+<div>
+    <input id="siteText" type="text" value="Site" class="k-textbox" />
+    <button class="k-button" id="addnewsite">Add new site</button>
+    <input id="equipText" type="text" value="Equip" class="k-textbox" />
+    <button class="k-button" id="addnewequip">Add new equipment</button>
+    
+    <input id="filterText" value="" class="k-textbox" />
+    <button class="k-button" id="filterDataSource">Filter by text</button>
+
+    <br />
+
+    <table width="100%">
+        <tr>
+            <td><button class="k-button" id="clearselection">Clear selection</button></td>
+            <td align="right" >@Resources.legends:- @Resources.site <img src="~/Content/images/site.png" />, @Resources.equip <img src="~/Content/images/equip.png" />, @Resources.point <img src="~/Content/images/point.png" /></td>
+        </tr>
+    </table>
+
+   
+   
+
+    @(Html.Kendo().TreeView()
+    .Name("treeview")
+    //.Checkboxes(checkboxes => checkboxes.Name("checkedItems").CheckChildren(true))
+    .LoadOnDemand(true)
+    .DragAndDrop(true)    
+    // .LoadOnDemand(false)
+    .Events(events => events.Drop("treeOnDrop").Drag("treeonDrag").Select("treeonSelect").Change("treeonChange").DataBound("treeonDataBound"))
+    // .TemplateId("treeview-template")
+    .DataImageUrlField("ImgUrl").HtmlAttributes(new { @title = "" })
+   // .DataTextField("Element_Name")
+
+            .TemplateId("treeview-template")
+    
+    .DataSource(dataSource => dataSource.Read(read => read.Action("Element_Select", "Discovery", new { time = System.DateTime.Now.Millisecond })).Model(model => model
+        // The property that uniquely identieis a node.
+        // The value of this property is the argument of the action method
+    .Id("ID")
+        //  .Field("Tag", Type.)
+        // the boolean property that tells whether a node has children
+     .HasChildren("hasChildren")))
+             .HtmlAttributes(new { style = "height:200px;" })
+     
+    )
+
+    <script id="treeview-template" type="text/kendo-ui-template">
+        <!--Please dont remove the span tag it will effect the filtering, if you want to change it please change also span.k-in span > span.highlight in site.css also change discovery.js file, function InitSearch(treeViewId, searchInputId)-->
+        <span>
+            #: item.Element_Name #
+        </span>
+    </script>
+    <div>While dragging the element move the wheel of your mouse or scroll using the touchpad.</div>
+
+</div>
+
+<!--This is the anti forgery key form which create the key for each post to the server-->
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+
+
+
+
+
+
+<script src="~/Scripts/application/discovery.js"></script>
+
+<script>
+    waitingmessage = '@Resources.PleaseWait';
+</script>
+
+<script src="@Url.Content("~/Scripts/application/loading.js")" type="text/javascript"></script>
+
+
+    @*@(Html.Kendo().Grid<InnonAnalytics.Model.DTO.ExistingConnectionNameDTO>()
+              .Name("grid")
+              .DataSource(dataSource => dataSource // Configure the grid data source
+                  .Ajax() // Specify that ajax binding is used
+                          //                  .Events(events => { events.Error("error_handler"); events.RequestEnd("onGridDataSourceRequestEnd"); })
+                          .ServerOperation(false) // Paging, sorting, filtering and grouping will be done client-side
+                                  .PageSize(10)
+                                  .Read(read => read.Action("DataConnection_Select", "Discovery")) // Set the action method which will return the data in JSON format
+
+                                  .Model(m =>
+                                  {
+                                      m.Id(f => f.ConnectionID);
+                                      m.Field(f => f.DataConnectorType).DefaultValue(0);
+                                      //   m.Field(f => f.GatewayType).DefaultValue(0);
+                                      // m.Field(f => f.Mode).DefaultValue(0);
+                                      //  m.Field(f => f.DataConnectorType).Editable(false);
+                                  })
+
+
+                       //    .Destroy(update => update.Action("DataConnection_Update", "DataConnection"))
+                       )//.Events(events => events.DataBound("dataBound")) //this for load child gride for first row when the parent grid load
+                               .Events(events => events.Change("onChange").DetailExpand("onExpand"))
+               .ColumnMenu(c => c.Enabled(true))
+
+              .Columns(columns =>
+              {
+                  columns.Bound(dataconnection => dataconnection.DataConnectorType);
+                  columns.Bound(dataconnection => dataconnection.ConnectionName);
+                  columns.Bound(dataconnection => dataconnection.IsActive).Title("Active").ClientTemplate(
+
+            //http://docs.telerik.com/kendo-ui/aspnet-mvc/helpers/grid/faq#how-do-i-have-conditional-logic-in-a-column-client-template?
+
+            "# if (IsActive == true) { #" +
+                "Yes" +
+            "# } else { #" +
+                "No" +
+            "# } #"
+        );
+
+
+
+              })
+
+              //  .Editable(editable => { editable.Mode(GridEditMode.PopUp).CreateAt(GridInsertRowPosition.Top).TemplateName("ConnectionEditortTemplate"); }) //.Window(w => w.Width(500)) //ConnectionEditortTemplate is partial view which inside the Views/Shared/EditorTemplates
+              //   .Pageable() // Enable paging
+              .Sortable() // Enable sorting
+              .ClientDetailTemplateId("template")
+              //  .Scrollable()
+
+              //  .HtmlAttributes(new { style = "height:500px;" })
+              .Filterable() //Enable filter
+              .Groupable()
+              .Selectable(t => t.Mode(GridSelectionMode.Single))
+
+            )
+        </div>
+        <script id="template" type="text/kendo-tmpl">
+            @(Html.Kendo().Grid<InnonAnalytics.Model.DTO.DiscoveryElementDTO>()
+                            .Name("childgrid_#=ConnectionID#")
+                    .Columns(columns =>
+                    {
+                        // columns.Bound(discoveryElement => discoveryElement.ElementSourceID);
+
+                        columns.Bound(discoveryElement => discoveryElement.ElementSourceID).Sortable(false).Filterable(false)
+                            .Template(@<text></text>).ClientTemplate(
+
+             "\\# if (Structured == true) { \\#" +
+                            "" +
+                            "\\# } else { \\#" +
+                            "<input name=\"selectedIds\"  class='chkb' value='\\#=ElementSourceID\\#' type='checkbox'/>" + "\\# } \\#"
+
+
+
+            )
+                         .HeaderTemplate("<input type=\"checkbox\" onclick=\"CheckAll('childgrid_#=ConnectionID#')\" class=\"selectAll\" />")
+                   .Width(100);
+                        columns.Bound(discoveryElement => discoveryElement.ElementSourceID).Hidden(true);
+                        columns.Bound(discoveryElement => discoveryElement.ElementSourceName);
+                        columns.Bound(discoveryElement => discoveryElement.Structured).ClientTemplate(
+                            "\\# if (Structured == true) { \\#" +
+                            "Yes" +
+                            "\\# } else { \\#" +
+                            "No" +    "\\# } \\#");
+                        columns.Bound(discoveryElement => discoveryElement.ConnectionInfo.ConnectionID).Hidden(true);
+
+                    })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .ServerOperation(false)
+                            .PageSize(100)
+                            .Read(read => read.Action("Discovery_Select", "Discovery", new { connectionID = "#=ConnectionID#" }))
+                            .Model(model => { model.Id(d => d.ElementSourceID); })
+                        )
+                        //.Pageable(page => page.Refresh(false))
+                        .Pageable()
+                        .Sortable()
+                        .Scrollable()
+                       // .Scrollable(scrollable => scrollable.Virtual(true))
+                        .Filterable()
+                        //  .Selectable(s => s.Mode(GridSelectionMode.Multiple))
+                        .Events(events => events.Change("onChildChange").DataBound("onChildBound"))
+                        .ToClientTemplate()
+            )
+        </script>*@

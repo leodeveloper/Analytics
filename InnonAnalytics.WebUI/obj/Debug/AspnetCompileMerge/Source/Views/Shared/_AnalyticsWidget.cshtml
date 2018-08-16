@@ -1,0 +1,377 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.DashboardWidgetDTO
+
+@*https://rawgit.com/longbill/jquery-date-range-picker/master/index.html*@
+
+@*<link href="~/Content/customdatetime/css/daterangepicker.css" rel="stylesheet" />
+<script src="~/Content/customdatetime/js/moment.min.js"></script>
+<script src="~/Content/customdatetime/js/jquery.daterangepicker.js"></script>*@
+
+<script>
+    //$('#date-range1').dateRangePicker(
+    //{
+    //    startOfWeek: 'monday',
+    //    separator: ' to ',
+    //    format: 'DD/MM/YYYY HH:mm',
+    //    autoClose: false,
+    //    time: {
+    //        enabled: true
+    //    }
+    //});
+
+
+    $(document).ready(function () {
+
+        $("#compareTo").hide();
+
+
+
+        $('#date-range16-open').click(function (evt) {
+            evt.stopPropagation();
+            $('#date-range16').data('dateRangePicker').open();
+
+            if ($('#chk_compare').attr('checked')) {
+                $('#date-range17').data('dateRangePicker').open();
+            }
+        });
+
+        $('#chk_compare').click(function () {
+
+
+            if ($(this).is(":checked")) {
+                $("#compareTo").show();
+            }
+            else {
+                $("#compareTo").hide();
+            }
+
+        });
+
+
+        $('#date-range17').dateRangePicker(
+            {
+
+                startOfWeek: 'monday',
+                separator: ' to ',
+                format: 'DD/MM/YYYY HH:mm',
+                autoClose: false,
+                showShortcuts: true,
+                inline: true,
+                alwaysOpen: false,
+                container: '#date-range17-container',
+                shortcuts:
+            {
+                'prev-days': [1, 3, 5, 7],
+                'next-days': [3, 5, 7],
+                'prev': ['week', 'month', 'year'],
+                'next': ['week', 'month', 'year']
+            },
+
+                customShortcuts:
+                [
+                    //if return an array of two dates, it will select the date range between the two dates
+                    {
+                        name: 'this week',
+                        dates: function () {
+                            var start = moment().day(0).toDate();
+                            var end = moment().day(6).toDate();
+                            // start.setDate(1);
+                            // end.setDate(30);
+                            return [start, end];
+                        }
+                    },
+                    ////if only return an array of one date, it will display the month which containing the date. and it will not select any date range
+                    //{
+                    //    name: 'Oct 2014',
+                    //    dates : function()
+                    //    {
+                    //        //move calendars to show this date's month and next month
+                    //        var movetodate = moment('2014-10','YYYY-MM').toDate();
+                    //        return [movetodate];
+                    //    }
+                    //}
+                ],
+
+                time: {
+                    enabled: true
+                },
+
+                getValue: function () {
+                    return this.innerHTML;
+                },
+                setValue: function (s) {
+                    this.innerHTML = s;
+                }
+            }).bind('datepicker-change', function (event, obj) {
+
+
+                var comparefromdt = moment(obj.date1);
+                var comparetodt = moment(obj.date2);
+                $('#Compare_From_Date').val(comparefromdt.format());
+                $('#Compare_To_Date').val(comparetodt.format());
+
+                // console.log(obj);
+                // obj will be something like this:
+                // {
+                // 		date1: (Date object of the earlier date),
+                // 		date2: (Date object of the later date),
+                //	 	value: "2013-06-05 to 2013-06-07"
+                // }
+            });
+
+
+
+        $('#date-range16').dateRangePicker(
+          {
+
+              startOfWeek: 'monday',
+              separator: ' to ',
+              format: 'DD/MM/YYYY HH:mm',
+              autoClose: false,
+              showShortcuts: true,
+              inline: true,
+              alwaysOpen: false,
+              container: '#date-range16-container',
+          //    shortcuts:
+          //{
+          //    'prev-days': [1, 3, 5, 7],
+          //    'next-days': [3, 5, 7],
+          //    'prev': ['week', 'month', 'year'],
+          //    'next': ['week', 'month', 'year']
+          //},
+
+              customShortcuts:
+              [
+                  //if return an array of two dates, it will select the date range between the two dates
+                  {
+                      name: 'this week',
+                      dates: function () {
+                          var start = moment().day(0).toDate();
+                          var end = moment().day(6).toDate();
+                          // start.setDate(1);
+                          // end.setDate(30);
+                          return [start, end];
+                      }
+                  },
+                  ////if only return an array of one date, it will display the month which containing the date. and it will not select any date range
+                  //{
+                  //    name: 'Oct 2014',
+                  //    dates : function()
+                  //    {
+                  //        //move calendars to show this date's month and next month
+                  //        var movetodate = moment('2014-10','YYYY-MM').toDate();
+                  //        return [movetodate];
+                  //    }
+                  //}
+              ],
+
+              time: {
+                  enabled: true
+              },
+
+              getValue: function () {
+                  return this.innerHTML;
+              },
+              setValue: function (s) {
+                  this.innerHTML = s;
+              }
+          }).bind('datepicker-change', function (event, obj) {
+              
+              var fromdt = moment(obj.date1);
+              var todt = moment(obj.date2);           
+              $('#From_Date').val(fromdt.format());
+              $('#To_Date').val(todt.format());
+
+              // obj will be something like this:
+              // {
+              // 		date1: (Date object of the earlier date),
+              // 		date2: (Date object of the later date),
+              //	 	value: "2013-06-05 to 2013-06-07"
+              // }
+          });
+
+        $('#date-range16').data('dateRangePicker').setDateRange('01/04/2015 09:33', '18/04/2015 10:33');
+        $('#date-range17').data('dateRangePicker').setDateRange('01/04/2015 09:33', '18/04/2015 10:33');
+
+    });
+
+
+</script>
+
+@using (Html.BeginForm("Add_Dashboard_Widget", "DashBoard", Model, FormMethod.Post, new { @class = "form-horizontal form-bordered", @id = "frm_Anaylytics", role = "form", enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken();
+   
+
+    @Html.HiddenFor(m => m.Dashboard_Id)
+    
+    @Html.HiddenFor(m=> m.From_Date)
+    @Html.HiddenFor(m => m.To_Date)
+    
+    @Html.HiddenFor(m => m.Compare_From_Date)
+    @Html.HiddenFor(m => m.Compare_To_Date)
+
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="message">Metric</label>
+        <div class="col-md-6 col-sm-6">
+            @( Html.Kendo().DropDownListFor(m => m.Metric_Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.OptionLabel(@Resources.DropDownListMetricSelect)
+       
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+          
+            )
+            @Html.ValidationMessageFor(model => model.Metric_Id, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="message">Target Metric</label>
+        <div class="col-md-6 col-sm-6">
+            @( Html.Kendo().DropDownListFor(m => m.Target_Metric_Id)
+.DataTextField("Metric_Name")
+    .DataValueField("Id")
+.OptionLabel(@Resources.DropDownListMetricSelect)
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+            )
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="message">Chart Type</label>
+        <div class="col-md-6 col-sm-6">
+            @( Html.Kendo().DropDownListFor(m => m.Chart_Type)
+                    .Name("Chart_Type")
+        .DataTextField("Text")
+        .DataValueField("Value")
+                    //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.DropDownChartTypeSelect, Value = "" })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.ChartType)))
+                    // .Events(events => { events.Select("OnSelect"); })
+            )
+            @Html.ValidationMessageFor(model => model.Chart_Type, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="fullname">Widget Name * :</label>
+        <div class="col-md-6 col-sm-6">
+            @Html.TextBoxFor(model => model.Name_Widget, new { @class = "form-control", placeholder = "Untitled Widget" })
+            @Html.ValidationMessageFor(model => model.Name_Widget, "", new { @class = "parsley-errors-list" })
+
+        </div>
+    </div>    
+
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="email">Timeline :</label>
+        <div class="col-md-8 col-sm-6">
+
+            <table class="table table-condensed" >
+                <tr>
+                    <td>
+                        @( Html.Kendo().DropDownListFor(m => m.Timeline_Option)
+                    .Name("Timeline_Option")
+                .DataTextField("Text")
+                .DataValueField("Value")
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(new SelectList(InnonAnalytics.Common.Static_Resources.Tuples_DTO.Timeline_Options.AsEnumerable(), "Item1", "Item2")))
+                      
+                </td>
+                   
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td><div class="input-group"><span class="form-control" id="date-range16"></span><span id="date-range16-open" class="input-group-addon"><i class="fa fa-calendar"></i></span></div></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><input type="checkbox" id="chk_compare" />Compare to </span>
+                                    <div id="compareTo">
+                                        <span class="form-control" id="date-range17"></span>
+                                    </div>
+
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td><span id="date-range16-container"></span></td>
+                            <td><span id="date-range17-container"></span></td>
+                        </tr>
+                    </table>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>@Html.ValidationMessageFor(model => model.Timeline_Option, "", new { @class = "parsley-errors-list" })</td>
+                <td></td>
+            </tr>
+        </table>
+
+          
+           
+           
+           
+            
+
+            </div>
+    </div>
+
+    @*<div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="email">Roll up :</label>
+        <div class="col-md-6 col-sm-6">
+            @( Html.Kendo().DropDownListFor(m => m.Roll_Up)
+                            .Name("Roll_Up")
+                .DataTextField("Text")
+                .DataValueField("Value")
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(new SelectList(InnonAnalytics.Common.Static_Resources.Tuples_DTO.Rollup_Options.AsEnumerable(), "Item1", "Item2")))
+            @Html.ValidationMessageFor(model => model.Roll_Up, "", new { @class = "parsley-errors-list" })
+                   </div>
+    </div>*@
+
+
+
+    @*<div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="email">From Date :</label>
+        <div class="col-md-6 col-sm-6">
+            @Html.TextBoxFor(model => model.From_Date, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.From_Date, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4" for="website">To Date :</label>
+        <div class="col-md-6 col-sm-6">
+           @Html.TextBoxFor(model => model.To_Date, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.To_Date, "", new { @class = "parsley-errors-list" })
+        </div>
+    </div>*@
+    
+   
+    <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4"></label>
+        <div class="col-md-6 col-sm-6">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+
+}
+
+<script>
+    $.validator.unobtrusive.parse("#frm_Anaylytics");   
+</script>

@@ -1,0 +1,32 @@
+﻿     .energymaptab {
+        width: 100%;
+       
+    }
+    .treemapstyle{
+     height: 600px; font-size: 12px;
+    }
+    .heatmapstyle
+    {width:auto;height: 600px; margin: 0 auto}
+
+        .gauge-container {
+            background: transparent url("../Content/dataviz/gauge/gauge-container-partial.png") no-repeat 50% 50%;
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+            padding-top: 18px;
+        }
+
+        .gauge-inner {
+
+            margin: 0 auto 0;
+            border-color: transparent;
+        }
+
+    .gauge-label {
+            margin-top: -11px;
+            width: 140px;
+            position: absolute;
+             margin: -28px 0px 0px 53px;
+        }
+

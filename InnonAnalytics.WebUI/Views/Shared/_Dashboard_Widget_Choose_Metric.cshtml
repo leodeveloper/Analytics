@@ -1,0 +1,697 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.Dashboard_Widget_VM_DTO
+
+<style>
+
+    span.k-dropdown {
+        width: 300px !important;
+    }
+
+   
+</style>
+
+@using (Ajax.BeginForm("Add_Edit_Dashboard_Widget", "DashBoard", new { @model = Model }, new AjaxOptions { HttpMethod = "Post" }, new { @class = "form-horizontal form-bordered", @id = "frm_wizard_1", @name = "frm_wizard_1", role = "form" }))
+{
+    @Html.HiddenFor(m => m.Dashboard_Id);
+    @Html.HiddenFor(m => m.Chart_Type);
+    @Html.HiddenFor(m => m.Widget_Title);
+    @Html.HiddenFor(m => m.Id);
+    @Html.HiddenFor(m => m.widget_height);
+    @Html.HiddenFor(m => m.widget_width);
+    @Html.HiddenFor(m => m.widget_x);
+    @Html.HiddenFor(m => m.widget_y);
+    
+    <fieldset>
+        <legend class="pull-left width-full">Choose Metric</legend>
+
+
+        @if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Gauge)
+        {
+            @Html.HiddenFor(m => m.GaugeDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.GaugeDTO.Id);
+                <!-- begin row -->
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Metric_Label</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Metric_Label, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Metric_Label, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                  
+                        @( Html.Kendo().DropDownListFor(m => m.GaugeDTO.Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Metric.Id, "", new { @class = "parsley-errors-list" })
+
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Metric_Target_Label</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Target_Matric_Label, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Target_Matric_Label, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric_Target</label>
+                    <div class="col-md-4"> 
+
+                 
+
+                        @( Html.Kendo().DropDownListFor(m => m.GaugeDTO.Target_Matric.Id)
+    .DataTextField("Metric_Name")
+            .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Target_Matric.Id, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.GaugeDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Minor_Unit</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Minor_Unit, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Minor_Unit, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Min_Value</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Min, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Min, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-1">%</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Max_Value</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Max, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Max, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-1">%</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_Start_Angle</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.Start_Angle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.Start_Angle, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Gauge_End_Angle</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.GaugeDTO.End_Angle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.GaugeDTO.End_Angle, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+
+                        <!-- end row -->
+        }
+         else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Counter)
+        {
+            @Html.HiddenFor(m => m.CounterDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.CounterDTO.Id);
+             <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.CounterDTO.Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.CounterDTO.Metric.Id, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.CounterDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.CounterDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.HeatMap)
+        {
+            @Html.HiddenFor(m => m.HeapMapDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.HeapMapDTO.Id);
+            
+             <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.HeatMap_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.HeapMapDTO.Chart_Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HeapMapDTO.Chart_Title, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            
+             <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.HeapMapDTO.Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.HeapMapDTO.Metric.Id, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.HeapMapDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.HeapMapDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if ( Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.TreeMap)
+        {
+            @Html.HiddenFor(m => m.TreeMapDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.TreeMapDTO.Id);
+            
+             <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Tree_Map_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.TreeMapDTO.Tree_Map_Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TreeMapDTO.Tree_Map_Title, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+            </div>
+            
+             <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.TreeMapDTO.Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.TreeMapDTO.Metric.Id, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+
+    <div class="row">
+
+        <div class="form-group">
+            <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Target_Metric</label>
+            <div class="col-md-4">
+                @( Html.Kendo().DropDownListFor(m => m.TreeMapDTO.Target_Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                )
+                @Html.ValidationMessageFor(model => model.TreeMapDTO.Target_Metric.Id, "", new { @class = "parsley-errors-list" })
+            </div>
+            <div class="col-md-2">
+
+            </div>
+        </div>
+    </div>
+
+            <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Metric_Group_By</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.TreeMapDTO.Group_By)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+        //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Metric_Group_By_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                         .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard",new { @chart_type = Model.Chart_Type.ToString() }))
+        //  .Events(events => { events.Select("OnSelect"); })
+                        )
+                        @Html.ValidationMessageFor(model => model.TreeMapDTO.Group_By, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+            
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.TreeMapDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.TreeMapDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Bar || Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.BarFixedPlacement)
+        {
+            @Html.HiddenFor(m => m.BarDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.BarDTO.Id);
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.BarChart_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.BarDTO.Chart_Title, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-6">
+                        @( Html.Kendo().DropDownListFor(m => m.BarDTO.Metric.Id)
+    .DataTextField("Metric_Name")
+    .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        @Html.ValidationMessageFor(model => model.BarDTO.Metric.Id, "", new { @class = "parsley-errors-list" })
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+         <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric_Target</label>
+                    <div class="col-md-4"> 
+
+                 
+
+                        @( Html.Kendo().DropDownListFor(m => m.BarDTO.Target_Metric.Id)
+    .DataTextField("Metric_Name")
+            .DataValueField("Id")
+.Filter("contains")
+.OptionLabel(new { Metric_Name = @Resources.DropDownListMetricSelect, Id = "" })
+
+       .HtmlAttributes(new { data_value_primitive = "false" })
+   .DataSource(datasource => datasource.Read("Get_Metric", "DashBoard"))
+
+                        )
+                        
+                    </div>
+                </div>
+            </div>
+            
+             <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Metric_Group_By</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.BarDTO.Group_By)
+        .DataTextField("Text")
+.DataValueField("Value")
+.Filter("contains")
+        //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Metric_Group_By_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                 .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard", new { @chart_type = Model.Chart_Type.ToString() }))
+        //  .Events(events => { events.Select("OnSelect"); })
+                        )
+                       
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.BarDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.BarDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Pie)
+        {
+            @Html.HiddenFor(m => m.PieDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.PieDTO.Id);
+             <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.PieChart_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.PieDTO.Chart_Title, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                                        @(Html.Kendo().MultiSelectFor(model => model.PieDTO.Chart_Metric_Ids).HtmlAttributes(new { @class = "form-control input-sm" })
+ .DataSource(source => source.Read("Get_Metric", "Dashboard"))
+                            .DataTextField("Metric_Name").DataValueField("Id")
+                .Filter(FilterType.Contains)
+      
+                        )
+                               </div>
+                </div>
+            </div>
+            
+                <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Metric_Group_By</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.PieDTO.Group_By)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+        //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Metric_Group_By_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                 .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard", new { @chart_type = Model.Chart_Type.ToString() }))
+        //  .Events(events => { events.Select("OnSelect"); })
+                        )
+                       
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.PieDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.PieDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Donut)
+        {
+            @Html.HiddenFor(m => m.DonutDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.DonutDTO.Id);
+             <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.DonutChart_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.DonutDTO.Chart_Title, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                                        @(Html.Kendo().MultiSelectFor(model => model.DonutDTO.Chart_Metric_Ids).HtmlAttributes(new { @class = "form-control input-sm" })
+ .DataSource(source => source.Read("Get_Metric", "Dashboard"))
+                            .DataTextField("Metric_Name").DataValueField("Id")
+                .Filter(FilterType.Contains)
+      
+                        )
+                               </div>
+                </div>
+            </div>
+            
+              <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.DonutDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.DonutDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+            
+        }
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Stacked)
+        {
+            @Html.HiddenFor(m => m.StackedDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.StackedDTO.Id);
+             <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Stacked_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.StackedDTO.Chart_Title, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                                        @(Html.Kendo().MultiSelectFor(model => model.StackedDTO.Chart_Metric_Ids).HtmlAttributes(new { @class = "form-control input-sm" })
+ .DataSource(source => source.Read("Get_Metric", "Dashboard"))
+                            .DataTextField("Metric_Name").DataValueField("Id")
+                .Filter(FilterType.Contains)
+      
+                        )
+                               </div>
+                </div>
+            </div>
+            
+                <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Metric_Group_By</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.StackedDTO.Group_By)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+        //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Metric_Group_By_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                 .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard", new { @chart_type = Model.Chart_Type.ToString() }))
+        //  .Events(events => { events.Select("OnSelect"); })
+                        )
+                       
+                    </div>
+                    <div class="col-md-2">
+                        
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.StackedDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.StackedDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+        }
+
+        else if (Model.Chart_Type == InnonAnalytics.Common.Enums.ChartType.Line)
+        {
+            @Html.HiddenFor(m => m.LineDTO.Dashboard_Widget_Id);
+            @Html.HiddenFor(m => m.LineDTO.Id);
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Line_Title</label>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.LineDTO.Chart_Title, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Widget_Add_Edit_Metric</label>
+                    <div class="col-md-4">
+                        @(Html.Kendo().MultiSelectFor(model => model.LineDTO.Chart_Metric_Ids).HtmlAttributes(new { @class = "form-control input-sm" })
+ .DataSource(source => source.Read("Get_Metric", "Dashboard"))
+                            .DataTextField("Metric_Name").DataValueField("Id")
+                .Filter(FilterType.Contains)
+
+                        )
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Metric_Group_By</label>
+                    <div class="col-md-4">
+                        @( Html.Kendo().DropDownListFor(m => m.LineDTO.Group_By)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+            //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Metric_Group_By_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                 .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard", new { @chart_type = Model.Chart_Type.ToString() }))
+                        //  .Events(events => { events.Select("OnSelect"); })
+                        )
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- begin col-4 -->
+                <div class="form-group">
+                    <label class="control-label col-md-4">@Resources.Precision</label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.LineDTO.Chart_Common_Property_DTO.Precision, Enumerable.Range(0, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                    </div>
+                    <div class="col-md-2">
+                        @Html.ValidationMessageFor(model => model.LineDTO.Chart_Common_Property_DTO.Precision, "", new { @class = "parsley-errors-list" })
+                    </div>
+                </div>
+                <!-- end col-4 -->
+            </div>
+        }
+
+        else
+        {
+            <div>Invalid Chart Type</div>
+        }
+
+        <!--Button-->
+        <ul class="pager bwizard-buttons"><li class="previous" role="button" aria-disabled="false"><a href="#">← Previous</a></li><li class="next" role="button" aria-disabled="false"><a id="Go_to_Sec_Wizard" onclick="load_Finished_wizard()" href="#">Next →</a></li></ul>
+        <!--End-->
+    </fieldset>
+
+}
+
+
+
+
+

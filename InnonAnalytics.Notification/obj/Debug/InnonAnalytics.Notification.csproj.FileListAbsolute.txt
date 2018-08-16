@@ -1,0 +1,5 @@
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Notification\bin\Debug\InnonAnalytics.Notification.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Notification\bin\Debug\InnonAnalytics.Notification.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Notification\obj\Debug\InnonAnalytics.Notification.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Notification\obj\Debug\InnonAnalytics.Notification.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Notification\obj\Debug\InnonAnalytics.Notification.csprojResolveAssemblyReference.cache

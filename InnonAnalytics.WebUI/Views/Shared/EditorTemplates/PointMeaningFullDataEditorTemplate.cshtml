@@ -1,0 +1,131 @@
+﻿@using Resources;
+@model InnonAnalytics.Model.DTO.ElementDTO
+
+
+ <!--Partial view does not need the antiforgeytoken, it is in the parent page-->
+@using (Ajax.BeginForm("", "", null, new {@class = "form-horizontal", @id = "frmPointMeaningFullData", role = "form", enctype = "multipart/form-data" }))
+{
+
+    <!--Partial view does not need the antiforgeytoken, it is in the parent page-->
+<div id="loading-indicator" style="display:none" role="alert"></div>
+    <table id="tblPointMeaningFullData" class="table table-condensed" style="width:100%">
+
+   
+
+    <tr>
+        <td>@Resources.PointMeaningFullDataPointName</td>
+        <td>
+            @Html.TextBoxFor(model => model.Element_Name, new { @class = "form-control input-sm" })
+            @Html.ValidationMessageFor(model => model.Element_Name, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+    <tr>
+        <td>@Resources.PointMeaningFullDataPointDefaultTagType</td>
+        <td><span data-bind="text: Element_Tag_Type_String"></span></td>
+    </tr>
+    <tr>
+        <td>@Resources.PointMeaningFullDataTags</td>
+        <td>
+            @(Html.Kendo().MultiSelectFor(model => model.Tags)
+            .DataSource(source => source.Read("Tag_Select_By_Point", "PointMeaningFullData", new { element_tag_type = "#=Element_Tag_Type_String#" }).ServerFiltering(false))
+                    .DataTextField("Tag_Value").DataValueField("ID").AutoBind(false)
+                // .ValuePrimitive(false)
+                .Filter(FilterType.Contains)
+                .HeaderTemplate("<span class=\"k-state-default\">Tag Type</span>" + " | " + "<span class=\"k-state-default\">Tag</span>")
+                                .ItemTemplate("<span class=\"k-state-default\">\\#=Tag_Type_String\\#</span>" + " | " + "<span class=\"k-state-default\">\\#=Tag_Value\\#</span>")
+                    .TagTemplate("<span class=\"k-state-default\">\\#=Tag_Type_String\\#</span>" + " | " + "<span class=\"k-state-default\">\\#=Tag_Value\\#</span>")
+        )
+    </td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataUnit</td>
+    <td>
+
+        @(Html.Kendo().DropDownListFor(model => model.Unit.ID)
+              .Filter("contains")
+                //        .DataSource(d => d.Read(r => r.Action("GetUnits", "PointMeaningFullData")))
+
+    .BindTo(ViewData["unit"] as SelectList)
+    .Events(events => events.Select("onUnitSelect"))
+.HtmlAttributes(new { data_value_primitive = "false" })
+        .DataValueField("Value")
+        .DataTextField("Text")
+        )
+    </td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataDataType</td>
+    <td>@(Html.EnumDropDownListFor(m => m.Data_Type))</td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataFreq</td>
+    <td>
+
+        @(Html.Kendo().NumericTextBoxFor<long>(model => model.Freq).HtmlAttributes(new { @class = "form-control input-sm" }))
+        @(Html.EnumDropDownListFor(m => m.Freq_Unit, new { @class = "k-dropdown" }))
+    </td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataRecordedFreq</td>
+    <td>
+
+        @(Html.Kendo().NumericTextBoxFor<long>(model => model.Recorded_Freq).HtmlAttributes(new { @class = "form-control input-sm" }))
+        @(Html.EnumDropDownListFor(m => m.Recorded_Freq_Unit, new { @class = "k-dropdown" }))
+    </td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataMin</td>
+    <td>
+
+        @(Html.Kendo().NumericTextBoxFor<double>(model => model.Min_Value).HtmlAttributes(new { @class = "form-control input-sm" }))
+
+    </td>
+</tr>
+
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataMax</td>
+    <td>
+
+        @(Html.Kendo().NumericTextBoxFor<double>(model => model.Max_Value).HtmlAttributes( new { @class = "form-control input-sm" }))
+
+    </td>
+</tr>
+<tr class="_point">
+    <td>@Resources.PointMeaningFullDataIsRead_Only</td>
+    <td>
+
+       @( Html.Kendo().DropDownListFor(m => m.IsRead_Only)
+        .DataTextField("Text")
+        .DataValueField("Value")
+    //     .ValuePrimitive(false)
+    .OptionLabel(new { Text = @Resources.DropDownConnectorSelect, Value = 0 })
+       .HtmlAttributes(new { data_value_primitive = "false" }).BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "True",
+                  Value = "true"
+              },
+              new SelectListItem() {
+                  Text = "False",
+                  Value = "false"
+              }
+          })
+    )
+
+    </td>
+</tr>
+
+</table>
+
+}
+
+
+<script>
+
+  
+
+</script>

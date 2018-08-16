@@ -1,0 +1,6 @@
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\bin\Release\InnonAnalytics.Obix.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\bin\Release\InnonAnalytics.Obix.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\bin\Release\oxnet.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\obj\Release\InnonAnalytics.Obix.dll
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\obj\Release\InnonAnalytics.Obix.pdb
+C:\Users\leodeveloper\Documents\Visual Studio 2013\Projects\InnonDataAnalytics\InnonAnalytics.Obix\obj\Release\InnonAnalytics.Obix.csprojResolveAssemblyReference.cache

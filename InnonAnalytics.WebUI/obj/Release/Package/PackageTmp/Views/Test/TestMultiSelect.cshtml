@@ -1,0 +1,69 @@
+﻿@model InnonAnalytics.Model.DTO.Dashboard_Widget_DTO
+@{
+    ViewBag.Title = "TestMultiSelect";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";   
+}
+
+<h2>TestMultiSelect</h2>
+
+@using (Ajax.BeginForm("TestMultiSelect", "Test", null, new { @class = "form-horizontal form-bordered", @id = "frm_wizard_1", @name = "frm_wizard_1", role = "form", enctype = "multipart/form-data" }))
+{
+
+@Html.HiddenFor(m => m.PieDTO.Dashboard_Widget_Id);
+@Html.HiddenFor(m => m.PieDTO.Id);
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-md-4">Pie Title</label>
+        <div class="col-md-4">
+            @Html.TextBoxFor(model => model.PieDTO.Chart_Title, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-md-4">Choose metric</label>
+        <div class="col-md-4">
+            @*@(Html.Kendo().MultiSelectFor(model => model.PieDTO.Chart_Metric).HtmlAttributes(new { @class = "form-control input-sm" })
+                .BindTo(ViewData["all_metric"] as IList<InnonAnalytics.Model.DTO.MetricDTO>)
+                .DataTextField("Metric_Name").DataValueField("Id").AutoBind(false)
+                                .Filter(FilterType.Contains))*@
+
+            @(Html.Kendo().MultiSelectFor(model => model.PieDTO.Chart_Metric).HtmlAttributes(new { @class = "form-control input-sm" })
+                    // .Name("Chart_Metric")
+                    //.BindTo(Model.PieDTO.Chart_Metric)
+                 .Value(Model.PieDTO.Chart_Metric)
+        .DataSource(source => source.Read("Get_Metric", "Test").ServerFiltering(true))
+                           .DataTextField("Text").DataValueField("Value").AutoBind(false)
+.Filter(FilterType.Contains))
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="form-group">
+        <label class="control-label col-md-4">Choose metric</label>
+        <div class="col-md-4">
+            @( Html.Kendo().DropDownListFor(m => m.PieDTO.Group_By)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+                    //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = "Choose group by", Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                         .DataSource(datasource => datasource.Read("Get_Group_By", "DashBoard"))
+                    //  .Events(events => { events.Select("OnSelect"); })
+            )
+
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+    <input type="submit"  value="OK" />
+}
+

@@ -1,0 +1,111 @@
+﻿<style>
+    #example {
+        text-align: center;
+    }
+
+    .demo-section {
+        display: inline-block;
+        background-color: #1a2229;
+        color: #889097;
+        cursor:pointer;
+        vertical-align: top;
+        width: 150px;
+        max-width: 150px;
+        /*height: 300px;*/
+        text-align: left;
+        margin: 0 -10px;
+        white-space: normal;
+    }
+
+    .k-treeview .k-minus {
+        background: url('../Images/tree_bullet.png')center center ;
+        background-repeat:no-repeat;
+
+    }
+
+    .k-treeview .k-plus {
+        background: url('../Images/tree_bullet.png')center center;
+        background-repeat: no-repeat;
+    }
+
+</style>
+
+
+
+@(Html.Kendo().TreeView()
+    .Name("treeview_dashboard_menu")
+        .HtmlAttributes(new { @class = "demo-section" })
+        //.Checkboxes(checkboxes => checkboxes.Name("checkedItems").CheckChildren(true))
+    .LoadOnDemand(true)
+   // .DragAndDrop(true)
+        // .LoadOnDemand(false)
+    .Events(events => events.Select("treeonSelect"))
+        // .TemplateId("treeview-template")
+   // .DataImageUrlField("ImgUrl").HtmlAttributes(new { @title = "" })
+             .DataTextField("Title")
+
+            .TemplateId("dashboard_treeview-template")
+
+        .DataSource(dataSource => dataSource.Read(read => read.Action("Get_Dashboard_Menu", "DashBoard", new { time = System.DateTime.Now.Millisecond })).Model(model => model
+        // The property that uniquely identieis a node.
+        // The value of this property is the argument of the action method
+    .Id("ID")
+        //  .Field("Tag", Type.)
+        // the boolean property that tells whether a node has children
+     .HasChildren("hasChildren")))
+            // .HtmlAttributes(new { style = "height:200px;" })
+
+)
+
+<script id="dashboard_treeview-template" type="text/kendo-ui-template">
+    <div style="cursor:pointer; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;" >#: item.Title #</div>
+    @*<div style=" cursor:pointer; white-space pre-wrap;
+         /* CSS3 */ white-space: -moz-pre-wrap; /* Firefox */ white-space: -pre-wrap; /* Opera
+    <7 */ white-space: -o-pre-wrap; /* Opera 7 */ word-wrap: break-word; /* IE */  " >#: item.Title #</div>*@
+</script>
+
+<script>
+    function treeonSelect(e) {
+        var data = this.dataItem(e.node);
+        if (data.Dashboard_Type === "@InnonAnalytics.Common.Enums.DashboardType.Dashboard.ToString()") {            
+            load_dashboard(data.ID); //this function is defined on the _layout.chtml
+        }
+        else {
+            this.dashboard_load_Id = '0';
+            load_dashboard('0');//this function is defined on the _layout.chtml
+        }
+        //this.expand(e.node);
+    }
+
+    function tree_view_node_clear_selection()
+    {
+        var treeview = $("#treeview_dashboard_menu").data("kendoTreeView");
+        treeview.select($()); // clears selection
+    }
+
+    function select_tree_view_node(id)
+    {
+        $("#treeview_dashboard_menu").data("kendoTreeView").expand(".k-item");
+        var treeview = $("#treeview_dashboard_menu").data("kendoTreeView");
+        var getitem = treeview.dataSource.get(id);
+        treeview.findByUid(getitem.uid);
+        var selectitem = treeview.findByUid(getitem.uid);
+        treeview.select(selectitem);
+        load_dashboard(id);
+    }
+
+    $(document).ready(function () {       
+
+        var treeview = $("#treeview_dashboard_menu");
+        var kendoTreeView = treeview.data("kendoTreeView");
+
+        treeview.on("click", ".k-in", function (e) {
+            kendoTreeView.toggle($(e.target).closest(".k-item"));
+        });
+    });
+
+</script>
+
+
+
+

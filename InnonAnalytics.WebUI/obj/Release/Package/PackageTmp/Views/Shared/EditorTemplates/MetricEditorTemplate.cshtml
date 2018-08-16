@@ -1,0 +1,94 @@
+﻿@using Resources;
+@model InnonAnalytics.Model.DTO.MetricDTO
+
+<style>
+    span.k-dropdown {
+        width: 300px !important;
+    }
+</style>
+
+
+
+<!--Partial view does not need the antiforgeytoken, it is in the parent page-->
+@*<input type="text" class="form-control  input-sm" placeholder="Default input">*@
+@using (Ajax.BeginForm("", "", null, new {@class = "form-horizontal", @id = "frmMetricEditor", role = "form", enctype = "multipart/form-data" }))
+{
+<div id="loading-indicator" style="display:none" role="alert"></div>
+<table id="tblMetric" class="table table-condensed" style="width:100%">
+
+
+
+    <tr>
+        <td>
+            @Resources.Metric_Name *
+        </td>
+        <td>
+
+            <div class="form-group m-r-25">
+               @Html.TextBoxFor(model => model.Metric_Name, new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(model => model.Metric_Name, "", new { @class = "text-danger" })
+            </div>
+
+            
+            
+        </td>
+    </tr>
+    <tr>
+        <td>@Resources.Metric_Roll_Up_Function</td>
+        <td>
+
+            @( Html.Kendo().DropDownListFor(m => m.Rollup_Function).Name("Rollup_Function")
+        .DataTextField("Text")
+        .DataValueField("Value")
+                        .OptionLabel(new { Text = @Resources.PleaseSelectRollUp, Value = "" })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.Rollup_Function_Option)))
+                    //  .Events(events => { events.Select("OnSelect"); })
+            )
+
+            @(Html.Kendo().MultiSelectFor(model => model.Tags).HtmlAttributes(new { @class = "form-control input-sm" })
+                             .BindTo(ViewData["all_tags"] as IList<InnonAnalytics.Model.DTO.TagDTO>)
+           // .DataSource(source => source.Read("Tag_Select_By_Point", "PointMeaningFullData", new { element_tag_type = "#=Element_Tag_Type_String#" }).ServerFiltering(false))
+                                                    .DataTextField("Tag_Type_Value").DataValueField("ID").AutoBind(false)
+                    // .ValuePrimitive(false)
+                .Filter(FilterType.Contains)
+                //.HeaderTemplate("<span class=\"k-state-default\">Tag Type</span>" + " | " + "<span class=\"k-state-default\">Tag</span>")
+                //                .ItemTemplate("<span class=\"k-state-default\">\\#=Tag_Type_String\\#</span>" + " | " + "<span class=\"k-state-default\">\\#=Tag_Value\\#</span>")
+                //    .TagTemplate("<span class=\"k-state-default\">\\#=Tag_Type_String\\#</span>" + " | " + "<span class=\"k-state-default\">\\#=Tag_Value\\#</span>")
+            )
+
+        </td>
+    </tr>
+    <tr>
+        <td>@Resources.Metric_Unit</td>
+        <td>
+            @(Html.Kendo().DropDownListFor(m => m.Unit_Id)
+                  .AutoBind(false)
+                  .OptionLabel(Resources.Metric_Unit_Select)
+              .Filter("contains")
+               .Events(events => events.Select("onUnitSelect"))
+              .DataTextField("Unit_Name_Symbol")
+              .DataValueField("ID")
+                  .DataSource(dataSource =>
+                  {
+                      dataSource.Read(read => read.Action("GetUnits", "Metric"))
+                                .ServerFiltering(false);
+                  })
+            )
+
+           
+        </td>
+    </tr>
+   
+
+</table>
+}
+
+
+
+
+
+
+
+
+

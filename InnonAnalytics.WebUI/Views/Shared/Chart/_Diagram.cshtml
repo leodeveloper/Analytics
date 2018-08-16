@@ -1,0 +1,92 @@
+﻿<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.default.min.css">
+ @*   <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.min.css">
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/kendo.all.min.js"></script>*@
+
+
+@* For multiple line connection the following link
+    http://dojo.telerik.com/iVoKO
+    http://docs.telerik.com/kendo-ui/api/javascript/dataviz/diagram/connection
+*@
+
+
+@*Test this on here http://dojo.telerik.com/avACe/2*@
+
+<script>
+    $(document).ready(function () {
+        $("#btn_action_group").hide();
+        $("#addnew_widget").hide();
+        $("#dashboard_refresh").hide();
+        $("#dashboard_save").hide();
+        $("#edit_dashboard").hide();
+       
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12 ui-sortable">
+
+       
+
+        <!-- begin panel -->
+        <div class="panel panel-default" id="46546465">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    @*   <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>*@
+                </div>
+                <h4 class="panel-title">Energy Generation</h4>
+            </div>
+            <div class="panel-body">
+                <div id='loading_diagram'></div>
+                <div style="height:650px;width:100%;" >
+
+                    <div id="energy_generation_daigram">
+                        <div class="bg-image">
+                            <img src="/Content/images/Energy_generation_diagram.png">
+                            <div id="gas_boiler" style="top: 1%; left: 12%; "></div>
+                            <div id="gas_chp" style="top: 17%; left: 10%;"></div>
+                            <div id="biofuel_chp" style="top: 37%; left: 15%; "></div>
+                            <div id="gridelec_electricity" style="top: 74%; left: 20%;"></div>
+                            <div id="pvcelec_electricity" style="top: 90%; left: 20%;"></div>
+                            <div id="chp_electricity" style="top: 50%; left: 29%;"></div>
+                            <div id="chp_first_total" style="top: 15%; left: 30%;"></div>
+                            <div id="boiler_first_total" style="top: 1%; left: 31%;"></div>
+
+                            <div id="electricity_chp_heat" style="top: 19%; left: 42%;"></div>
+                            <div id="electricity_ashp" style="top: 28%; left: 42%;"></div>
+                            <div id="electricity_gshp" style="top: 40%; left: 42%;"></div>
+                            <div id="electricity_absorption_chiller" style="top: 53%; left: 42%;"></div>
+                            <div id="electricity_aircooled_chiller" style="top: 63%; left: 42%;"></div>
+
+                            <div id="first_total" style="top: 8%; left: 79%;"></div>
+                            <div id="first_total_chp_heat" style="top: 14%; left: 51%;"></div>
+                            <div id="first_total_absorption_chiller" style="top: 49%; left: 50%;"></div>
+
+                            <div id="ashp_first_total" style="top: 30%; left: 69%;"></div>
+                            <div id="gshp_first_total" style="top: 40%; left: 70%;"></div>
+                            <div id="gshp_sec_total" style="top: 49%; left: 70%;"></div>
+
+                            <div id="absorption_chiller_sec_total" style="top: 57%; left: 69%;"></div>
+                            <div id="aircooled_chiller_sec_total" style="top: 66%; left: 69%;"></div>
+
+                            <div id="sec_total" style="top: 71%; left: 79%;"></div>
+                            <div id="third_total" style="top: 77%; left: 80%;"></div>
+                            <div id="grand_total" style="top: 88%; left: 80%;"></div>
+                        </div>
+                    </div>
+                </div>    
+               
+                <div id="diagram"></div>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <div class="col-md-4 ui-sortable">
+        <div class="panel">
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/application/diagram.js"></script>
+

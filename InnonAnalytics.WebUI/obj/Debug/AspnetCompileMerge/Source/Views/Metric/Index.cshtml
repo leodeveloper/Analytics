@@ -1,0 +1,80 @@
+﻿@using Resources;
+@model InnonAnalytics.Model.DTO.MetricDTO
+
+@{
+    ViewBag.Title = Resources.Metric_Title;
+    Layout = "~/Views/Shared/_LayoutSetup.cshtml";
+}
+
+
+<h1 class="page-header">@Resources.Metric_Title<small></small></h1>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<div id="clientsDb">
+    @(Html.Kendo().Grid<InnonAnalytics.Model.DTO.MetricDTO>()
+              .Name("metric_grid")
+      .DataSource(dataSource => dataSource // Configure the grid data source
+          .Ajax() // Specify that ajax binding is used
+                                                //  .Events(events => { events.Error("error_handler"); events.RequestEnd("onGridDataSourceRequestEnd"); })
+                  .ServerOperation(false) // Paging, sorting, filtering and grouping will be done client-side
+                          .Read(read => read.Action("Metric_Select", "Metric")) // Set the action method which will return the data in JSON format
+                          .Model(m =>
+                          {
+                              m.Id(f => f.Id);
+                              m.Field(f => f.Metric_Name);
+                              m.Field(f => f.Rollup_Function);
+                          })
+                          .Create(update => { update.Action("Metric_Insert", "Metric"); })
+                          .Update(update => { update.Action("Metric_Update", "Metric"); })
+       )
+       .ColumnMenu(c => c.Enabled(true))
+
+      .Columns(columns =>
+      {
+          columns.Bound(metric => metric.Id).Hidden(true);
+          columns.Bound(metric => metric.Metric_Type).Title(@Resources.Metric_Type);
+          columns.Bound(metric => metric.Metric_Name).Title(@Resources.Metric_Name);
+          columns.Bound(metric => metric.Rollup_Function_Text).Title(@Resources.Metric_Roll_Up_Function);
+          
+
+          columns.Command(commands =>
+          {
+              commands.Edit().Text("Edit").HtmlAttributes(new { @title = @Resources.btnEdit }).UpdateText(@Resources.btnUpdate);
+
+          }).Title("");//.Width("200px");
+
+      }).ToolBar(toolbar => { toolbar.Create().Text(@Resources.Metric_Add_New_Metric); })
+
+              .Editable(editable => { editable.Mode(GridEditMode.PopUp).Window(t => t.Width(450)).CreateAt(GridInsertRowPosition.Top).TemplateName("MetricEditorTemplate"); }) //.Window(w => w.Width(500)) //ConnectionEditortTemplate is partial view which inside the Views/Shared/EditorTemplates
+      .Pageable(t => t.ButtonCount(2)) // Enable paging
+      .Sortable() // Enable sorting
+      .Filterable() //Enable filter
+      .Groupable()
+      .Selectable(t => t.Mode(GridSelectionMode.Single))
+               .Events(events => { events.Edit("insertPopupCaption"); })
+    )
+</div>
+<br />
+<div class="panel panel-inverse" data-sortable-id="ui-general-2">
+    <div class="panel-heading">        
+        <h4 class="panel-title">@Resources.notes</h4>
+    </div>
+    <div class="panel-body">        
+        <div class="note note-info">
+         @Html.Raw(Resources.Metric_Type_Note)
+        </div>
+    </div>
+</div>
+
+
+<script>
+    waitingmessage = '@Resources.PleaseWait';
+    Addnewmetric = '@Resources.Metric_Add_New_Metric'
+    btnSave = '@Resources.btnSave'
+</script>
+
+<script src="@Url.Content("~/Scripts/application/loading.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/application/metric.js")" type="text/javascript"></script>

@@ -1,0 +1,69 @@
+﻿@using Resources
+@model InnonAnalytics.Model.DTO.DashboardDTO
+<!--#modal-dialog create new dashboad -->
+
+<style>
+    span.k-dropdown {
+        width: 300px !important;
+    }
+</style>
+
+
+           
+@using (Html.BeginForm("Create_Dashboard", "DashBoard", Model, FormMethod.Post, new { @class = "form-horizontal", @id = "frmAddEditDashboard", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Title</label>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "Untitled Dashboard" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Dasboard Type</label>
+            <div class="col-md-9">
+                @( Html.Kendo().DropDownListFor(m => m.Dashboard_Type)
+        .Name("Dashboard_Type")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        //     .ValuePrimitive(false)
+.OptionLabel(new { Text = @Resources.DropDownDashboardSelect, Value = "" })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.DashboardType)))
+                )
+                @Html.ValidationMessageFor(model => model.Dashboard_Type, "", new { @class = "parsley-errors-list" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Parent</label>
+            <div class="col-md-9">
+                @( Html.Kendo().DropDownListFor(model => model.Parent_Id)
+        .DataTextField("Text")
+        .DataValueField("Value")
+.Filter("contains")
+        //     .ValuePrimitive(false)
+            .OptionLabel(new { Text = @Resources.Parent_Dashboard_Select, Value = DBNull.Value })
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                         .DataSource(datasource => datasource.Read("Get_Parent_Dashboard", "DashBoard"))
+        //  .Events(events => { events.Select("OnSelect"); })
+                )
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="Save" class="btn btn-sm btn-success" />
+            @*<a href="javascript:;" class="btn btn-sm btn-success">Create Dashboard</a>*@
+            <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+
+        </div>
+    </div>
+}
+   
+
+
+      
+<!--#modal-dialog-->

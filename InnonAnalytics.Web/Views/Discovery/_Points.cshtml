@@ -1,0 +1,33 @@
+﻿@model  IList<InnonAnalytics.Model.DTO.DiscoveryElementDTO>
+
+ 
+                <div class="panel-body" style=" max-height: 200px; overflow-y: scroll; " >
+
+                  
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @if (Model != null)
+                    {
+                        <div class="list-group">                           
+                            @{
+
+                            foreach (var a in Model)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label class="checkbox-inline">
+                                           <input type="checkbox" id="@a.ElementSourceID" value="@a.ElementSourceID">@a.ElementSourceName 
+                                        </label>
+                                    </div>
+                                    </div>                                 
+                            }
+                                    }
+                                </div>
+                    }
+
+                </div>
+           
+
+
+

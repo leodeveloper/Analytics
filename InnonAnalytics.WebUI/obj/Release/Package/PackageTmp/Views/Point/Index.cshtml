@@ -1,0 +1,91 @@
+﻿@{Layout = "~/Views/Shared/_LayoutSetup.cshtml";}
+<script src="~/Scripts/application/Ajax_Request_Response.js"></script>
+<h2>Pont Raw Data</h2>
+
+<table style="width:100%">
+    <tr>
+        <td style="width:25%" align="center" >Select Data Point</td>
+        <td style="width:50%" align="left" >
+            @(Html.Kendo().DropDownList()
+          .Name("elements")
+          .DataTextField("Element_Name")
+          .DataValueField("Element_ID").OptionLabel("Please select the point")
+              .HtmlAttributes(new { style = "width:50%" })
+              .Events(z=>z.Select("OnSelect"))
+          .Filter("contains")
+          .DataSource(source =>
+          {source.Read(read =>
+              {
+                  read.Action("GetAllElement", "Point");
+              })
+              .ServerFiltering(false);
+          }))
+            
+</td><td><div id="loading" style="display:none"> <img src="~/Content/images/loading.gif" alt="please wait" /> Please wait.....</div></td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td style="width:55%" colspan="3" >
+            @(Html.Kendo().Grid<InnonAnalytics.Model.DTO.RawDataDTO>()
+    .Name("gridRawData")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.ID).Visible(false);
+        columns.Bound(p => p.TIMESTAMP);
+        columns.Bound(p => p.VALUE);
+
+    }).DataSource(dataSource => dataSource
+       .Ajax().ServerOperation(false)
+       .PageSize(25).Model(model => { model.Id(d => d.ID); })
+       )
+     .Pageable()
+                .Sortable()
+                .Scrollable()
+                // .Scrollable(scrollable => scrollable.Virtual(true))
+                .Filterable()
+    .AutoBind(false)
+
+            )
+         
+        </td>
+    </tr>
+</table>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<script>
+    var form = $('#__AjaxAntiForgeryForm');
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
+    function OnSelect(e)
+    {
+        if (e.item.index() !== 0)
+        {
+            var dataItem = this.dataItem(e.item.index());
+            $("#loading").show();
+            AjaxRequestResponse.Send('/Point/GetRawData?ID=' + dataItem.Element_ID,
+                          null,
+                          'GET',
+                          'json',
+                          true,
+                          function (serverResponse) {
+                              $("#loading").hide();
+                              if (serverResponse.length !== undefined) {
+                                  $('#gridRawData').data('kendoGrid').dataSource.data(serverResponse);
+                                  $('#gridRawData').data('kendoGrid').refresh();
+                              }
+                              else {
+                                  $('#gridRawData').data('kendoGrid').dataSource.data([]);
+                                  alert("No data available");
+                              }
+                          },
+                      'application/json; charset=utf-8', { "__RequestVerificationToken": token });
+        }
+        
+    }
+</script>
+

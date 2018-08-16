@@ -1,0 +1,126 @@
+﻿@model InnonAnalytics.WebUI.Models.HomePageViewModel
+@using Resources
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<script>
+    waitingmessage = '@Resources.PleaseWait';
+</script>
+
+
+<script src="~/Scripts/JQueryShorten.js"></script>
+<link href="~/Content/customdatetime/css/daterangepicker.css" rel="stylesheet" />
+<script src="~/Content/customdatetime/js/moment.min.js"></script>
+<script src="~/Content/customdatetime/js/jquery.daterangepicker.js"></script>
+<!--the following xdomain request for the ie9 and ie8-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+<link rel="stylesheet" href="~/Scripts/gridster/dist/gridstack.css" />
+<script src="~/Scripts/gridster/dist/gridstack.js"></script>
+
+<script src="~/Scripts/application/helper.js"></script>
+<script src="~/Scripts/application/settings.js"></script>
+<script src="~/Scripts/application/Ajax_Request_Response.js"></script>
+<script src="~/Scripts/application/homepage_widget.js"></script>
+
+
+<script src="@Url.Content("~/Scripts/application/loading.js")" type="text/javascript"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/offline-exporting.js"></script>
+<script src="http://gabelerner.github.io/canvg/rgbcolor.js"></script>
+<script src="http://gabelerner.github.io/canvg/canvg.js"></script> 
+<script src="//a----.github.io/highcharts-export-clientside/bower_components/export-csv/export-csv.js"></script>
+@*<script src="//mrrio.github.io/jsPDF/dist/jspdf.debug.js"></script>
+<script type="application/javascript" src="//mrrio.github.io/jsPDF/dist/jspdf.min.js"></script>*@
+@*<script src="~/Scripts/jspdf/dist/jspdf.debug.js"></script>
+<script type="application/javascript" src="~/Scripts/jspdf/dist/jspdf.min.js"></script>*@
+<script src="~/Scripts/application/bar_chart.js"></script>
+<script src="~/Scripts/application/bar_fixed_placement_chart.js"></script>
+<script src="~/Scripts/application/counter.js"></script>
+<script src="~/Scripts/application/timeline_get_dates.js"></script>
+<script src="http://code.highcharts.com/modules/data.js"></script>
+<script src="http://code.highcharts.com/modules/heatmap.js"></script>
+
+<script>
+    current_page_loadType = "Home";
+</script>
+<div id="viewPlaceHolder">
+    <h1>Welcome</h1>
+    @if (Model.homepage_widgets.Any())
+    {
+
+        <div class="row">
+            <div class="col-md-4">
+                <a id="dashboard_save" href="#" onclick="save_layout_home_page();return false;" class="btn btn-success btn-xs m-l-0">Save Layout</a>
+                </div>
+                <div class="col-md-8">
+                    <div class="pull-right">
+                        @Html.Partial("_Calendar")
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            @Html.Partial("_Widgets", Model.homepage_widgets)
+        </div>
+    }
+    
+ </div>
+
+@*<iframe width="100%" height="600px" src="http://analytics.innon.co.uk/Dashboards/DashboardDGLux?display=true&dashboard=9"></iframe>*@
+
+@*  <hr />
+
+    <script language="javascript">
+        function setStatus(status, buttonid) {
+            var xhr = new XMLHttpRequest();
+            var url = "https://api.particle.io/v1/devices/" + buttonid + "/led?access_token=4ebaa47887009e0da5c64cbeba43d63742e65ba9";
+            var data = "params=" + status;
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // do something with response
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send(data);
+
+        }
+    </script>
+    <p>Radu's Button</p>
+
+    <input type='button' class="btn btn-danger m-r-5 m-b-5" value='Open Ticket' text='Open Ticket' onclick="setStatus('open','1f003d000e47343432313031')"></input>
+
+    <input type='button' class="btn btn-warning m-r-5 m-b-5" value='In Progress Ticket' text='In Progress Ticket' onclick="setStatus('inprogress','1f003d000e47343432313031')"></input>
+
+    <input type='button' class="btn btn-success m-r-5 m-b-5" value='Closed Ticket' text='Closed Ticket' onclick="setStatus('closed','1f003d000e47343432313031')"></input>
+
+    <p>Mike's Button</p>
+
+    <input type='button' class="btn btn-danger m-r-5 m-b-5" value='Open Ticket' text='Open Ticket' onclick="setStatus('open','40002d000647343138333038')"></input>
+
+    <input type='button' class="btn btn-warning m-r-5 m-b-5" value='In Progress Ticket' text='In Progress Ticket' onclick="setStatus('inprogress','40002d000647343138333038')"></input>
+
+    <input type='button' class="btn btn-success m-r-5 m-b-5" value='Closed Ticket' text='Closed Ticket' onclick="setStatus('closed','40002d000647343138333038')"></input>
+
+    <p>Turchian's Button</p>
+
+    <input type='button' class="btn btn-danger m-r-5 m-b-5" value='Open Ticket' text='Open Ticket' onclick="setStatus('open','31002e000447343233323032')"></input>
+
+    <input type='button' class="btn btn-warning m-r-5 m-b-5" value='In Progress Ticket' text='In Progress Ticket' onclick="setStatus('inprogress','31002e000447343233323032')"></input>
+
+    <input type='button' class="btn btn-success m-r-5 m-b-5" value='Closed Ticket' text='Closed Ticket' onclick="setStatus('closed','31002e000447343233323032')"></input>*@
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InnonAnalyticsWarehouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Date_Dim">
+    <Key>
+      <PropertyRef Name="Date_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="date" Nullable="false" />
+    <Property Name="Week_ID" Type="int" Nullable="false" />
+    <Property Name="Month_ID" Type="int" Nullable="false" />
+    <Property Name="Quarter_ID" Type="int" Nullable="false" />
+    <Property Name="Year_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FactsRestatementAudit">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Timestamp_From" Type="datetime" Nullable="false" />
+    <Property Name="Timestamp_To" Type="datetime" Nullable="false" />
+    <Property Name="Old_Value" Type="float" Nullable="false" />
+    <Property Name="New_Value" Type="float" Nullable="false" />
+    <Property Name="Send_To_DW" Type="bit" Nullable="false" />
+    <Property Name="Updated_Datetime" Type="datetime" Nullable="false" />
+    <Property Name="Updated_User_ID" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Day">
+    <Key>
+      <PropertyRef Name="Date_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="date" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Avg_Value" Type="float" Nullable="false" />
+    <Property Name="Sum_Value" Type="float" Nullable="false" />
+    <Property Name="Min_Value" Type="float" Nullable="false" />
+    <Property Name="Max_Value" Type="float" Nullable="false" />
+    <Property Name="Cum_Value" Type="float" Nullable="false" />
+    <Property Name="Day_Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Hour">
+    <Key>
+      <PropertyRef Name="Hour_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Date_ID" Type="date" Nullable="false" />
+    <Property Name="Hour_ID" Type="datetime" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Avg_Value" Type="float" Nullable="false" />
+    <Property Name="Sum_Value" Type="float" Nullable="false" />
+    <Property Name="Min_Value" Type="float" Nullable="false" />
+    <Property Name="Max_Value" Type="float" Nullable="false" />
+    <Property Name="Cum_Value" Type="float" Nullable="false" />
+    <Property Name="Hour_Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Month">
+    <Key>
+      <PropertyRef Name="Month_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Month_ID" Type="bigint" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Avg_Value" Type="float" Nullable="false" />
+    <Property Name="Sum_Value" Type="float" Nullable="false" />
+    <Property Name="Min_Value" Type="float" Nullable="false" />
+    <Property Name="Max_Value" Type="float" Nullable="false" />
+    <Property Name="Cum_Value" Type="float" Nullable="false" />
+    <Property Name="Month_Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Week">
+    <Key>
+      <PropertyRef Name="Week_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Week_ID" Type="bigint" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Avg_Value" Type="float" Nullable="false" />
+    <Property Name="Sum_Value" Type="float" Nullable="false" />
+    <Property Name="Min_Value" Type="float" Nullable="false" />
+    <Property Name="Max_Value" Type="float" Nullable="false" />
+    <Property Name="Cum_Value" Type="float" Nullable="false" />
+    <Property Name="Week_Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Agg_Year">
+    <Key>
+      <PropertyRef Name="Year_ID" />
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Year_ID" Type="int" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Avg_Value" Type="float" Nullable="false" />
+    <Property Name="Sum_Value" Type="float" Nullable="false" />
+    <Property Name="Min_Value" Type="float" Nullable="false" />
+    <Property Name="Max_Value" Type="float" Nullable="false" />
+    <Property Name="Cum_Value" Type="float" Nullable="false" />
+    <Property Name="Year_Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Point_Dim">
+    <Key>
+      <PropertyRef Name="Point_ID" />
+    </Key>
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Equipment_ID" Type="bigint" Nullable="false" />
+    <Property Name="Site_ID" Type="bigint" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="128" />
+    <Property Name="City" Type="varchar" MaxLength="128" />
+    <Property Name="Department" Type="varchar" MaxLength="128" />
+    <Property Name="Zone" Type="varchar" MaxLength="128" />
+    <Property Name="Floor" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_1" Type="varchar" MaxLength="256" />
+    <Property Name="Custom_Tag_2" Type="varchar" MaxLength="256" />
+    <Property Name="Custom_Tag_3" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_4" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_5" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_6" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_7" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_8" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_9" Type="varchar" MaxLength="128" />
+    <Property Name="Custom_Tag_10" Type="varchar" MaxLength="128" />
+    <Property Name="Point" Type="varchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="Point_Measure_Fact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date_ID" Type="date" Nullable="false" />
+    <Property Name="Client_ID" Type="bigint" Nullable="false" />
+    <Property Name="Point_ID" Type="bigint" Nullable="false" />
+    <Property Name="Timestamp_From" Type="datetime" Nullable="false" />
+    <Property Name="Timestamp_To" Type="datetime" Nullable="false" />
+    <Property Name="Hour_ID" Type="datetime" Nullable="false" />
+    <Property Name="Unit_Of_Measurement" Type="varchar" MaxLength="65" Nullable="false" />
+    <Property Name="Min_Value" Type="float" />
+    <Property Name="Max_Value" Type="float" />
+    <Property Name="DataRecordingFrequency" Type="bigint" />
+    <Property Name="Schedule_ID" Type="int" />
+    <Property Name="Value" Type="float" Nullable="false" />
+    <Property Name="Raw_Value" Type="float" Nullable="false" />
+    <Property Name="Last_Update_Time" Type="datetime" Nullable="false" />
+    <Property Name="External_ID" Type="varchar" MaxLength="100" />
+    <Property Name="Point_Status" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="InnonAnalyticsWarehouseModelStoreContainer">
+    <EntitySet Name="Date_Dim" EntityType="Self.Date_Dim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FactsRestatementAudit" EntityType="Self.FactsRestatementAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Agg_Day" EntityType="Self.Point_Agg_Day" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Agg_Hour" EntityType="Self.Point_Agg_Hour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Agg_Month" EntityType="Self.Point_Agg_Month" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Agg_Week" EntityType="Self.Point_Agg_Week" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Agg_Year" EntityType="Self.Point_Agg_Year" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Dim" EntityType="Self.Point_Dim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point_Measure_Fact" EntityType="Self.Point_Measure_Fact" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

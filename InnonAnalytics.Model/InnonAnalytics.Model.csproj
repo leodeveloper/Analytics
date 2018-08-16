@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01C6381A-D80C-4FE0-B623-1F80048657DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InnonAnalytics.Model</RootNamespace>
+    <AssemblyName>InnonAnalytics.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\packages\FluentValidation.MVC5.5.4.0.0\lib\Net45\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="AutoMapper\Mapping\DalToServiceMappingProfile.cs" />
+    <Compile Include="DTOValidators\ConnectionDTOValidator.cs" />
+    <Compile Include="DTOValidators\DashboardDTOValidator.cs" />
+    <Compile Include="DTOValidators\Dashboard_Widget_DTOValidation.cs" />
+    <Compile Include="DTOValidators\GaugeDTOValidator.cs" />
+    <Compile Include="DTOValidators\LanguageValueDTOValidation.cs" />
+    <Compile Include="DTOValidators\MetricDTOValidator.cs" />
+    <Compile Include="DTO\Aggregate_DTO.cs" />
+    <Compile Include="DTO\Audit_DTO.cs" />
+    <Compile Include="DTO\ChartBarDTO.cs" />
+    <Compile Include="DTO\ChartCounterDTO.cs" />
+    <Compile Include="DTO\ChartDiagramDTO.cs" />
+    <Compile Include="DTO\ChartDonutDTO.cs" />
+    <Compile Include="DTO\ChartGaugeDTO.cs" />
+    <Compile Include="DTO\ChartHeatMapDTO.cs" />
+    <Compile Include="DTO\ChartLineDTO.cs" />
+    <Compile Include="DTO\ChartMetricDTO.cs" />
+    <Compile Include="DTO\ChartPieDTO.cs" />
+    <Compile Include="DTO\ChartRawDataDTO.cs" />
+    <Compile Include="DTO\ChartStackedDTO.cs" />
+    <Compile Include="DTO\ChartTreeMapDTO.cs" />
+    <Compile Include="DTO\Chart_Common_Properties_DTO.cs" />
+    <Compile Include="DTO\Chart_Type_Widget_DTO.cs" />
+    <Compile Include="DTO\CompanyDTO.cs" />
+    <Compile Include="DTO\ConnectorDTO.cs" />
+    <Compile Include="DTO\CountryDTO.cs" />
+    <Compile Include="DTO\DashboardDTO.cs" />
+    <Compile Include="DTO\ElementExtension_DTO.cs" />
+    <Compile Include="DTO\Error_DTO.cs" />
+    <Compile Include="DTO\LivePoint_DTO.cs" />
+    <Compile Include="DTO\Note_DTO.cs" />
+    <Compile Include="DTO\UsersDashboardDTO.cs" />
+    <Compile Include="DTO\Dashboard_Widget_DTO.cs" />
+    <Compile Include="DTO\DatawareHouseMigrationLogDTO.cs" />
+    <Compile Include="DTO\DescriptionDTO.cs" />
+    <Compile Include="DTO\DiscoveryElementDTO.cs" />
+    <Compile Include="DTO\DiscoveryVMDTO.cs" />
+    <Compile Include="DTO\ElementDataDTO.cs" />
+    <Compile Include="DTO\ElementDTO.cs" />
+    <Compile Include="DTO\ElementTypeDTO.cs" />
+    <Compile Include="DTO\HomePage_WidgetDTO.cs" />
+    <Compile Include="DTO\LanguageDescriptionDTO.cs" />
+    <Compile Include="DTO\LanguageDTO.cs" />
+    <Compile Include="DTO\MetricDTO.cs" />
+    <Compile Include="DTO\MenuDTO.cs" />
+    <Compile Include="DTO\PropertiesDTO.cs" />
+    <Compile Include="DTO\RawDataDTO.cs" />
+    <Compile Include="DTO\SelectionTypeValueDTO.cs" />
+    <Compile Include="DTO\SelectionTypeDTO.cs" />
+    <Compile Include="DTO\TagDTO.cs" />
+    <Compile Include="DTO\TagElementDTO.cs" />
+    <Compile Include="DTO\Tag_Type_Mapping_DTO.cs" />
+    <Compile Include="DTO\TokenDTO.cs" />
+    <Compile Include="DTO\Unit_Of_Measurement_DTO.cs" />
+    <Compile Include="DTO\UsersElementDTO.cs" />
+    <Compile Include="DTO\UsersMetricDTO.cs" />
+    <Compile Include="EntityModel\AspNetUserDashboard.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\AspNetUserElement.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\AspNetUserMetric.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\IInnonAnalyticsEngineEntities.cs" />
+    <Compile Include="EntityModel\InnonAnalyticsEngine.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InnonAnalyticsEngine.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\InnonAnalyticsEngine.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\InnonAnalyticsEngine.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InnonAnalyticsEngine.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\sysdiagram.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblAudit.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Bar.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Counter.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Donut.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Gauge.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Gauge_Range_Color.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Heatmap.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Line.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Metric.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Pie.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_Stacked.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblChart_TreeMap.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblConnector.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblContainer.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblDashboard.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblDashboard_Widget.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblDatabaseLog.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblDatawareHouseMigrationLog.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblDescription.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblElement.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblElement_Extension.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblHomePage_Widget.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblLanguage.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblLanguageDescription.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblMetric.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblNote.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblPoint.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblTag.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblTagElement.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblTag_Type_Mapping.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblUnit.cs">
+      <DependentUpon>InnonAnalyticsEngine.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\Chart_Bar_Exception.cs" />
+    <Compile Include="Exceptions\Chart_Gauge_Exception.cs" />
+    <Compile Include="Exceptions\Chart_Heatmap_Exception.cs" />
+    <Compile Include="Exceptions\Chart_TreeMap_Exception.cs" />
+    <Compile Include="Exceptions\DataConnectorExcetion.cs" />
+    <Compile Include="Filters\StringEncryDecry.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="EntityModel\InnonAnalyticsEngine.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InnonAnalyticsEngine.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DeveloperConfiguration\User.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="EntityModel\InnonAnalyticsEngine.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InnonAnalyticsEngine.edmx</DependentUpon>
+      <LastGenOutput>InnonAnalyticsEngine.Context.cs</LastGenOutput>
+    </None>
+    <None Include="EntityModel\InnonAnalyticsEngine.edmx.diagram">
+      <DependentUpon>InnonAnalyticsEngine.edmx</DependentUpon>
+    </None>
+    <None Include="EntityModel\InnonAnalyticsEngine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InnonAnalyticsEngine.edmx</DependentUpon>
+      <LastGenOutput>InnonAnalyticsEngine.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InnonAnalytics.Common\InnonAnalytics.Common.csproj">
+      <Project>{df4f508f-a336-4fbd-af67-d60f41faa290}</Project>
+      <Name>InnonAnalytics.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InnonAnalytics.LiveVariables\InnonAnalytics.LiveVariables.csproj">
+      <Project>{9688f505-323d-4426-8c20-f5b2abab40f0}</Project>
+      <Name>InnonAnalytics.LiveVariables</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

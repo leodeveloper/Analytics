@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InnonAnalyticsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblConnector">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="ServerName" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="PortNumber" Type="int" />
+          <Property Name="DefaultPath" Type="nvarchar" MaxLength="150" />
+          <Property Name="FTPMode" Type="nvarchar" MaxLength="50" />
+          <Property Name="DatabaseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataConnectorConnectionType" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="SessionId" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblElement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="SourceElementName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConnectorID_FK" Type="int" Nullable="false" />
+          <Property Name="IsDisabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CultureValue" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="IsDisable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblLanguageDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionID_FK" Type="int" Nullable="false" />
+          <Property Name="LanguageID_FK" Type="int" Nullable="false" />
+          <Property Name="ShortDes" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LongDes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblPoints">
+          <Key>
+            <PropertyRef Name="TableRefKey" />
+          </Key>
+          <Property Name="PointName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="TableRefKey" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblConnector_tblDescription">
+          <End Role="tblDescription" Type="Self.tblDescription" Multiplicity="1" />
+          <End Role="tblConnector" Type="Self.tblConnector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblConnector">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblElement_tblConnector">
+          <End Role="tblConnector" Type="Self.tblConnector" Multiplicity="1" />
+          <End Role="tblElement" Type="Self.tblElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblConnector">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblElement">
+              <PropertyRef Name="ConnectorID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblElement_tblDescription">
+          <End Role="tblDescription" Type="Self.tblDescription" Multiplicity="1" />
+          <End Role="tblElement" Type="Self.tblElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblElement">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblLanguageDescription_tblDescription">
+          <End Role="tblDescription" Type="Self.tblDescription" Multiplicity="1" />
+          <End Role="tblLanguageDescription" Type="Self.tblLanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblLanguageDescription">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblLanguageDescription_tblLanguage">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+          <End Role="tblLanguageDescription" Type="Self.tblLanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblLanguageDescription">
+              <PropertyRef Name="LanguageID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetTableName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ServerName" Type="varchar" Mode="In" />
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="DataBaseName" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="InnonAnalyticsDBModelStoreContainer">
+          <EntitySet Name="tblConnector" EntityType="Self.tblConnector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDescription" EntityType="Self.tblDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblElement" EntityType="Self.tblElement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLanguageDescription" EntityType="Self.tblLanguageDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPoints" EntityType="Self.tblPoints" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblConnector_tblDescription" Association="Self.FK_tblConnector_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescription" />
+            <End Role="tblConnector" EntitySet="tblConnector" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblElement_tblConnector" Association="Self.FK_tblElement_tblConnector">
+            <End Role="tblConnector" EntitySet="tblConnector" />
+            <End Role="tblElement" EntitySet="tblElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblElement_tblDescription" Association="Self.FK_tblElement_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescription" />
+            <End Role="tblElement" EntitySet="tblElement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblLanguageDescription_tblDescription" Association="Self.FK_tblLanguageDescription_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescription" />
+            <End Role="tblLanguageDescription" EntitySet="tblLanguageDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblLanguageDescription_tblLanguage" Association="Self.FK_tblLanguageDescription_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguage" />
+            <End Role="tblLanguageDescription" EntitySet="tblLanguageDescription" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InnonAnalyticsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsDisable" Type="Boolean" Nullable="false" />
+          <Property Name="CultureValue" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblLanguageDescriptions" Relationship="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblLanguage" FromRole="tblLanguage" ToRole="tblLanguageDescription" />
+        </EntityType>
+        <EntityContainer Name="InnonAnalyticsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
+          <EntitySet Name="tblDescriptions" EntityType="InnonAnalyticsDBModel.tblDescription" />
+          <EntitySet Name="tblLanguageDescriptions" EntityType="InnonAnalyticsDBModel.tblLanguageDescription" />
+          <AssociationSet Name="FK_tblLanguageDescription_tblDescription" Association="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescriptions" />
+            <End Role="tblLanguageDescription" EntitySet="tblLanguageDescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblLanguageDescription_tblLanguage" Association="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguages" />
+            <End Role="tblLanguageDescription" EntitySet="tblLanguageDescriptions" />
+          </AssociationSet>
+          <EntitySet Name="tblConnectors" EntityType="InnonAnalyticsDBModel.tblConnector" />
+          <AssociationSet Name="FK_tblConnector_tblDescription" Association="InnonAnalyticsDBModel.FK_tblConnector_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescriptions" />
+            <End Role="tblConnector" EntitySet="tblConnectors" />
+          </AssociationSet>
+          <EntitySet Name="tblElements" EntityType="InnonAnalyticsDBModel.tblElement" />
+          <AssociationSet Name="FK_tblElement_tblConnector" Association="InnonAnalyticsDBModel.FK_tblElement_tblConnector">
+            <End Role="tblConnector" EntitySet="tblConnectors" />
+            <End Role="tblElement" EntitySet="tblElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblElement_tblDescription" Association="InnonAnalyticsDBModel.FK_tblElement_tblDescription">
+            <End Role="tblDescription" EntitySet="tblDescriptions" />
+            <End Role="tblElement" EntitySet="tblElements" />
+          </AssociationSet>
+          <FunctionImport Name="GetTableName" EntitySet="tblPoints" ReturnType="Collection(InnonAnalyticsDBModel.tblPoint)">
+            <Parameter Name="ServerName" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="DataBaseName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tblPoints" EntityType="InnonAnalyticsDBModel.tblPoint" />
+          </EntityContainer>
+        <EntityType Name="tblDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblLanguageDescriptions" Relationship="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblDescription" FromRole="tblDescription" ToRole="tblLanguageDescription" />
+          <NavigationProperty Name="tblConnectors" Relationship="InnonAnalyticsDBModel.FK_tblConnector_tblDescription" FromRole="tblDescription" ToRole="tblConnector" />
+          <NavigationProperty Name="tblElements" Relationship="InnonAnalyticsDBModel.FK_tblElement_tblDescription" FromRole="tblDescription" ToRole="tblElement" />
+        </EntityType>
+        <EntityType Name="tblLanguageDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="LanguageID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ShortDes" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LongDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDescription" Relationship="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblDescription" FromRole="tblLanguageDescription" ToRole="tblDescription" />
+          <NavigationProperty Name="tblLanguage" Relationship="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblLanguage" FromRole="tblLanguageDescription" ToRole="tblLanguage" />
+        </EntityType>
+        <Association Name="FK_tblLanguageDescription_tblDescription">
+          <End Type="InnonAnalyticsDBModel.tblDescription" Role="tblDescription" Multiplicity="1" />
+          <End Type="InnonAnalyticsDBModel.tblLanguageDescription" Role="tblLanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblLanguageDescription">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblLanguageDescription_tblLanguage">
+          <End Type="InnonAnalyticsDBModel.tblLanguage" Role="tblLanguage" Multiplicity="1" />
+          <End Type="InnonAnalyticsDBModel.tblLanguageDescription" Role="tblLanguageDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblLanguageDescription">
+              <PropertyRef Name="LanguageID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblConnector">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="ServerName" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PortNumber" Type="Int32" />
+          <Property Name="DefaultPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FTPMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DatabaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataConnectorConnectionType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SessionId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDescription" Relationship="InnonAnalyticsDBModel.FK_tblConnector_tblDescription" FromRole="tblConnector" ToRole="tblDescription" />
+          <NavigationProperty Name="tblElements" Relationship="InnonAnalyticsDBModel.FK_tblElement_tblConnector" FromRole="tblConnector" ToRole="tblElement" />
+        </EntityType>
+        <Association Name="FK_tblConnector_tblDescription">
+          <End Type="InnonAnalyticsDBModel.tblDescription" Role="tblDescription" Multiplicity="1" />
+          <End Type="InnonAnalyticsDBModel.tblConnector" Role="tblConnector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblConnector">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblElement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionID_FK" Type="Int32" Nullable="false" />
+          <Property Name="SourceElementName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectorID_FK" Type="Int32" Nullable="false" />
+          <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblConnector" Relationship="InnonAnalyticsDBModel.FK_tblElement_tblConnector" FromRole="tblElement" ToRole="tblConnector" />
+          <NavigationProperty Name="tblDescription" Relationship="InnonAnalyticsDBModel.FK_tblElement_tblDescription" FromRole="tblElement" ToRole="tblDescription" />
+        </EntityType>
+        <Association Name="FK_tblElement_tblConnector">
+          <End Type="InnonAnalyticsDBModel.tblConnector" Role="tblConnector" Multiplicity="1" />
+          <End Type="InnonAnalyticsDBModel.tblElement" Role="tblElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblConnector">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblElement">
+              <PropertyRef Name="ConnectorID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblElement_tblDescription">
+          <End Type="InnonAnalyticsDBModel.tblDescription" Role="tblDescription" Multiplicity="1" />
+          <End Type="InnonAnalyticsDBModel.tblElement" Role="tblElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDescription">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblElement">
+              <PropertyRef Name="DescriptionID_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblPoint">
+          <Key>
+            <PropertyRef Name="TableRefKey" />
+          </Key>
+          <Property Name="PointName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TableRefKey" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InnonAnalyticsDBModelStoreContainer" CdmEntityContainer="InnonAnalyticsDBEntities">
+          <EntitySetMapping Name="tblLanguages">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblLanguage">
+              <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="CultureValue" ColumnName="CultureValue" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="IsDisable" ColumnName="IsDisable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDescriptions">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblDescription">
+              <MappingFragment StoreEntitySet="tblDescription">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLanguageDescriptions">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblLanguageDescription">
+              <MappingFragment StoreEntitySet="tblLanguageDescription">
+                <ScalarProperty Name="LongDes" ColumnName="LongDes" />
+                <ScalarProperty Name="ShortDes" ColumnName="ShortDes" />
+                <ScalarProperty Name="LanguageID_FK" ColumnName="LanguageID_FK" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblConnectors">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblConnector">
+              <MappingFragment StoreEntitySet="tblConnector">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="DataConnectorConnectionType" ColumnName="DataConnectorConnectionType" />
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+                <ScalarProperty Name="FTPMode" ColumnName="FTPMode" />
+                <ScalarProperty Name="DefaultPath" ColumnName="DefaultPath" />
+                <ScalarProperty Name="PortNumber" ColumnName="PortNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblElements">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblElement">
+              <MappingFragment StoreEntitySet="tblElement">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="ConnectorID_FK" ColumnName="ConnectorID_FK" />
+                <ScalarProperty Name="SourceElementName" ColumnName="SourceElementName" />
+                <ScalarProperty Name="DescriptionID_FK" ColumnName="DescriptionID_FK" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetTableName" FunctionName="InnonAnalyticsDBModel.Store.GetTableName" />
+          <EntitySetMapping Name="tblPoints">
+            <EntityTypeMapping TypeName="InnonAnalyticsDBModel.tblPoint">
+              <MappingFragment StoreEntitySet="tblPoints">
+                <ScalarProperty Name="TableRefKey" ColumnName="TableRefKey" />
+                <ScalarProperty Name="PointName" ColumnName="PointName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,218 @@
+﻿
+<link href="~/Content/themes/base/accordion.css" rel="stylesheet" />
+@model InnonAnalytics.Model.DTO.DiscoveryVMDTO
+@using InnonAnalytics.Common.Enums
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table width="100%" >
+    <tr>
+        <td><h3><a href="~/Discovery/Index/">@Resources.DiscoveryHeading</a></h3></td>
+        <td  align="right">
+            <div class="alert alert-danger" id="loading" style="display: none;">
+                <img src="~/Content/images/loading.gif" /> @Resources.DiscoveryPleaseWait
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+<div class="accordion" id="accordion">
+   
+        <div class="accordion-section-title">@Resources.DiscoveryHeadingStep1</div>
+    <div class="accordion-section-content">
+        
+            <table width="100%">
+                <tr>
+                    <td valign="top">
+                        <div  class="list-group">
+                           <div class="list-group-item active">
+                                <table width="100%">
+                                    <tr>
+                                        <td>@Resources.ConnectorExisting</td>
+                                        <td align="right" > Selected Item (<span data-bind="text: SelectedPoints"></span>) </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="list-group-item" style="max-height: 225px; overflow-y: scroll;" id="connections" data-bind="foreach: ExistingConnections">
+
+                                <!-- ko if: DataConnectorType() == '@DataSouceConnectionType.Database.ToString()' -->
+                                <div class="list-group-item">
+                                    <table width="100%">
+                                        <tr>
+                                            <td><img src="~/Content/images/sql.jpg" data-bind="title :DataConnectorType" /></td>
+                                            <td align="left" data-bind="text: ConnectionName"></td>
+                                            <td align="right">
+                                                <input type="button" class="btn btn-primary btn-xs" value=" [+] " data-bind="click: function(){ GetElement_By_ConnectionID_And_DataConnectorType(ConnectionID, DataConnectorType); } " />
+                                                <input type="button" class="btn btn-danger btn-xs" value=" [-] " data-bind="click: function(){ Remove(); } " />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="3">
+                                                <div data-bind="id: ConnectionID" >
+                                                    <table data-bind="foreach: Points">
+                                                        <tr>
+                                                            <td><input type="checkbox" data-bind="checked: ElementCheckBox, click: function(){  $root.Add_Point(this); return true; }"></td>
+                                                            <td data-bind="text: ElementSourceName"></td>
+
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                               
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: DataConnectorType() == '@DataSouceConnectionType.API.ToString()' -->
+                                <div class="list-group-item">
+                                    <table width="100%">
+                                        <tr>
+                                            <td><img src="~/Content/images/api.jpg" data-bind="title :DataConnectorType" /></td>
+                                            <td data-bind="text: ConnectionName"></td>
+                                            <td>(<a href="#" onclick="getElementsByConnectionID()"></a><a href="#" onclick="RemoveElements()">-</a>)</td>
+                                            <td><div data-bind="id: ConnectionID"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: DataConnectorType() == '@DataSouceConnectionType.FTP.ToString()' -->
+                                <div class="list-group-item">
+                                    <table width="100%">
+                                        <tr>
+                                            <td><img src="~/Content/images/ftp.jpg" data-bind="title :DataConnectorType" /></td>
+                                            <td data-bind="text: ConnectionName"></td>
+                                            <td>(<a href="#" onclick="getElementsByConnectionID()"></a><a href="#" onclick="RemoveElements()">-</a>)</td>
+                                            <td><div data-bind="id: ConnectionID"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+       
+        <input type="button" class="btn btn-primary" name="Next" onclick="accordionBackForward(0)" value="@Resources.DiscoveryButtonStep2" />
+    </div>
+
+   
+    
+        <div class="accordion-section-title">@Resources.DiscoveryHeadingStep2</div>
+    <div class="accordion-section-content">
+        <p>
+            Tags
+        </p>
+        <input type="button" name="Back" class="btn btn-default" onclick="accordionBackForward(1)" value="@Resources.DiscoveryButtonBack1" />
+        <input type="button" name="Next" class="btn btn-primary" onclick="accordionBackForward(2)" value="@Resources.DiscoveryButtonStep3" />
+    </div>
+   
+        <div class="accordion-section-title">@Resources.DiscoveryHeadingStep3</div>
+    <div class="accordion-section-content">
+        <table style="width:100%;">
+            <tr>
+                <th>@Resources.DiscoveryStep3Default</th>
+                <th>@Resources.DiscoveryStep3Custom</th>
+            </tr>
+        </table>
+        <input type="button" class="btn btn-default" name="Back" onclick="accordionBackForward(3)" value="@Resources.DiscoveryButtonBack2" />
+    </div>
+        
+    </div>
+
+<div data-bind="text: ko.toJSON($root)"></div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
+    @Scripts.Render("~/bundles/knockoutjs")
+<script src="~/Scripts/application/discovery.js"></script>
+}
+<script type="text/javascript"  >
+
+    $(document).ready(function () {
+
+        getConnection();
+        
+        
+    });
+
+    $(document).ajaxStart(function () {
+        $("#loading").show();
+    });
+
+    $(document).ajaxComplete(function () {
+        $("#loading").hide();
+    });
+   
+    //Accordion   
+
+    function accordionBackForward(index)
+    {
+        if(index == 0)
+            $('#accordion').accordion({ active: 1 }).children().first().show();
+        else if(index == 1)
+            $('#accordion').accordion({ active: 0 }).children().first().show();
+        else if (index == 2)
+            $('#accordion').accordion({ active: 2 }).children().first().show();
+        else if (index == 3)+
+            $('#accordion').accordion({ active: 1 }).children().first().show();
+    }
+
+
+    $(function () {
+        $("#accordion").accordion({ disabled: true });
+        $(".trigger").click(function () {
+            $("#accordion").accordion("enable").accordion("activate", parseInt($(this).data("index"), 10)).accordion("disable");
+        });
+    });
+
+
+    //End Accordion
+
+    //Get Elements By Connection ID    
+    function getElementsByConnectionID(ConnectorType ,ConnectionId) {
+        $.ajax({
+
+            url: '@(Url.Action("Index"))',
+            data: { 'strDataConnectorType': ConnectorType, "id": ConnectionId },
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                
+           //     discoveryVM.UnStructureVM = data;
+            //    console.log(discoveryVM);
+
+              //  $('#'+ConnectionId).html(data); 
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
+    }
+
+    function RemoveElements(ConnectionId)
+    {
+        $('#'+ConnectionId).html(''); 
+    }
+
+    //Ends
+
+
+</script>
+
+
+
+
+
+
+   

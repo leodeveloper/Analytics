@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+
+
+
+
+@if (Request.IsAuthenticated)
+{
+   
+
+
+
+    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+        @*<img src="assets/img/user-11.jpg" alt="" />*@
+        <span class="hidden-xs">@User.Identity.GetUserName()</span> <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu animated fadeInLeft">
+        <li class="arrow"></li>
+        <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+        @*<li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+        <li><a href="javascript:;">Calendar</a></li>
+        <li><a href="javascript:;">Setting</a></li>*@
+        <li class="divider"></li>
+        <li>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+        @Html.AntiForgeryToken()
+        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        
+        }
+        </li>
+    </ul>
+
+
+    @*<ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>*@
+    }
+
+else
+{
+
+    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+        @*<img src="assets/img/user-11.jpg" alt="" />*@
+        <span class="hidden-xs">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</span> <b class="caret"></b>
+    </a>
+
+  
+}

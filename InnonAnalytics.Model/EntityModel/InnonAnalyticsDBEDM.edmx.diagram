@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e6205ae8a9f4d898254edf823c190bf" Name="Diagram1">
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblLanguage" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblDescription" Width="1.5" PointX="3.75" PointY="3.375" />
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblLanguageDescription" Width="1.5" PointX="10.625" PointY="0.875" />
+        <AssociationConnector Association="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblDescription" />
+        <AssociationConnector Association="InnonAnalyticsDBModel.FK_tblLanguageDescription_tblLanguage" />
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblConnector" Width="1.5" PointX="5.875" PointY="6" />
+        <AssociationConnector Association="InnonAnalyticsDBModel.FK_tblConnector_tblDescription" />
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblElement" Width="1.5" PointX="10.625" PointY="4.375" />
+        <AssociationConnector Association="InnonAnalyticsDBModel.FK_tblElement_tblConnector" />
+        <AssociationConnector Association="InnonAnalyticsDBModel.FK_tblElement_tblDescription" />
+        <EntityTypeShape EntityType="InnonAnalyticsDBModel.tblPoint" Width="1.5" PointX="3.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

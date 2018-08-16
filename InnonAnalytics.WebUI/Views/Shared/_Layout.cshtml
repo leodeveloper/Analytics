@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title </title>     
+
+        <link href = "http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel = "stylesheet" />
+
+        @Styles.Render("~/bundles/Css_Layout")
+        @Scripts.Render("~/bundles/Script_Layout")
+        
+      
+
+        <script>
+            //variable is used for to check the _widget partialview is load inside the homepage or load inside _GetDashboard
+            var current_page_loadType = "";
+    $(document).ready(function () {
+
+        $('#add_edit_dashboard').live('click', function () {
+            Add_Edit_New_Dashboard('0');
+        });
+
+        if (typeof (Storage) !== 'undefined') {
+            fromdate = localStorage.removeItem("l_start_date");
+            todate = localStorage.removeItem("l_end_date");
+        }
+
+        App.init();
+
+       
+        //Dashboard.init();
+        //Populate the private shared dashboard
+        //get_Private_Shared_DashBoard();
+
+        // get_Dashboard_Menu();
+
+    });
+
+
+
+    @*function get_Dashboard_Menu() {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Get_Dashboard_Menu"))',
+            // data: { 'Id': widget_id },
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+
+                console.log(data);
+                var htmlstring = Generate_Folder_Menu(data);
+                //console.log(htmlstring);
+                //$("#_loading").html('');
+                //$("#_dynamic_menu").append(htmlstring);
+                $("#_dynamic_menu").html(htmlstring);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#_loading").html('Error in loading menu');
+            }
+        });
+    }*@
+
+    @*function Generate_Folder_Menu(data) {
+        var html_string = ''; //'<ul id="_dynamic_menu" style="display: block;" class="sub-menu">';
+        $.each(data, function (key, val) {
+
+            //   $("#_dynamic_menu").append('<li class="has-sub"><a href="javascript:;"><b class="caret pull-right"></b>' + val.Title + '</a>');
+            //    $("#_dynamic_menu").append('<ul class="sub-menu"><li >loading</li></ul>');
+
+            html_string += '<li class="has-sub"><a href="javascript:;"><b class="caret pull-right"></b>' + val.Title + '</a>';
+
+            if (val.Child_Menu !== null)
+                html_string += '<ul id="Submenu' + key + '" class="sub-menu"><li >loading</li></ul>';
+            else
+                html_string += '<ul id=Submenu' + key + '" class="sub-menu"><li >No items</li></ul>';
+
+            html_string += '</li>';
+
+            // $("#_dynamic_menu").append(html_string);
+
+            console.log(key);
+            console.log(val.Title);
+            console.log(val.Child_Menu);
+
+
+
+            if (val.Accessibility_String == "@InnonAnalytics.Common.Enums.Accessibility_Type.Private.ToString()") {
+                          //$("#_alderhey").append('<li><a href="/Dashboard/Get_Dashboard_ID/' + val.Id + '">' + val.Title + '</a></li>');
+                          $("#_alderhey").append('<li><a id="' + val.Id + '" title="' + val.Title + '" href="#" onclick="load_dashboard(' + val.Id + ');return false;" >' + val.Title + '</a></li>');
+                      }
+                      else if (val.Accessibility_String == "@InnonAnalytics.Common.Enums.Accessibility_Type.Shared.ToString()") {
+                          $("#shared_sub_menu").append('<li><a href="/Dashboard/Get_Dashboard_ID/' + val.Id + '">' + val.Title + '</a></li>');
+                      }
+
+
+
+        });
+        //html_string += '</ul>';
+        return html_string;
+    }*@
+
+    @*function get_Private_Shared_DashBoard() {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Get_Private_Shared_Dashboard"))',
+            // data: { 'Id': widget_id },
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                $("#_loading").html('');
+                $.each(data, function (key, val) {
+                    if (val.Accessibility_String == "@InnonAnalytics.Common.Enums.Accessibility_Type.Private.ToString()") {
+                        //$("#_alderhey").append('<li><a href="/Dashboard/Get_Dashboard_ID/' + val.Id + '">' + val.Title + '</a></li>');
+                        $("#_alderhey").append('<li><a id="' + val.Id + '" title="' + val.Title + '" href="#" onclick="load_dashboard(' + val.Id + ');return false;" >' + val.Title + '</a></li>');
+                    }
+                    else if (val.Accessibility_String == "@InnonAnalytics.Common.Enums.Accessibility_Type.Shared.ToString()") {
+                        $("#shared_sub_menu").append('<li><a href="/Dashboard/Get_Dashboard_ID/' + val.Id + '">' + val.Title + '</a></li>');
+                    }
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#_loading").html('Error in loading menu');
+            }
+        });
+    }*@
+            function load_dashboard(dashboard_id) {
+
+                $("#viewPlaceHolder").html('<img src=\"/Content/images/loading.gif\" /> please wait loading selected dashboard');
+                if (dashboard_id === '300000') {
+                    tree_view_node_clear_selection();
+                    $("#viewPlaceHolder").load("../ThreeDModel/");
+                }
+                else if (dashboard_id === '300001') {
+                    tree_view_node_clear_selection();
+                    $("#viewPlaceHolder").load("../Dashboard/GetLivePoints");
+                }
+                else if (dashboard_id === '0')
+                    $("#viewPlaceHolder").html("Parent dashboard selected. Select the child dashboard");
+                else
+                    $("#viewPlaceHolder").load("../Dashboard/Get_Dynamic_Dashboard_By_Dashboard_Id", { Id: dashboard_id },
+                function (response, status, xhr) {
+                    if (xhr.status == 401) {
+                        $("#viewPlaceHolder").html('Do not have a right DashbaoardPermissionView');
+                    }
+                });
+            }
+
+
+
+    function Add_Edit_New_Dashboard(dashboard_id) {
+        $.ajax({
+            url: '@(Url.Action("../Dashboard/Add_Edit_Dashboard"))',
+            data: { 'dashboard_id': dashboard_id },
+            type: "GET",
+            dataType: "html",
+            cache: false,
+            success: function (data) {
+                $('#dashboad').html(data); //write the dialog content into the diaog container
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error');
+            }
+        });
+    }
+
+        </script>
+
+
+
+</head>
+    <body>
+
+
+        <!-- begin #page-loader -->
+        <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+        <!-- end #page-loader -->
+        <!-- begin #page-container -->
+        <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+            <!-- begin #header -->
+            @Html.Partial("_Header")
+            <!-- end #header -->
+            <!-- end #header -->
+            <!-- begin #sidebar -->
+            <div id="sidebar" class="sidebar">
+                <!-- begin sidebar scrollbar -->
+                <div data-scrollbar="true" data-height="100%">
+                    <!-- begin sidebar user -->
+                    <ul class="nav">
+                        <li class="nav-profile">
+                            <div class="image">
+                                @*<a href="javascript:;"><img src="assets/img/user-13.jpg" alt="" /></a>*@
+                            </div>
+                            <div class="info">
+                                Welcome
+                                <small></small>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- end sidebar user -->
+                    <!-- begin sidebar nav -->
+                    <ul class="nav">
+                        <li class="nav-header">Navigation</li>
+                       
+                       
+                        <li id="_dashboard_menu" class="has-sub expand">
+                            <a href="javascript:;">
+                                <b class="caret pull-right"></b>
+                                <i class="fa fa-align-left"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            
+                            <ul style="display: block;" class="sub-menu">
+                                <li class="has-sub">
+                                    <a href="javascript:;">
+                                        <b class="caret pull-right"></b>
+                                        Shared
+                                    </a>
+                                </li>          
+                                @if (User.IsInRole("DashboardAdd") || User.IsInRole("Admin"))
+                                {
+                                <li><a href="#modal-dialog-Add-Edit-Dashboard" id="add_edit_dashboard" data-toggle="modal">New Dashboard</a></li>
+                                }
+                                <li class="has-sub">
+                                    <a href="javascript:;">
+                                        <b class="caret pull-right"></b>
+                                        Dashboard
+                                    </a>
+                                    <ul class="sub-menu" style="display: block;">
+                                        @if (User.IsInRole("Three3DModel") || User.IsInRole("Admin"))
+                                        {
+                                            <li><a href="#" onclick="load_dashboard('300000');return false;">3D Model</a></li>
+                                        }
+
+                                        @if (User.IsInRole("DashboardLivePoint") || User.IsInRole("Admin"))
+                                        {
+                                            <li><a href="#" onclick="load_dashboard('300001');return false;">Live Points</a></li>
+                                        }
+                                        <li>@Html.Partial("_Dashboard_Menu")</li>
+                                    </ul>
+                                </li>    
+                                
+                            </ul>                                                
+                            
+                        </li>                    
+                        <!-- begin sidebar minify button -->
+                        <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+                        <!-- end sidebar minify button -->
+                    </ul>
+                    <!-- end sidebar nav -->
+                </div>
+                <!-- end sidebar scrollbar -->
+            </div>
+            <div class="sidebar-bg"></div>
+            <!-- end #sidebar -->
+            <!-- begin #content -->
+            <div id="content" class="content">
+                <!-- Content Here -->
+                @RenderSection("featured", required: false)
+                <section class="content-wrapper main-content clear-fix">
+                    @RenderBody()
+                </section>
+            </div>
+            <!-- end #content -->
+               <!-- begin #footer -->
+                <div id="footer" class="footer">
+                    <!-- Footer Here -->
+                    <p>&copy; @DateTime.Now.Year - Innon, Data Analytics </p>
+                </div>
+                <!-- end #footer -->
+                <!-- begin scroll to top btn -->
+                <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+                <!-- end scroll to top btn -->
+        </div>
+        <!-- end page container -->
+
+
+        <!--This is for to add or edit the dashboard-->
+        <div class="modal fade" id="modal-dialog-Add-Edit-Dashboard">
+            <div style="width:75%" class="modal-dialog">
+                <div style="width:100%" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Analytics widget control</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dashboad">
+
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+                        <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                        <a href="javascript:;" class="btn btn-sm btn-success">Add Widget</a>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+     <!--End-->
+
+        <!--#modal-dialog for Notes -->
+        <div class="modal fade" id="modal-notes">
+            <div style="width:75%;" class="modal-dialog">
+                <div style="width:100%;background-color:#CAD0D6;" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">@Resources.Resources.Notes_Heading</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="notes_widget">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--#modal-dialog-->
+
+        <!--#modal-dialog for audit -->
+        <div class="modal fade" id="modal-audit">
+            <div style="width:75%;" class="modal-dialog">
+                <div style="width:100%;background-color:#CAD0D6;" class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">@Resources.Resources.Audit_Heading</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="audit_widget">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--#modal-dialog-->
+
+        @RenderSection("scripts", required: false)
+
+
+        @*@Html.Partial("_AddEditDashBoard")*@
+       
+       
+
+    </body>
+</html>

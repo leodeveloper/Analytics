@@ -1,0 +1,193 @@
+﻿
+@using Resources
+@model InnonAnalytics.Model.DTO.Chart_Common_Properties_DTO
+
+<script>
+
+    $(function () {
+        populate_date_time_control();
+    });
+
+
+    function onSelect(e) {
+        var dataItem = this.dataItem(e.item);
+        //console.log(dataItem.Text + " : " + dataItem.Value);
+        //This is for custome_date
+        if (dataItem.Value === "2") {
+            $('#tbl_date_range').show();
+        }
+        else {
+            $('#tbl_date_range').hide();
+        }
+    }
+
+    function onBound(e) {
+
+        if ($("#selected_time_line").val() !== "")
+        {
+            $("#Time_Line").data("kendoDropDownList").text($("#selected_time_line").val());
+        }
+        var dataItem = this.dataItem(e.item);
+        //This is for custome_date
+        if (dataItem.Value === "2") {
+            $('#tbl_date_range').show();
+            var time_line_fromdate = '@Model.From_Date';
+            var time_line_todate = '@Model.To_Date';           
+            $('#date-range19').data('dateRangePicker').setDateRange(time_line_fromdate, time_line_todate);
+        }
+        else{
+            $('#tbl_date_range').hide();
+        }
+
+    }
+
+    function populate_date_time_control() {
+        $('#date-range19').dateRangePicker(
+       {
+
+           startOfWeek: 'monday',
+           separator: ' to ',
+           format: 'DD/MM/YYYY HH:mm',
+           autoClose: false,
+           showShortcuts: true,
+           inline: true,
+           alwaysOpen: true,
+           applyBtnClass: '',
+           container: '#date-range19-container',
+
+           customShortcuts:
+           [
+               //if return an array of two dates, it will select the date range between the two dates
+               {
+                   name: 'this week',
+                   dates: function () {
+                       var start = moment().day(0).toDate();
+                       var end = moment().day(6).toDate();
+                       // start.setDate(1);
+                       // end.setDate(30);
+                       return [start, end];
+                   }
+               }
+           ],
+
+           time: {
+               enabled: true
+           },
+
+           getValue: function () {
+               return this.innerHTML;
+           },
+           setValue: function (s) {
+               this.innerHTML = s;
+           }
+       })
+            .bind('datepicker-apply', function (event, obj) {
+                $("#From_Date").val(obj.date1.toISOString());
+                $("#To_Date").val(obj.date2.toISOString());
+
+
+            }).bind('datepicker-first-date-selected', function (event, obj) {
+                /* This event will be triggered when first date is selected */
+                // console.log(obj);
+                // obj will be something like this:
+                // {
+                // 		date1: (Date object of the earlier date)
+                // }
+            })
+       .bind('datepicker-change', function (event, obj) {
+
+           $("#From_Date").val(obj.date1.toISOString());
+           $("#To_Date").val(obj.date2.toISOString());
+
+           /* This event will be triggered when second date is selected */
+           // console.log(obj);
+           // obj will be something like this:
+           // {
+           // 		date1: (Date object of the earlier date),
+           // 		date2: (Date object of the later date),
+           //	 	value: "2013-06-05 to 2013-06-07"
+           // }
+       });
+    }
+
+
+
+    function DoAjaxPostAndMore(btnClicked) {
+        var $form = $("#frm_Time_Line");
+
+        $.ajax({
+            type: "POST",
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            error: function (xhr, status, error) {
+                //do something about the error
+                alert("Error occured while updating");
+            },
+            success: function (response) {
+
+                $('#time_line_widget').html('Save successfully');
+            }
+        });
+
+        return false;// if it's a link to prevent post
+
+    }
+
+</script>
+
+
+
+@using (Ajax.BeginForm("Save_Widget_Time_Line", "DashBoard", new { @model = Model }, new AjaxOptions { HttpMethod = "Post", }, new { @class = "form-horizontal form-bordered", @id = "frm_Time_Line", @name = "frm_Time_Line", role = "form", enctype = "multipart/form-data" }))
+{
+
+    @Html.Hidden("selected_time_line", Model.Time_Line)
+    @Html.Hidden("widget_id");
+    @Html.Hidden("chart_type");
+    @Html.AntiForgeryToken();
+    
+    <table>
+        <tr>
+            <td>
+                <label>@Resources.Time_Line</label>
+                @( Html.Kendo().DropDownListFor(m=>m.Time_Line)
+            .Name("Time_Line")
+        .DataTextField("Text")
+        .DataValueField("Value")
+        //     .ValuePrimitive(false)
+       .HtmlAttributes(new { data_value_primitive = "false" })
+                .BindTo(InnonAnalytics.Common.ExtensionMethod.EnumToSelectList(typeof(InnonAnalytics.Common.Enums.TimeLine)))
+.Events(events => { events.Select("onSelect").DataBound("onBound"); })
+                )
+
+            </td>
+        </tr>
+               
+            </table>
+
+            <table id="tbl_date_range" >
+                <tr>
+                    <td><span id="date-range19-container"></span></td>
+                </tr>
+                <tr>
+                    <td><span id="date-range19"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Hidden("From_Date")
+                        @Html.Hidden("To_Date")
+                    </td>
+                </tr>
+            </table>
+    
+    <table style="width:100%">
+        <tr>
+            <td>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-success m-r-5 m-b-5" value="save" onclick="DoAjaxPostAndMore(this)" id="btn_frm_Time_Line_Submit" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+}
+

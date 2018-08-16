@@ -1,0 +1,650 @@
+﻿
+@{
+    //ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+        .gauge-container {
+            background: transparent url(@Url.Content("~/Content/dataviz/gauge/gauge-container-partial.png")) no-repeat 50% 50%;
+            width: 250px;
+            height: 250px;
+            text-align: center;
+            margin: auto;
+            padding-top: 18px;
+        }
+
+        .gauge-inner {
+           
+            margin: 0 auto 0;
+            border-color: transparent;
+        }
+
+    .gauge-label {
+            margin-top: -11px;
+            width: 140px;
+            position: absolute;
+             margin: -28px 0px 0px 53px;
+        }
+
+        #gauge svg {
+            left: 0 !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1600" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Total Energy vs Target</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="gauge-container" >
+
+                    @(Html.Kendo().RadialGauge()
+                           
+
+                                .Name("gauge-" + 23)
+                                .Pointer(pointer => pointer.Value(0))
+                                .Scale(scale => scale
+                                    .MinorUnit(2)
+                                    .StartAngle(-60)
+                                    .EndAngle(240)
+                                    .Min(0)
+                                    .Max(100)
+                                    .Labels(labels => labels
+                                        .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                    )
+                                    .Ranges(ranges =>
+                                    {
+                                        ranges.Add().From(20).To(30).Color("#ffc700");
+                                        ranges.Add().From(30).To(60).Color("#ff7a00");
+                                        ranges.Add().From(60).To(100).Color("#c20000");
+                                    })
+                                )
+                    )
+                    <div  class="gauge-label"><span id="div-per-23">0</span>%</div>
+                   
+
+                </div>
+                
+                </div>
+
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Total Energy <span id="div-23" >0</span> kWh</span></h4>
+                <h4><span class="semi-bold">Total Energy Target <span id="div-target-23">0</span> kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Total Electricity vs Target</h4>
+            </div>
+
+            
+
+                <div class="panel-body">
+                    
+                    <div class="gauge-container">
+    @(Html.Kendo().RadialGauge()
+                          
+                                .Name("gauge-" + 24)
+                                        .Pointer(pointer => pointer.Value(0))
+                                        .Scale(scale => scale
+                                            .MinorUnit(2)
+                                            .StartAngle(-60)
+                                            .EndAngle(240)
+                                            .Min(0)
+                                            .Max(100)
+                                            .Labels(labels => labels
+                                                .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                            )
+                                            .Ranges(ranges =>
+                                            {
+                                                ranges.Add().From(20).To(30).Color("#ffc700");
+                                                ranges.Add().From(30).To(60).Color("#ff7a00");
+                                                ranges.Add().From(60).To(100).Color("#c20000");
+                                            })
+                                        )
+    )
+
+                        <div class="gauge-label"><span id="div-per-24">0</span>%</div>
+</div>
+            </div>
+                <div class="panel-footer">
+                    <h4><span class="semi-bold">Total Electricity <span id="div-24">0</span> kWh</span></h4>
+                    <h4><span class="semi-bold">Total Electricity Target <span id="div-target-24">0</span> kWh </span></h4>
+                </div>
+            </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Total Thermal vs Target</h4>
+            </div>
+            
+                <div class="panel-body">
+
+                    <div class="gauge-container">
+
+                        @(Html.Kendo().RadialGauge()
+                                .Name("gauge-" + 25)
+                                       .Pointer(pointer => pointer.Value(0))
+                                        .Scale(scale => scale
+                                            .MinorUnit(2)
+                                            .StartAngle(-60)
+                                            .EndAngle(240)
+                                            .Min(0)
+                                            .Max(100)
+                                            .Labels(labels => labels
+                                                .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                            )
+                                            .Ranges(ranges =>
+                                            {
+                                                ranges.Add().From(20).To(30).Color("#ffc700");
+                                                ranges.Add().From(30).To(60).Color("#ff7a00");
+                                                ranges.Add().From(60).To(100).Color("#c20000");
+                                            })
+                                        )
+                        )
+
+                        <div class="gauge-label"><span id="div-per-25">0</span>%</div>
+                    </div>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Total Thermal <span id="div-25">0</span> kWh</span></h4>
+                <h4><span class="semi-bold">Total Thermal Target <span id="div-target-25">0</span> kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1600" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">CO2 vs Target</h4>
+            </div>
+            <div class="panel-body">
+
+
+                <div class="gauge-container">
+
+
+                    @(Html.Kendo().RadialGauge()
+                                .Name("gauge-" + 26)
+                                       .Pointer(pointer => pointer.Value(0))
+                                        .Scale(scale => scale
+                                            .MinorUnit(2)
+                                            .StartAngle(-60)
+                                            .EndAngle(240)
+                                            .Min(0)
+                                            .Max(100)
+                                            .Labels(labels => labels
+                                                .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                            )
+                                            .Ranges(ranges =>
+                                            {
+                                                ranges.Add().From(0).To(30).Color("#ffc700");
+                                                ranges.Add().From(30).To(35).Color("#ff7a00");
+                                                ranges.Add().From(35).To(45).Color("#c20000");
+                                            })
+                                        )
+                    )
+
+                    <div class="gauge-label"><span id="div-per-26">0</span>%</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Total CO2 <span id="div-26">0</span> kWh</span></h4>
+                <h4><span class="semi-bold">Total CO2 Target <span id="div-target-26">0</span> kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Renewables vs Target</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="gauge-container">
+
+
+                    @(Html.Kendo().RadialGauge()
+                                .Name("gauge-" + 28)
+                                        .Pointer(pointer => pointer.Value(0))
+                                        .Scale(scale => scale
+                                            .MinorUnit(2)
+                                            .StartAngle(-60)
+                                            .EndAngle(240)
+                                            .Min(0)
+                                            .Max(100)
+                                            .Labels(labels => labels
+                                                .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                            )
+                                            .Ranges(ranges =>
+                                            {
+                                                ranges.Add().From(10).To(50).Color("#c20000");
+                                                ranges.Add().From(50).To(70).Color("#ff7a00");
+                                                ranges.Add().From(70).To(100).Color("#ffc700");
+                                            })
+                                        )
+                    )
+
+                    <div class="gauge-label"><span id="div-per-28">0</span>%</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Total Renewables <span id="div-28">0</span> kWh</span></h4>
+                <h4><span class="semi-bold">Total Renewables Target <span id="div-target-28">0</span> kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" id="1601" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Energy Generation on site vs Target</h4>
+            </div>
+            <div class="panel-body">
+                <div class="gauge-container">
+
+                    @(Html.Kendo().RadialGauge()
+                                .Name("gauge-" + 29)
+                                       .Pointer(pointer => pointer.Value(0))
+                                        .Scale(scale => scale
+                                            .MinorUnit(2)
+                                            .StartAngle(-60)
+                                            .EndAngle(240)
+                                            .Min(0)
+                                            .Max(100)
+                                            .Labels(labels => labels
+                                                .Position(GaugeRadialScaleLabelsPosition.Inside)
+                                            )
+                                            .Ranges(ranges =>
+                                            {
+                                                ranges.Add().From(20).To(30).Color("#c20000");
+                                                ranges.Add().From(30).To(60).Color("#ff7a00");
+                                                ranges.Add().From(60).To(100).Color("#ffc700");
+                                            })
+                                        )
+                    )
+
+                    <div class="gauge-label"><span id="div-per-29">0</span>%</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <h4><span class="semi-bold">Total Generation <span id="div-29">0</span> kWh</span></h4>
+                <h4><span class="semi-bold">Total Generation Target <span id="div-target-29">0</span> kWh </span></h4>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-12 ui-sortable">
+
+        <div class="panel panel-inverse" id="1601">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    @*<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>*@
+                </div>
+                <h4 class="panel-title">Energy Generation on site vs Target</h4>
+            </div>
+            <div class="panel-body">
+                <div id="energymaptab">
+
+                    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Total Energy")
+
+                  .Selected(true)
+                  .Content(@<text>
+                    @(Html.Kendo().TreeMap()
+              .Name("treeMap")
+              .DataSource(dataSource => dataSource
+                  .Read(read => read
+                              .Action("GetTreeMap1", "Dashboard")
+                  )
+                  .Model(m => m.Children("items")))
+                  .Colors("#21610B", "#ff7a00", "#FF0000").ValueField("value")
+                  .TextField("name").HtmlAttributes(new { style = "height:600px" }))
+                    <div class="box">
+                        <div>
+                            <table style="width:75%; padding:10px; ">
+                                <tr>
+                                    <td>Legends:-</td>
+                                    <td><div style="background-color:#21610B">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more below target</td>
+                                    <td><div style="background-color:#ff7a00">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; +/- 5% on target</td>
+                                    <td><div style="background-color:#FF0000">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more above target</td>
+                                    <td><div style="background-color:#A4A4A4">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; size = Actual Consumption</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="box-col">
+                            @*   <h4>TreeMap rendering types</h4>
+                        <ul class="options">
+                        <li>
+                            <input id="typeSquarified" name="type"
+                                   type="radio" value="squarified" checked="checked" autocomplete="off" />
+                            <label for="typeSquarified">Squarified</label>
+                        </li>
+                        <li>
+                            <input id="typeVertical" name="type"
+                                   type="radio" value="vertical" autocomplete="off" />
+                            <label for="typeVertical">Vertical(Slice and Dice)</label>
+                        </li>
+                        <li>
+                            <input id="typeHorizontal" name="type"
+                                   type="radio" value="horizontal" autocomplete="off" />
+                            <label for="typeHorizontal">Horizontal(Slice and Dice)</label>
+                        </li>
+                    </ul>*@
+                        </div>
+                    </div>
+
+                </text>);
+
+              tabstrip.Add().Text("Total Consumption by Energy Type")
+                  .Content(@<text>
+                    @(Html.Kendo().TreeMap()
+              .Name("treeMap1")
+              .DataSource(dataSource => dataSource
+                  .Read(read => read
+                              .Action("GetTreeMap2", "Dashboard")
+                  )
+                  .Model(m => m.Children("items")))
+                                                                                          .Colors("#21610B", "#ff7a00", "#FF0000").ValueField("value")
+                  .TextField("name").HtmlAttributes(new { style = "height:600px" })
+                    )
+                    <div class="box">
+                        <div>
+                            <table style="width:75%; padding:10px; ">
+                                <tr>
+                                    <td>Legends:-</td>
+                                    <td><div style="background-color:#21610B">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more below target</td>
+                                    <td><div style="background-color:#ff7a00">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; +/- 5% on target</td>
+                                    <td><div style="background-color:#FF0000">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more above target</td>
+                                    <td><div style="background-color:#A4A4A4">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; size = Actual Consumption</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="box-col">
+                            @* <h4>TreeMap rendering types</h4>
+                        <ul class="options">
+                        <li>
+                            <input id="typeSquarified" name="type"
+                                   type="radio" value="squarified" checked="checked" autocomplete="off" />
+                            <label for="typeSquarified">Squarified</label>
+                        </li>
+                        <li>
+                            <input id="typeVertical" name="type"
+                                   type="radio" value="vertical" autocomplete="off" />
+                            <label for="typeVertical">Vertical(Slice and Dice)</label>
+                        </li>
+                        <li>
+                            <input id="typeHorizontal" name="type"
+                                   type="radio" value="horizontal" autocomplete="off" />
+                            <label for="typeHorizontal">Horizontal(Slice and Dice)</label>
+                        </li>
+                    </ul>*@
+                        </div>
+                    </div>
+
+                </text>);
+
+              tabstrip.Add().Text("Total Electricity By Consumer")
+                  .Content(@<text>
+                    @(Html.Kendo().TreeMap()
+              .Name("treeMap2")
+              .DataSource(dataSource => dataSource
+                  .Read(read => read
+                              .Action("GetTreeMap3", "Dashboard")
+                  )
+                  .Model(m => m.Children("items")))
+                                                                                          .Colors("#21610B", "#ff7a00", "#FF0000").ValueField("value")
+                  .TextField("name").HtmlAttributes(new { style = "height:600px" })
+                    )
+                    <div class="box">
+                        <div>
+                            <table style="width:75%; padding:10px; ">
+                                <tr>
+                                    <td>Legends:-</td>
+                                    <td><div style="background-color:#21610B">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more below target</td>
+                                    <td><div style="background-color:#ff7a00">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; +/- 5% on target</td>
+                                    <td><div style="background-color:#FF0000">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; 5% or more above target</td>
+                                    <td><div style="background-color:#A4A4A4">&nbsp;&nbsp;</div> </td>
+                                    <td>&nbsp; size = Actual Consumption</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="box-col">
+                            @*  <h4>TreeMap rendering types</h4>
+                        <ul class="options">
+                        <li>
+                            <input id="typeSquarified" name="type"
+                                   type="radio" value="squarified" checked="checked" autocomplete="off" />
+                            <label for="typeSquarified">Squarified</label>
+                        </li>
+                        <li>
+                            <input id="typeVertical" name="type"
+                                   type="radio" value="vertical" autocomplete="off" />
+                            <label for="typeVertical">Vertical(Slice and Dice)</label>
+                        </li>
+                        <li>
+                            <input id="typeHorizontal" name="type"
+                                   type="radio" value="horizontal" autocomplete="off" />
+                            <label for="typeHorizontal">Horizontal(Slice and Dice)</label>
+                        </li>
+                    </ul>*@
+                        </div>
+                    </div>
+
+                </text>);
+
+
+          })
+                    )
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                @*<h4><span class="semi-bold">Total Generation 165 kWh</span></h4>
+                <h4><span class="semi-bold">Total Generation Target 175 kWh </span></h4>*@
+            </div>
+        </div>
+
+        <!-- begin panel -->
+        
+        <style>
+            #energymaptab {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+
+     
+
+        <script>
+            $(document).ready(function () {
+              //  $(".options").bind("change", refresh);
+            });
+
+            function refresh() {
+
+                //$("#treeMap").getKendoTreeMap().setOptions({
+                //    type: $("input[name=type]:checked").val()
+                //});
+
+
+                //$("#treeMap2").getKendoTreeMap().setOptions({
+                //    type: $("input[name=type]:checked").val()
+                //});
+
+                //$("#treeMap1").getKendoTreeMap().setOptions({
+                //    type: $("input[name=type]:checked").val()
+                //});
+
+                
+            }
+        </script>
+
+
+
+        <!-- end panel -->
+
+
+        <!-- begin panel 
+        <div class="panel panel-inverse" id="1609" >
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-widget-edit-option"><i class="fa fa-gear"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Total Energy vs Target</h4>
+            </div>
+            <div class="panel-body">
+
+
+
+
+             
+            </div>
+
+        </div>-->
+        <!-- end panel -->
+    </div>
+</div>
+
+
+<script>
+    
+    var current_gagues = 0
+    var list_of_gauges = [23, 24, 25, 26];
+
+    function Fixed_Gague() {
+
+        
+       
+            var calpercentages = 0;
+            if (current_gagues < list_of_gauges.length) {
+
+
+                $.ajax({
+
+                    url: base_api_url + '/API/Widget/Get_Data_By_Chart',
+                    data: { 'chart_type': '@InnonAnalytics.Common.Enums.ChartType.Gauge', 'chart_id': list_of_gauges[current_gagues], 'from_date': $("#fromdate").val(), 'to_date': $("#todate").val() },
+                    type: "GET",
+                    dataType: "json",
+                    cache: false,
+
+                    success: function (serverResponse) {
+                        returnedData = serverResponse.Data;
+                        console.log(returnedData);
+                        $("#div-" + list_of_gauges[current_gagues]).text(returnedData.Sum_Value_String);
+                        $("#div-target-" + list_of_gauges[current_gagues]).text(returnedData.Sum_Value_Target_String);
+
+
+                        if (returnedData.Sum_Value > 0 && returnedData.Sum_Value_Target > 0) {
+                            calpercentages = (returnedData.Sum_Value / returnedData.Sum_Value_Target) * 100;
+                        }
+                        $("#div-per-" + list_of_gauges[current_gagues]).text(calpercentages.toFixed(2));
+
+                        $("#gauge-" + list_of_gauges[current_gagues]).data("kendoRadialGauge").value(calpercentages);
+                        //increment the `current` counter and recursively call this function again
+                        current_gagues++;
+                        Fixed_Gague();
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $("#div-per-" + list_of_gauges[current_gagues]).text(calpercentages);
+                        $("#gauge-" + list_of_gauges[current_gagues]).data("kendoRadialGauge").value(calpercentages);
+                        current_gagues++;
+                        Fixed_Gague();
+                        //$("#" + list_of_gauge[current_guage].widget_loading_div_id).html("");
+                        //$("#" + list_of_gauge[current_guage].div_gauge_total_id).text(0);
+                        //$("#" + list_of_gauge[current_guage].div_gauge_total_target).text(0);
+                    }
+                });
+            }
+            else {
+                current_gagues = 0;
+            }
+    }
+</script>

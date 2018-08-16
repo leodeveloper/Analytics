@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2d0eef644638483f906c0a464bebfe09" Name="Diagram1" ZoomLevel="99">
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblDatabaseLog" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblPoint" Width="1.5" PointX="17.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblDescription" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblLanguage" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblLanguageDescription" Width="1.5" PointX="3" PointY="2.875" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblLanguageDescription_tblDescription" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblLanguageDescription_tblLanguage" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblUnit" Width="1.5" PointX="10.375" PointY="10.375" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblConnector" Width="1.5" PointX="10.375" PointY="13.5" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblContainer" Width="1.5" PointX="6.25" PointY="6.5" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblTag" Width="1.5" PointX="3" PointY="8.375" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblTags_tblContainer" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblTags_tblDescription" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblTags_tblTags" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblTagElement" Width="1.5" PointX="14.875" PointY="11.375" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblTagElement_tblTags" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblDashboard" Width="1.5" PointX="8.375" PointY="6" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblDatawareHouseMigrationLog" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Gauge_Range_Color" Width="1.5" PointX="17.25" PointY="0.625" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblDashboard_Widget" Width="2.5" PointX="10.125" PointY="0.875" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblDashboard_Widget_tblDashboard" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Gauge" Width="1.5" PointX="14.625" PointY="0.5" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Gauge_Range_Color_tblChart_Gauge" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Gauge_tblDashboardWidget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Bar" Width="1.5" PointX="19.75" PointY="4.75" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Bar_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblTag_Type_Mapping" Width="1.5" PointX="10.375" PointY="7.75" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblElement" Width="1.5" PointX="12.625" PointY="11.125" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblElement_tblConnector" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblElement_tblConnector1" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblElement_tblElement" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblElement_tblUnits" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblTagElement_tblElement" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Metric" Width="1.5" PointX="7.625" PointY="13.625" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblDashboard_tblDashboard" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Donut" Width="1.5" PointX="13.375" PointY="28.875" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Donut_tblDashboard_Widget" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Metric_tblChart_Donut" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Pie" Width="1.5" PointX="13.375" PointY="32.75" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Metric_tblChart_Pie" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Pie_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Stacked" Width="1.5" PointX="13.375" PointY="17.75" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Metric_tblChart_Stacked" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Stacked_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_TreeMap" Width="1.5" PointX="17.375" PointY="9" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_TreeMap_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Heatmap" Width="1.5" PointX="13.375" PointY="6.125" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Heatmap_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblMetric" Width="1.5" PointX="12.625" PointY="21.75" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Bar_tblChart_Bar" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Bar_tblMetric" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Gauge_tblMetric" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Gauge_tblMetric_Target" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Heatmap_tblChart_Heatmap" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Metric_tblMetric" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_TreeMap_tblMetric" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblMetric_tblUnit" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK__tblChart___Targe__38845C1C" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Counter" Width="1.5" PointX="13.375" PointY="36.875" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Counter_tblDashboard_Widget" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Counter_tblMetric" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblHomePage_Widget" Width="1.5" PointX="13.375" PointY="41" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblHomePage_Widget_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.AspNetUserDashboard" Width="1.5" PointX="10.625" PointY="18.875" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_AspNetUserDashboard_tblDashboard" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.AspNetUserMetric" Width="1.5" PointX="16.875" PointY="23.125" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_AspNetUserMetric_tblMetric" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblChart_Line" Width="1.5" PointX="0.75" PointY="13" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Metric_tblChart_Line" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblChart_Line_tblDashboard_Widget" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblElement_Extension" Width="1.5" PointX="14.875" PointY="45" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_tblElement_Extension_tblElement" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.AspNetUserElement" Width="1.5" PointX="14.875" PointY="26.375" />
+        <AssociationConnector Association="InnonAnalyticsEngineModel.FK_AspNetUserElement_tblElement" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblAudit" Width="1.5" PointX="3.375" PointY="12.75" />
+        <EntityTypeShape EntityType="InnonAnalyticsEngineModel.tblNote" Width="1.5" PointX="15.375" PointY="14.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

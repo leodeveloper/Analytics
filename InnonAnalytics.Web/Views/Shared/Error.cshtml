@@ -1,0 +1,29 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger"></h2>
+
+@if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+{
+    <div>
+        <p>           
+            @if (Model.Exception.InnerException != null)
+            {  
+               <b>Error Message:- </b>@Model.Exception.Message <br /> @Model.Exception.InnerException.Message
+            }
+            else
+            {
+                <b>Error Message:- </b>@Model.Exception.Message
+            }
+        </p>
+        @*<div style="overflow:scroll">
+            <pre>
+@Model.Exception.StackTrace
+                </pre>
+        </div>*@
+    </div>
+}

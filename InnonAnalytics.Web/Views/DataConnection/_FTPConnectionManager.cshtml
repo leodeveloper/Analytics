@@ -1,0 +1,96 @@
+﻿@model InnonAnalytics.Model.DTO.DataConnectorsDTO
+
+
+@using (Ajax.BeginForm("CreateDatabaseConnector", "DataConnection",null , new AjaxOptions { OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+  
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    @Html.HiddenFor(model => Model.ID)
+    <table>
+        <tr>
+            <td>@Resources.ConnectorFTP</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>@Resources.ConnectorName</td>
+            <td>
+                @for (var i = 0; i < Model.NameofConnection.Count(); i++)
+                {
+
+                    <div class="input-group">
+                        @Html.HiddenFor(model => Model.DataConnectorConnectionType)
+                        @Html.HiddenFor(model => Model.NameofConnection[i].LanguageID_FK)
+                        @Html.HiddenFor(model => Model.NameofConnection[i].DescriptionID_FK)
+                        @Html.HiddenFor(model => Model.NameofConnection[i].CultureValue)
+                        <span class="input-group-addon">@Html.DisplayFor(model => Model.NameofConnection[i].CultureValue)</span>
+                        @Html.EditorFor(model => Model.NameofConnection[i].ShortValue, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NameofConnection[i].ShortValue, "", new { @class = "text-danger" })
+                    </div>
+                }
+
+                @*@{Html.RenderPartial("_languagePage" ,Model.objConnector);}*@
+                @*@Html.Partial("_languagePage", Model.objConnector.NameofConnection)*@
+
+            </td>
+            <td>
+                @*@Html.TextBoxFor(m=>m.ConnectionName)*@
+        </td>
+        <td>@*@Html.ValidationMessageFor(x => x.ConnectionName, "", new { @class = "text-danger" })*@ </td>
+    </tr>
+    <tr>
+        <td>@Resources.ConnectorServer</td>
+        <td>
+            @Html.TextBoxFor(model => model.ConnectorCredential.ServerOrIP, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ConnectorCredential.ServerOrIP, "", new { @class = "text-danger" })
+    </td>
+</tr>
+<tr>
+    <td>@Resources.ConnectorPort</td>
+    <td>
+        @Html.TextBoxFor(model => model.ConnectorCredential.PortNumber, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.ConnectorCredential.PortNumber, "", new { @class = "text-danger" })
+</td>
+</tr>
+<tr>
+    <td>@Resources.ConnectorUserName</td>
+    <td>
+        @Html.TextBoxFor(model => model.ConnectorCredential.ServerUserName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.ConnectorCredential.ServerUserName, "", new { @class = "text-danger" })
+</td>
+</tr>
+<tr>
+    <td>@Resources.ConnectorPassword</td>
+    <td>
+        @Html.PasswordFor(model => model.ConnectorCredential.ServerPassword, new { @value = Model.ConnectorCredential.ServerPassword, @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.ConnectorCredential.ServerPassword, "", new { @class = "text-danger" })
+</td>
+</tr>
+<tr>
+    <td>@Resources.ConnectorFTPDefaultFolder</td>
+    <td>
+        @Html.TextBoxFor(model => model.objConnectionFTPDTO.DefaultFolder, new { @class = "form-control" })
+    @*@Html.ValidationMessageFor(model => model.strDatabaseName, "", new { @class = "text-danger" })*@
+</td>
+</tr>
+        <tr>
+            <td>@Resources.ConnectorFTPMode</td>
+            <td>
+            @Html.EnumDropDownListFor(model => model.objConnectionFTPDTO.Mode)
+            </td>
+        </tr>
+       
+<tr>
+    <td></td>
+    <td>
+        <input type="submit" id="btnTest" name="btnTest" class="btn btn-default" value="@Resources.btnTest" />
+        <input type="submit" id="btnSave" name="btnSave" class="btn btn-default" value="@Resources.btnSave" />
+        
+    </td>
+</tr>
+</table>
+}
+
+
